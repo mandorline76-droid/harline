@@ -1,0 +1,66 @@
+:root {
+    --primary: #904d00;
+    --on-primary: #ffffff;
+    --primary-container: #ff8c00;
+    --on-primary-container: #623200;
+    --secondary: #3a5f94;
+    --on-secondary: #ffffff;
+    --surface: #f9f9fc;
+    --on-surface: #1a1c1e;
+    --outline: #897362;
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.3);
+}
+
+.dark {
+    --surface: #1a1c1e;
+    --on-surface: #f0f0f3;
+    --glass-bg: rgba(26, 28, 30, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    background-color: var(--surface);
+    color: var(--on-surface);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Premium Glassmorphism */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+}
+
+/* Animations */
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-slide-up {
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Neo-brutalism Shadow */
+.block-shadow {
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.2);
+}
+
+.active-nav {
+    background-color: var(--primary-container) !important;
+    color: var(--on-primary-container) !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--outline);
+    border-radius: 10px;
+}

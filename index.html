@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>HARLINE - Dashboard Operasional</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#1a1c1e",
+                        "outline-variant": "#ddc1ae",
+                        "on-secondary-fixed-variant": "#1f477b",
+                        "inverse-on-surface": "#f0f0f3",
+                        "tertiary-fixed": "#d4e4f6",
+                        "surface-container-high": "#e8e8ea",
+                        "surface": "#f9f9fc",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#9cacbd",
+                        "surface-variant": "#e2e2e5",
+                        "on-tertiary-fixed": "#0d1d2a",
+                        "secondary": "#3a5f94",
+                        "inverse-surface": "#2f3133",
+                        "primary-fixed-dim": "#ffb77d",
+                        "surface-dim": "#dadadc",
+                        "primary": "#904d00",
+                        "on-tertiary-fixed-variant": "#394857",
+                        "secondary-fixed-dim": "#a7c8ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "secondary-fixed": "#d5e3ff",
+                        "surface-container": "#eeeef0",
+                        "on-primary-fixed": "#2f1500",
+                        "primary-container": "#ff8c00",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#50606f",
+                        "outline": "#897362",
+                        "tertiary-fixed-dim": "#b8c8da",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#001b3c",
+                        "primary-fixed": "#ffdcc3",
+                        "on-background": "#1a1c1e",
+                        "surface-tint": "#904d00",
+                        "on-secondary-container": "#294f83",
+                        "secondary-container": "#9fc2fe",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f9f9fc",
+                        "inverse-primary": "#ffb77d",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#564334",
+                        "surface-container-highest": "#e2e2e5",
+                        "on-tertiary-container": "#31404e",
+                        "on-primary-container": "#623200",
+                        "background": "#f9f9fc",
+                        "surface-container-low": "#f3f3f6",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "lg": "40px",
+                        "xl": "64px",
+                        "md": "24px",
+                        "base": "8px",
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "edge-margin": "16px",
+                        "sm": "12px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "code-data": ["monospace"],
+                        "data-mono": ["JetBrains Mono", "monospace"],
+                        "body-lg": ["IBM Plex Sans"],
+                        "headline-md": ["IBM Plex Sans"],
+                        "label-lg": ["IBM Plex Sans"],
+                        "headline-sm": ["IBM Plex Sans"],
+                        "headline-lg": ["IBM Plex Sans"],
+                        "body-sm": ["IBM Plex Sans"],
+                        "label-md": ["IBM Plex Sans"],
+                        "body-md": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "code-data": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .block-shadow {
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-gradient {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e2e5;
+        }
+
+        /* Slide up login card */
+        #login-card {
+            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            transform: translateY(100%);
+        }
+        #login-card.active {
+            transform: translateY(0);
+        }
+        
+        .login-overlay {
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            opacity: 0;
+        }
+        .login-overlay.active {
+            pointer-events: auto;
+            opacity: 1;
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+
+        /* Custom view transitions or hidden states */
+        .page-view {
+            display: none;
+        }
+
+        .page-view.active {
+            display: block;
+        }
+
+        /* HarTek form focus styles */
+        .hartek-input:focus,
+        .hartek-select:focus,
+        .hartek-textarea:focus {
+            outline: none;
+            border-width: 2px !important;
+            border-color: #ff8c00 !important;
+            background-color: #ffffff !important;
+        }
+
+        /* Photo slot hover */
+        .photo-slot:hover {
+            border-color: #ff8c00;
+            background-color: rgba(255, 140, 0, 0.05);
+        }
+    </style>
+</head>
+
+<body class="bg-surface font-body-md text-on-surface pb-[80px]">
+
+    <!-- TopAppBar -->
+    <header
+        class="bg-white text-secondary font-headline-sm text-headline-sm fixed top-0 w-full z-50 border-b-2 border-outline shadow-[4px_4px_0px_rgba(0,0,0,0.1)] flex items-center justify-between px-margin-mobile h-16 w-full">
+        <div class="flex items-center gap-base">
+            <img src="Logo ES.png" alt="Logo ES" class="h-12 w-auto">
+        </div>
+        <button class="active:translate-y-0.5 transition-transform hover:bg-secondary/10 p-2 text-secondary" onclick="location.reload()">
+            <span class="material-symbols-outlined">sync</span>
+        </button>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="pt-16">
+
+        <!-- LOGIN VIEW -->
+        <div id="view-login"
+            class="page-view active min-h-screen flex flex-col items-center justify-between py-xl px-margin-mobile bg-white overflow-hidden">
+            
+            <!-- Branding Area (Always Visible) -->
+            <div class="text-center mt-xl">
+                <div class="w-[180px] h-[180px] flex items-center justify-center mx-auto p-2 animate-bounce-slow">
+                    <img src="Logo ES.png" alt="Logo ES" class="w-full h-full object-contain">
+                </div>
+            </div>
+
+            <!-- Initial Trigger Button -->
+            <div id="login-trigger-area" class="w-full flex flex-col items-center mb-xl">
+                <button onclick="toggleLoginCard(true)"
+                    class="w-[200px] h-14 bg-secondary text-white text-lg font-bold rounded-2xl flex items-center justify-center gap-base active:scale-95 transition-all shadow-xl">
+                    <span class="material-symbols-outlined">login</span>
+                    <span>MASUK</span>
+                </button>
+                <p class="text-on-surface-variant/40 text-[10px] text-center tracking-widest mt-lg">HarLine v1.0.0</p>
+            </div>
+
+            <!-- Dim Overlay -->
+            <div id="login-overlay" onclick="toggleLoginCard(false)" class="login-overlay fixed inset-0 bg-black/40 z-[60]"></div>
+
+            <!-- Slide-up Login Card -->
+            <div id="login-card" class="fixed bottom-0 left-0 right-0 z-[70] bg-[#00599e] rounded-t-[32px] p-lg space-y-sm shadow-[0_-10px_40px_rgba(0,0,0,0.3)] max-w-md mx-auto">
+                <div class="w-10 h-1 bg-white/20 rounded-full mx-auto mb-sm" onclick="toggleLoginCard(false)"></div>
+                <div class="text-center mb-sm">
+                    <h2 class="text-lg font-bold text-white uppercase tracking-widest leading-tight">HarLine<br><span class="text-[10px] opacity-70">Laporan Pemeliharaan Online</span></h2>
+                </div>
+                
+                <div class="space-y-sm">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-white/70 uppercase tracking-widest ml-1">Username</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">badge</span>
+                            <input id="login-user" type="text" autocomplete="username"
+                                class="w-full h-11 bg-white border border-white/20 rounded-xl pl-10 pr-md text-on-surface text-base font-bold placeholder:text-on-surface-variant/30 focus:border-white/60 transition-all outline-none"
+                                placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-white/70 uppercase tracking-widest ml-1">Password</label>
+                        <div class="relative">
+                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">lock</span>
+                            <input id="login-pass" type="password" autocomplete="current-password"
+                                class="w-full h-11 bg-white border border-white/20 rounded-xl pl-10 pr-md text-on-surface text-base font-bold placeholder:text-on-surface-variant/30 focus:border-white/60 transition-all outline-none"
+                                placeholder="Password">
+                        </div>
+                    </div>
+                    <div class="flex justify-center mt-sm">
+                        <button onclick="handleLogin()"
+                            class="w-[200px] h-14 bg-white text-[#00599e] text-lg font-bold rounded-2xl flex items-center justify-center gap-base active:scale-95 transition-all shadow-lg hover:bg-opacity-90">
+                            <span class="material-symbols-outlined">verified_user</span>
+                            <span>LOGIN</span>
+                        </button>
+                    </div>
+                    <button onclick="toggleLoginCard(false)" class="w-full py-1 text-white/40 text-[10px] font-bold uppercase tracking-widest">Kembali</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD VIEW -->
+        <div id="view-dashboard" class="page-view">
+            <!-- Hero Header Section -->
+            <section class="header-gradient text-on-surface px-margin-mobile pt-lg pb-xl relative shadow-sm">
+                <div class="flex items-center justify-between mb-md">
+                    <div class="space-y-xs">
+                        <div class="flex items-center gap-xs">
+                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                            <span class="font-label-md text-label-md tracking-widest opacity-60 uppercase">SISTEM ONLINE</span>
+                        </div>
+                        <h2 id="user-display-name" class="font-headline-lg text-headline-lg font-bold text-secondary">Admin</h2>
+                        <div class="flex items-center gap-xs opacity-60">
+                            <span class="material-symbols-outlined text-sm">calendar_today</span>
+                            <span class="font-body-sm text-body-sm" id="current-date">Senin, 11 Mei 2026</span>
+                        </div>
+                    </div>
+                    <div class="flex gap-sm">
+                        <button id="btn-add-user" onclick="switchView('view-user')"
+                            class="bg-secondary/10 text-secondary p-3 rounded-xl border border-secondary/20 active:scale-95 transition-all hidden">
+                            <span class="material-symbols-outlined">person_add</span>
+                        </button>
+                        <button onclick="handleLogout()"
+                            class="bg-secondary/10 text-secondary p-3 rounded-xl border border-secondary/20 active:scale-95 transition-all">
+                            <span class="material-symbols-outlined">logout</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats & Summary Section -->
+            <section class="mt-4 px-margin-mobile w-full">
+                <div id="stats-container" class="flex flex-col gap-sm w-full">
+                    <!-- HarTek Card -->
+                    <div id="card-hartek"
+                        class="bg-white px-md py-sm rounded-2xl flex items-center justify-between border-2 border-outline block-shadow h-[70px] w-full">
+                        <div class="flex items-center gap-md">
+                            <div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center">
+                                <span class="material-symbols-outlined text-secondary">engineering</span>
+                            </div>
+                            <div class="flex flex-col text-left">
+                                <span class="text-[10px] font-bold text-secondary uppercase tracking-widest">Total HarTek</span>
+                            </div>
+                        </div>
+                        <span class="text-3xl font-bold text-on-surface">08</span>
+                    </div>
+                    <!-- HAR & ROW Card -->
+                    <div id="card-harrow"
+                        class="bg-white px-md py-sm rounded-2xl flex items-center justify-between border-2 border-outline block-shadow h-[70px] w-full">
+                        <div class="flex items-center gap-md">
+                            <div class="w-12 h-12 bg-primary-container/10 rounded-xl flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary-container">content_paste_search</span>
+                            </div>
+                            <div class="flex flex-col text-left">
+                                <span class="text-[10px] font-bold text-primary-container uppercase tracking-widest">Total Harrow</span>
+                            </div>
+                        </div>
+                        <span class="text-3xl font-bold text-on-surface">04</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Navigation Menu -->
+            <section class="mt-8 px-margin-mobile">
+                <div class="flex items-center justify-between mb-sm border-b border-outline-variant pb-xs">
+                    <h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Menu Input</h3>
+                </div>
+                <div class="grid grid-cols-1 gap-sm">
+                    <!-- Input HarTek -->
+                    <div id="menu-hartek" onclick="switchView('view-input-hartek')"
+                        class="relative h-[72px] rounded-[22px] active:scale-[0.97] transition-all bg-gradient-to-r from-[#004a87] to-[#0069bc] cursor-pointer shadow-lg overflow-hidden border border-white/10 group flex items-center justify-center">
+                        <!-- Icon (Fixed Left) -->
+                        <div class="absolute left-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md rounded-[16px] flex items-center justify-center border border-white/20 z-10 pointer-events-none">
+                            <span class="material-symbols-outlined text-2xl text-white">engineering</span>
+                        </div>
+                        <!-- Label (Locked Center) -->
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <h4 class="font-bold text-base uppercase tracking-[0.15em] text-white whitespace-nowrap drop-shadow-md">Input HarTek</h4>
+                        </div>
+                        <!-- Decoration -->
+                        <div class="absolute -right-4 -top-4 w-16 h-16 bg-white/5 rounded-full blur-2xl pointer-events-none"></div>
+                    </div>
+                    <!-- Input HAR & ROW -->
+                    <div id="menu-harrow" onclick="switchView('view-input-row')"
+                        class="relative h-[72px] rounded-[22px] active:scale-[0.97] transition-all bg-gradient-to-r from-[#e67e00] to-[#ff9800] cursor-pointer shadow-lg overflow-hidden border border-white/10 group flex items-center justify-center">
+                        <!-- Icon (Fixed Left) -->
+                        <div class="absolute left-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 backdrop-blur-md rounded-[16px] flex items-center justify-center border border-white/20 z-10 pointer-events-none">
+                            <span class="material-symbols-outlined text-2xl text-white">content_paste_search</span>
+                        </div>
+                        <!-- Label (Locked Center) -->
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <h4 class="font-bold text-base uppercase tracking-[0.15em] text-white whitespace-nowrap drop-shadow-md">Input Harrow</h4>
+                        </div>
+                        <!-- Decoration -->
+                        <div class="absolute -right-4 -top-4 w-16 h-16 bg-white/5 rounded-full blur-2xl pointer-events-none"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Daily Activity -->
+            <section class="mt-lg px-margin-mobile">
+                <div class="flex items-center justify-between mb-sm border-b border-outline-variant pb-xs">
+                    <h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Aktivitas
+                        Hari Ini</h3>
+                    <span class="font-label-md text-label-md text-primary">Lihat Semua</span>
+                </div>
+                <div class="space-y-sm">
+                    <!-- Activity Item 1 -->
+                    <div id="activity-hartek" class="bg-surface-container border border-outline rounded-lg p-base flex gap-base items-start">
+                        <div
+                            class="w-10 h-10 bg-secondary-fixed flex-shrink-0 rounded-full flex items-center justify-center">
+                            <span class="material-symbols-outlined text-on-secondary-fixed">electric_bolt</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between">
+                                <span class="font-label-md text-label-md text-on-surface font-bold">Gardu Induk
+                                    HT-09</span>
+                                <span class="font-label-md text-label-md text-on-surface-variant">08:45 AM</span>
+                            </div>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant">Pemeriksaan rutin transformator
+                                1 &amp; 2 selesai.</p>
+                            <div
+                                class="mt-xs inline-flex items-center px-2 py-0.5 bg-green-100 text-green-800 rounded font-label-md text-[10px]">
+                                SUCCESS</div>
+                        </div>
+                    </div>
+                    <!-- Activity Item 2 -->
+                    <div id="activity-row" class="bg-surface-container border border-outline rounded-lg p-base flex gap-base items-start">
+                        <div
+                            class="w-10 h-10 bg-primary-fixed flex-shrink-0 rounded-full flex items-center justify-center">
+                            <span class="material-symbols-outlined text-on-primary-fixed">warning</span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between">
+                                <span class="font-label-md text-label-md text-on-surface font-bold">ROW Jalur Sutet B3</span>
+                                <span class="font-label-md text-label-md text-on-surface-variant">09:12 AM</span>
+                            </div>
+                            <p class="font-body-sm text-body-sm text-on-surface-variant">Vegetasi ditemukan melebihi batas aman di titik 44.</p>
+                            <div
+                                class="mt-xs inline-flex items-center px-2 py-0.5 bg-orange-100 text-orange-800 rounded font-label-md text-[10px]">
+                                PENDING</div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </section>
+        </div>
+
+        <!-- INPUT HARTEK VIEW -->
+        <div id="view-input-hartek" class="page-view">
+
+            <div
+                class="bg-gradient-to-r from-[#003e6f] to-[#005a9e] text-white sticky top-16 z-30 px-edge-margin h-14 flex items-center justify-between shadow-md">
+                <div class="flex items-center gap-base">
+                    <button onclick="switchView('view-dashboard')"
+                        class="material-symbols-outlined hover:bg-white/10 p-2 rounded-full active:scale-95 transition-transform">arrow_back</button>
+                    <h2 class="font-headline-sm text-headline-sm font-bold">Input HarTek</h2>
+                </div>
+
+            </div>
+
+            <div class="max-w-2xl mx-auto px-edge-margin pt-md pb-xl space-y-md">
+
+                <!-- Form Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-lg">
+
+                    <!-- 1. Tanggal -->
+                    <div class="space-y-xs">
+                        <label
+                            class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Tanggal</label>
+                        <input id="hartek-tanggal" type="date"
+                            class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors" />
+                    </div>
+
+                    <!-- 2. No. WO -->
+                    <div class="space-y-xs">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">No.
+                            WO</label>
+                        <input id="hartek-no-wo" type="text"
+                            class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md font-data-mono transition-colors"
+                            placeholder="Contoh: 0046/32001902/III/2026" />
+                    </div>
+
+                    <!-- 3. Lokasi Pekerjaan -->
+                    <div class="space-y-xs">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Lokasi
+                            Pekerjaan</label>
+                        <input id="hartek-lokasi" type="text"
+                            class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
+                            placeholder="Nama ruas atau lokasi spesifik" />
+                    </div>
+
+                    <!-- 4. Titik Koordinat -->
+                    <div class="space-y-xs">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Titik
+                            Koordinat (GPS)</label>
+                        <div class="flex gap-sm">
+                            <div class="relative flex-1">
+                                <input id="hartek-koordinat" type="text"
+                                    class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md pr-10 text-body-md font-data-mono transition-colors"
+                                    placeholder="Link Google Maps..." />
+                                <span
+                                    class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary cursor-pointer"
+                                    onclick="getGPS()">my_location</span>
+                            </div>
+                            <button type="button" onclick="getGPS()"
+                                class="h-12 w-12 bg-primary/10 text-primary border border-primary/20 rounded-lg flex items-center justify-center active:scale-95 transition-all hover:bg-primary/20">
+                                <span class="material-symbols-outlined">map</span>
+                            </button>
+                        </div>
+                        <p id="hartek-gps-status" class="text-[11px] text-on-surface-variant hidden"></p>
+                    </div>
+
+                    <!-- 5. Material Yang Dibutuhkan -->
+                    <div class="space-y-xs">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Material
+                            Yang Dibutuhkan</label>
+                        <textarea id="hartek-material" rows="3"
+                            class="hartek-textarea w-full bg-surface-container-low border border-outline-variant rounded-lg p-md text-body-md resize-none transition-colors"
+                            placeholder="Sebutkan jenis dan jumlah material..."></textarea>
+                    </div>
+
+                    <!-- 6. Jenis Pekerjaan -->
+                    <div class="space-y-xs">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Jenis
+                            Pekerjaan</label>
+                        <div class="relative">
+                            <input id="hartek-jenis" type="text"
+                                class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
+                                placeholder="Ketik jenis pekerjaan di sini..." />
+                        </div>
+                    </div>
+
+                    <!-- 7 & 8. Pengawas -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                        <div class="space-y-xs">
+                            <label
+                                class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Pengawas
+                                K3</label>
+                            <input id="hartek-k3" type="text"
+                                class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
+                                placeholder="Nama pengawas K3" />
+                        </div>
+                        <div class="space-y-xs">
+                            <label
+                                class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Pengawas
+                                Pekerjaan</label>
+                            <input id="hartek-pengawas" type="text"
+                                class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
+                                placeholder="Nama pengawas lapangan" />
+                        </div>
+                    </div>
+
+                    <!-- 9. Foto Kegiatan -->
+                    <div class="space-y-sm">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Foto
+                            Kegiatan</label>
+                        <div class="grid grid-cols-3 gap-sm">
+
+                            <!-- Foto Sebelum -->
+                            <div id="slot-sebelum"
+                                onclick="triggerPhoto('photo-sebelum', 'slot-sebelum', 'preview-sebelum')"
+                                class="photo-slot aspect-square bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-xs cursor-pointer transition-all active:scale-95 relative overflow-hidden">
+                                <span class="material-symbols-outlined text-on-surface-variant/60">add_a_photo</span>
+                                <span
+                                    class="text-[9px] font-bold text-on-surface-variant/60 text-center px-xs leading-tight uppercase">Sebelum</span>
+                                <img id="preview-sebelum" class="absolute inset-0 w-full h-full object-cover hidden"
+                                    alt="Foto Sebelum" />
+                                <input id="photo-sebelum" type="file" accept="image/*" capture="environment"
+                                    class="hidden" onchange="showPreview(this, 'preview-sebelum', 'slot-sebelum', 'Sebelum')" />
+                            </div>
+
+                            <!-- Foto Pelaksanaan -->
+                            <div id="slot-pelaksanaan"
+                                onclick="triggerPhoto('photo-pelaksanaan', 'slot-pelaksanaan', 'preview-pelaksanaan')"
+                                class="photo-slot aspect-square bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-xs cursor-pointer transition-all active:scale-95 relative overflow-hidden">
+                                <span
+                                    class="material-symbols-outlined text-on-surface-variant/60">pending_actions</span>
+                                <span
+                                    class="text-[9px] font-bold text-on-surface-variant/60 text-center px-xs leading-tight uppercase">Pelaksanaan</span>
+                                <img id="preview-pelaksanaan" class="absolute inset-0 w-full h-full object-cover hidden"
+                                    alt="Foto Pelaksanaan" />
+                                <input id="photo-pelaksanaan" type="file" accept="image/*" capture="environment"
+                                    class="hidden"
+                                    onchange="showPreview(this, 'preview-pelaksanaan', 'slot-pelaksanaan', 'Pelaksanaan')" />
+                            </div>
+
+                            <!-- Foto Sesudah -->
+                            <div id="slot-sesudah"
+                                onclick="triggerPhoto('photo-sesudah', 'slot-sesudah', 'preview-sesudah')"
+                                class="photo-slot aspect-square bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-xs cursor-pointer transition-all active:scale-95 relative overflow-hidden">
+                                <span class="material-symbols-outlined text-on-surface-variant/60">task_alt</span>
+                                <span
+                                    class="text-[9px] font-bold text-on-surface-variant/60 text-center px-xs leading-tight uppercase">Sesudah</span>
+                                <img id="preview-sesudah" class="absolute inset-0 w-full h-full object-cover hidden"
+                                    alt="Foto Sesudah" />
+                                <input id="photo-sesudah" type="file" accept="image/*" capture="environment"
+                                    class="hidden" onchange="showPreview(this, 'preview-sesudah', 'slot-sesudah', 'Sesudah')" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div><!-- end form card -->
+
+                <!-- Actions -->
+                <div class="flex flex-col items-center gap-md pb-xl">
+                    <button id="btn-kirim-hartek" type="button" onclick="submitHarTek()"
+                        class="w-[260px] h-14 bg-gradient-to-r from-[#005a9e] to-[#0078d4] text-white font-bold text-lg rounded-full flex items-center justify-center gap-md active:scale-95 transition-all shadow-lg hover:shadow-xl hover:brightness-105 border-b-4 border-[#003e6f]">
+                        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">send</span>
+                        <span>KIRIM LAPORAN</span>
+                    </button>
+                    
+                    <div class="flex gap-md w-full max-w-[320px]">
+                        <button type="button" onclick="saveDraftHarTek()"
+                            class="flex-1 h-12 bg-[#e0e0e0] text-black font-bold text-[11px] rounded-full flex items-center justify-center gap-sm active:scale-95 transition-all shadow hover:bg-[#d5d5d5] border-b-4 border-[#bdbdbd]">
+                            <span class="material-symbols-outlined text-sm">save</span>
+                            <span>DRAFT</span>
+                        </button>
+                        <button type="button" onclick="switchView('view-dashboard')"
+                            class="flex-1 h-12 bg-red-500 text-white font-bold text-[11px] rounded-full flex items-center justify-center gap-sm active:scale-95 transition-all shadow hover:bg-red-600 border-b-4 border-red-800">
+                            <span class="material-symbols-outlined text-sm">close</span>
+                            <span>BATAL</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div><!-- end max-w container -->
+        </div>
+
+        <!-- INPUT ROW VIEW -->
+        <div id="view-input-row" class="page-view">
+
+            <div
+                class="bg-gradient-to-r from-[#ff8c00] to-[#ffb77d] text-on-primary-container sticky top-16 z-30 px-edge-margin h-14 flex items-center justify-between shadow-md">
+                <div class="flex items-center gap-base">
+                    <button onclick="switchView('view-dashboard')"
+                        class="material-symbols-outlined hover:bg-black/10 p-2 rounded-full active:scale-95 transition-transform text-on-primary-container">arrow_back</button>
+                    <h2 class="font-headline-sm text-headline-sm font-bold">Input HAR & ROW</h2>
+                </div>
+
+            </div>
+
+            <div class="max-w-2xl mx-auto px-edge-margin pt-md pb-xl space-y-md">
+
+                <!-- Form Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-lg">
+
+                    <!-- 1. Tanggal -->
+                    <div class="space-y-xs">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Tanggal
+                            Kegiatan</label>
+                        <input id="row-tanggal" type="date"
+                            class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors" />
+                    </div>
+
+                    <!-- 2. No. WO -->
+                    <div class="space-y-xs">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">No. WO /
+                            Task ID</label>
+                        <input id="row-no-wo" type="text"
+                            class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md font-data-mono transition-colors"
+                            placeholder="Contoh: ROW/2026/05/001" />
+                    </div>
+
+
+
+                    <!-- 4. Titik Koordinat -->
+                    <div class="space-y-xs">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Titik
+                            Koordinat (GPS)</label>
+                        <div class="flex gap-sm">
+                            <div class="relative flex-1">
+                                <input id="row-koordinat" type="text"
+                                    class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md pr-10 text-body-md font-data-mono transition-colors"
+                                    placeholder="Link Google Maps..." />
+                                <span
+                                    class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary-container cursor-pointer"
+                                    onclick="getGPS_ROW()">my_location</span>
+                            </div>
+                            <button type="button" onclick="getGPS_ROW()"
+                                class="h-12 w-12 bg-primary-container/10 text-primary-container border border-primary-container/20 rounded-lg flex items-center justify-center active:scale-95 transition-all hover:bg-primary-container/20">
+                                <span class="material-symbols-outlined">map</span>
+                            </button>
+                        </div>
+                        <p id="row-gps-status" class="text-[11px] text-on-surface-variant hidden"></p>
+                    </div>
+
+                    <!-- 5. Penyulang -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                        <div class="space-y-xs">
+                            <label
+                                class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Penyulang</label>
+                            <div class="relative">
+                                <select id="row-penyulang"
+                                    class="hartek-select w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md appearance-none transition-colors">
+                                    <option value="" disabled selected>Pilih penyulang...</option>
+                                    <option value="BTJR">BTJR</option>
+                                    <option value="CKLW">CKLW</option>
+                                    <option value="CKRH">CKRH</option>
+                                    <option value="GLNG">GLNG</option>
+                                    <option value="LBSR">LBSR</option>
+                                    <option value="MWTI">MWTI</option>
+                                    <option value="PGP">PGP</option>
+                                    <option value="PSLU">PSLU</option>
+                                    <option value="PRBY">PRBY</option>
+                                    <option value="PTB">PTB</option>
+                                    <option value="RJDL">RJDL</option>
+                                    <option value="SLCU">SLCU</option>
+                                </select>
+                                <span
+                                    class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+                            </div>
+                        </div>
+                        <div class="space-y-xs">
+                            <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">RUAS/SEGMEN</label>
+                            <input id="row-ruas-segmen" type="text"
+                                class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
+                                placeholder="Masukkan ruas/segmen..." />
+                        </div>
+                    </div>
+
+                    <!-- 6. Jalur / Section / Tiang -->
+                    <div class="space-y-xs">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Jalur /
+                            Section / Tiang</label>
+                        <input id="row-section" type="text"
+                            class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
+                            placeholder="Contoh: SUTET B3 / Tiang 44-50" />
+                    </div>
+
+                    <!-- 7. Nama Jenis Pohon -->
+                    <div class="space-y-xs">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Nama Jenis Pohon</label>
+                        <input id="row-jenis-pohon" type="text"
+                            class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
+                            placeholder="Contoh: Pohon Mangga, Kelapa, dll" />
+                    </div>
+
+                    <!-- 8. Jumlah Pohon -->
+                    <div class="space-y-xs">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Jumlah Pohon (Tebang & Pangkas)</label>
+                        <input id="row-jumlah-pohon" type="text"
+                            class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
+                            placeholder="Contoh: 5 Tebang, 10 Pangkas" />
+                    </div>
+
+
+
+                    <!-- 7. Detail Temuan / Catatan -->
+                    <div class="space-y-xs">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Detail
+                            Temuan / Catatan</label>
+                        <textarea id="row-catatan" rows="3"
+                            class="hartek-textarea w-full bg-surface-container-low border border-outline-variant rounded-lg p-md text-body-md resize-none transition-colors"
+                            placeholder="Tuliskan detail pohon, jenis, atau kendala..."></textarea>
+                    </div>
+
+                    <!-- 8. Pengawas -->
+                    <div class="space-y-md">
+                        <div class="space-y-xs">
+                            <label
+                                class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Pengawas
+                                K3</label>
+                            <input id="row-k3" type="text"
+                                class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
+                                placeholder="Nama pengawas K3" />
+                        </div>
+                        <div class="space-y-xs">
+                            <label
+                                class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Pengawas
+                                Lapangan</label>
+                            <input id="row-pengawas" type="text"
+                                class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
+                                placeholder="Nama pengawas" />
+                        </div>
+                    </div>
+
+                    <!-- 9. Foto Kegiatan -->
+                    <div class="space-y-sm">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Foto
+                            Kegiatan ROW</label>
+                        <div class="grid grid-cols-3 gap-sm">
+
+                            <!-- Foto Sebelum -->
+                            <div id="slot-row-sebelum"
+                                onclick="triggerPhoto('photo-row-sebelum', 'slot-row-sebelum', 'preview-row-sebelum')"
+                                class="photo-slot aspect-square bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-xs cursor-pointer transition-all active:scale-95 relative overflow-hidden">
+                                <span class="material-symbols-outlined text-on-surface-variant/60">add_a_photo</span>
+                                <span
+                                    class="text-[9px] font-bold text-on-surface-variant/60 text-center px-xs leading-tight uppercase">Sebelum</span>
+                                <img id="preview-row-sebelum" class="absolute inset-0 w-full h-full object-cover hidden"
+                                    alt="Foto Sebelum" />
+                                <input id="photo-row-sebelum" type="file" accept="image/*" capture="environment"
+                                    class="hidden"
+                                    onchange="showPreview(this, 'preview-row-sebelum', 'slot-row-sebelum', 'Sebelum')" />
+                            </div>
+
+                            <!-- Foto Pelaksanaan -->
+                            <div id="slot-row-pelaksanaan"
+                                onclick="triggerPhoto('photo-row-pelaksanaan', 'slot-row-pelaksanaan', 'preview-row-pelaksanaan')"
+                                class="photo-slot aspect-square bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-xs cursor-pointer transition-all active:scale-95 relative overflow-hidden">
+                                <span
+                                    class="material-symbols-outlined text-on-surface-variant/60">pending_actions</span>
+                                <span
+                                    class="text-[9px] font-bold text-on-surface-variant/60 text-center px-xs leading-tight uppercase">Pelaksanaan</span>
+                                <img id="preview-row-pelaksanaan"
+                                    class="absolute inset-0 w-full h-full object-cover hidden" alt="Foto Pelaksanaan" />
+                                <input id="photo-row-pelaksanaan" type="file" accept="image/*" capture="environment"
+                                    class="hidden"
+                                    onchange="showPreview(this, 'preview-row-pelaksanaan', 'slot-row-pelaksanaan', 'Pelaksanaan')" />
+                            </div>
+
+                            <!-- Foto Sesudah -->
+                            <div id="slot-row-sesudah"
+                                onclick="triggerPhoto('photo-row-sesudah', 'slot-row-sesudah', 'preview-row-sesudah')"
+                                class="photo-slot aspect-square bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-xs cursor-pointer transition-all active:scale-95 relative overflow-hidden">
+                                <span class="material-symbols-outlined text-on-surface-variant/60">task_alt</span>
+                                <span
+                                    class="text-[9px] font-bold text-on-surface-variant/60 text-center px-xs leading-tight uppercase">Sesudah</span>
+                                <img id="preview-row-sesudah" class="absolute inset-0 w-full h-full object-cover hidden"
+                                    alt="Foto Sesudah" />
+                                <input id="photo-row-sesudah" type="file" accept="image/*" capture="environment"
+                                    class="hidden"
+                                    onchange="showPreview(this, 'preview-row-sesudah', 'slot-row-sesudah', 'Sesudah')" />
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div><!-- end form card -->
+
+                <!-- Actions -->
+                <div class="flex flex-col items-center gap-md pb-xl">
+                    <button id="btn-kirim-row" type="button" onclick="submitROW()"
+                        class="w-[260px] h-14 bg-gradient-to-r from-[#ff8c00] to-[#ffa500] text-white font-bold text-lg rounded-full flex items-center justify-center gap-md active:scale-95 transition-all shadow-lg hover:shadow-xl hover:brightness-105 border-b-4 border-[#cc7000]">
+                        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">cloud_upload</span>
+                        <span>KIRIM LAPORAN</span>
+                    </button>
+                    
+                    <div class="flex gap-md w-full max-w-[320px]">
+                        <button type="button" onclick="saveDraftROW()"
+                            class="flex-1 h-12 bg-[#e0e0e0] text-black font-bold text-[11px] rounded-full flex items-center justify-center gap-sm active:scale-95 transition-all shadow hover:bg-[#d5d5d5] border-b-4 border-[#bdbdbd]">
+                            <span class="material-symbols-outlined text-sm">save</span>
+                            <span>DRAFT</span>
+                        </button>
+                        <button type="button" onclick="switchView('view-dashboard')"
+                            class="flex-1 h-12 bg-red-500 text-white font-bold text-[11px] rounded-full flex items-center justify-center gap-sm active:scale-95 transition-all shadow hover:bg-red-600 border-b-4 border-red-800">
+                            <span class="material-symbols-outlined text-sm">close</span>
+                            <span>BATAL</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div><!-- end max-w container -->
+        </div>
+
+        <!-- USER MANAGEMENT VIEW -->
+        <div id="view-user" class="page-view hidden">
+            <div
+                class="bg-gradient-to-r from-secondary to-on-secondary-fixed text-white sticky top-12 z-30 px-edge-margin h-14 flex items-center justify-between shadow-md">
+                <div class="flex items-center gap-base">
+                    <button onclick="switchView('view-dashboard')"
+                        class="material-symbols-outlined hover:bg-white/10 p-2 rounded-full active:scale-95 transition-transform">arrow_back</button>
+                    <h2 class="font-headline-sm text-headline-sm font-bold">Manajemen User</h2>
+                </div>
+            </div>
+
+            <div class="max-w-md mx-auto px-edge-margin pt-md pb-xl space-y-md">
+                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-lg block-shadow">
+                    <div class="text-center border-b pb-md">
+                        <span class="material-symbols-outlined text-4xl text-secondary mb-xs">group_add</span>
+                        <h3 class="font-headline-sm text-headline-sm font-bold">Daftar Petugas Baru</h3>
+                    </div>
+
+                    <div class="space-y-md">
+                        <div class="space-y-xs">
+                            <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Nama
+                                Lengkap</label>
+                            <input id="reg-name" type="text"
+                                class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md"
+                                placeholder="Nama asli petugas">
+                        </div>
+                        <div class="space-y-xs">
+                            <label
+                                class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Username</label>
+                            <input id="reg-user" type="text"
+                                class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md"
+                                placeholder="Untuk login">
+                        </div>
+                        <div class="space-y-xs">
+                            <label
+                                class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Password</label>
+                            <input id="reg-pass" type="password"
+                                class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md"
+                                placeholder="********">
+                        </div>
+                        <div class="space-y-xs">
+                            <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Role
+                                / Jabatan</label>
+                            <div class="relative">
+                                <select id="reg-role"
+                                    class="hartek-select w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md appearance-none">
+                                    <option value="Petugas Lapangan">Petugas Lapangan</option>
+                                    <option value="Pengawas K3">Pengawas K3</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                                <span
+                                    class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="handleRegister()" id="btn-register"
+                        class="w-full h-14 bg-secondary text-white font-bold rounded-xl flex items-center justify-center gap-base active:scale-95 transition-all shadow-lg mt-lg">
+                        <span class="material-symbols-outlined">person_add</span>
+                        <span>DAFTARKAN PETUGAS</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- BottomNavBar -->
+    <nav
+        class="bg-surface border-t-2 border-outline fixed bottom-0 w-full z-50 h-[72px] flex justify-around items-center px-xs">
+        <button onclick="switchView('view-dashboard')"
+            class="nav-item flex flex-col items-center justify-center rounded-full px-4 py-1 active:scale-95 transition-all bg-primary-container text-on-primary-container"
+            id="nav-dashboard">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span class="font-label-md text-label-md">Dashboard</span>
+        </button>
+        <button
+            class="nav-item flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high active:scale-95 transition-all"
+            id="nav-activity">
+            <span class="material-symbols-outlined">list_alt</span>
+            <span class="font-label-md text-label-md">Activity</span>
+        </button>
+        <button
+            class="nav-item flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high active:scale-95 transition-all"
+            id="nav-inspections">
+            <span class="material-symbols-outlined">fact_check</span>
+            <span class="font-label-md text-label-md">Inspections</span>
+        </button>
+        <button
+            class="nav-item flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high active:scale-95 transition-all"
+            id="nav-settings">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="font-label-md text-label-md">Settings</span>
+        </button>
+    </nav>
+
+
+
+    <script>
+        // ── CONFIGURATION: MASUKKAN URL WEB APP GOOGLE APPS SCRIPT DISINI ──
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxmP0HRQV3as38pmEBOlGQynKu5Zp-at3BC6rYiwEbJWeahKTIZXeMTbz42bN_hWQC0VQ/exec";
+
+        function toggleLoginCard(show) {
+            const card = document.getElementById('login-card');
+            const overlay = document.getElementById('login-overlay');
+            if (show) {
+                card.classList.add('active');
+                overlay.classList.add('active');
+            } else {
+                card.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
+
+        function switchView(viewId) {
+            // Close login card if switching view
+            if (viewId !== 'view-login') toggleLoginCard(false);
+
+            // Hide all views
+            document.querySelectorAll('.page-view').forEach(view => {
+                view.classList.remove('active');
+                view.classList.add('hidden');
+            });
+            // Show target view
+            const targetView = document.getElementById(viewId);
+            targetView.classList.remove('hidden');
+            targetView.classList.add('active');
+
+            // Hide/Show Top AppBar and Bottom Nav based on Login
+            const header = document.querySelector('header');
+            const nav = document.querySelector('nav');
+            if (viewId === 'view-login') {
+                if (header) header.classList.add('hidden');
+                if (nav) nav.classList.add('hidden');
+            } else {
+                if (header) header.classList.remove('hidden');
+                if (nav) nav.classList.remove('hidden');
+            }
+
+
+
+            // Auto-fill pengawas & nama di dashboard jika sudah login
+            const user = JSON.parse(localStorage.getItem('hartek_user'));
+            if (user) {
+                if (viewId === 'view-input-hartek') {
+                    document.getElementById('hartek-pengawas').value = user.name;
+                } else if (viewId === 'view-input-row') {
+                    document.getElementById('row-pengawas').value = user.name;
+                } else if (viewId === 'view-dashboard') {
+                    // Update Nama di Header Dashboard
+                    const nameEl = document.getElementById('user-display-name');
+                    if (nameEl) nameEl.textContent = user.name;
+
+                    // Batasan Akses Berdasarkan Role
+                    const isHartek = (user.username === 'hartek');
+                    const isHarrow = (user.username === 'harrow');
+                    
+                    const harrowMenu = document.getElementById('menu-harrow');
+                    const harrowCard = document.getElementById('card-harrow');
+                    const harrowActivity = document.getElementById('activity-row');
+                    
+                    const hartekMenu = document.getElementById('menu-hartek');
+                    const hartekCard = document.getElementById('card-hartek');
+                    const hartekActivity = document.getElementById('activity-hartek');
+                    
+                    const statsContainer = document.getElementById('stats-container');
+
+                    // Reset semua state (Enable all)
+                    const resetMenu = (el) => { 
+                        if(el) { 
+                            el.style.opacity = '1'; 
+                            el.style.filter = 'none'; 
+                            el.style.pointerEvents = 'auto'; 
+                            el.style.display = 'flex'; 
+                        }
+                    };
+                    resetMenu(harrowMenu);
+                    resetMenu(hartekMenu);
+
+                    if (harrowCard) harrowCard.style.display = 'flex';
+                    if (harrowActivity) harrowActivity.style.display = 'flex';
+                    if (hartekCard) hartekCard.style.display = 'flex';
+                    if (hartekActivity) hartekActivity.style.display = 'flex';
+                    if (statsContainer) statsContainer.classList.replace('grid-cols-1', 'grid-cols-2');
+
+                    // Tombol Tambah User (Hanya Admin)
+                    const btnAddUser = document.getElementById('btn-add-user');
+                    if (btnAddUser) {
+                        btnAddUser.style.display = (user.username === 'admin') ? 'block' : 'none';
+                    }
+
+                    // Fungsi untuk Disable Menu secara Visual
+                    const disableMenu = (el) => { 
+                        if(el) { 
+                            el.style.opacity = '0.4'; 
+                            el.style.filter = 'grayscale(1)'; 
+                            el.style.pointerEvents = 'none'; 
+                        }
+                    };
+
+                    if (isHartek) {
+                        disableMenu(harrowMenu); // Harrow tidak bisa diklik
+                        if (harrowActivity) harrowActivity.style.display = 'none';
+                    } else if (isHarrow) {
+                        disableMenu(hartekMenu); // Hartek tidak bisa diklik
+                        if (hartekActivity) hartekActivity.style.display = 'none';
+                    }
+                }
+            }
+
+            // Update Nav highlighting (simple version)
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('bg-primary-container', 'text-on-primary-container');
+                item.classList.add('text-on-surface-variant');
+            });
+            if (viewId === 'view-dashboard') {
+                const dashNav = document.getElementById('nav-dashboard');
+                dashNav.classList.remove('text-on-surface-variant');
+                dashNav.classList.add('bg-primary-container', 'text-on-primary-container');
+            }
+
+            window.scrollTo(0, 0);
+
+            // Auto-fill today's date when opening forms
+            if (viewId === 'view-input-hartek') {
+                const tanggalInput = document.getElementById('hartek-tanggal');
+                if (tanggalInput && !tanggalInput.value) {
+                    const now = new Date();
+                    tanggalInput.value = now.toISOString().split('T')[0];
+                }
+            }
+            if (viewId === 'view-input-row') {
+                const tanggalInput = document.getElementById('row-tanggal');
+                if (tanggalInput && !tanggalInput.value) {
+                    const now = new Date();
+                    tanggalInput.value = now.toISOString().split('T')[0];
+                }
+            }
+        }
+
+        // ── GPS Capture ──────────────────────────────────────────────
+        function getGPS() {
+            const statusEl = document.getElementById('hartek-gps-status');
+            const coordInput = document.getElementById('hartek-koordinat');
+            statusEl.textContent = '📡 Mendapatkan lokasi GPS…';
+            statusEl.classList.remove('hidden', 'text-error', 'text-green-700');
+            statusEl.classList.add('text-on-surface-variant');
+
+            if (!navigator.geolocation) {
+                statusEl.textContent = '❌ Browser tidak mendukung GPS.';
+                statusEl.classList.add('text-error');
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    const lat = pos.coords.latitude.toFixed(6);
+                    const lng = pos.coords.longitude.toFixed(6);
+                    coordInput.value = `https://maps.google.com/?q=${lat},${lng}`;
+                    statusEl.textContent = `✅ Koordinat berhasil diambil (akurasi ±${Math.round(pos.coords.accuracy)}m)`;
+                    statusEl.classList.remove('text-on-surface-variant', 'text-error');
+                    statusEl.classList.add('text-green-700');
+                },
+                (err) => {
+                    statusEl.textContent = `❌ GPS gagal: ${err.message}. Masukkan koordinat manual.`;
+                    statusEl.classList.remove('text-on-surface-variant');
+                    statusEl.classList.add('text-error');
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
+        }
+
+        function getGPS_ROW() {
+            const statusEl = document.getElementById('row-gps-status');
+            const coordInput = document.getElementById('row-koordinat');
+            statusEl.textContent = '📡 Mendapatkan lokasi GPS…';
+            statusEl.classList.remove('hidden', 'text-error', 'text-green-700');
+            statusEl.classList.add('text-on-surface-variant');
+
+            if (!navigator.geolocation) {
+                statusEl.textContent = '❌ Browser tidak mendukung GPS.';
+                statusEl.classList.add('text-error');
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (pos) => {
+                    const lat = pos.coords.latitude.toFixed(6);
+                    const lng = pos.coords.longitude.toFixed(6);
+                    coordInput.value = `https://maps.google.com/?q=${lat},${lng}`;
+                    statusEl.textContent = `✅ Koordinat berhasil diambil (akurasi ±${Math.round(pos.coords.accuracy)}m)`;
+                    statusEl.classList.remove('text-on-surface-variant', 'text-error');
+                    statusEl.classList.add('text-green-700');
+                },
+                (err) => {
+                    statusEl.textContent = `❌ GPS gagal: ${err.message}. Masukkan koordinat manual.`;
+                    statusEl.classList.remove('text-on-surface-variant');
+                    statusEl.classList.add('text-error');
+                },
+                { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+            );
+        }
+
+        // ── Photo Preview ─────────────────────────────────────────────
+        function triggerPhoto(inputId, slotId, previewId) {
+            // If already has a photo, allow re-capture
+            document.getElementById(inputId).click();
+        }
+
+        async function showPreview(input, previewId, slotId, label = "") {
+            if (input.files && input.files[0]) {
+                const preview = document.getElementById(previewId);
+                const slot = document.getElementById(slotId);
+                
+                // Show loading state
+                slot.classList.add('animate-pulse');
+                
+                try {
+                    // Process with watermark
+                    const watermarkedData = await watermarkImage(input.files[0], label);
+                    
+                    preview.src = watermarkedData;
+                    preview.classList.remove('hidden');
+                    
+                    // Hide the icon + label underneath
+                    slot.querySelectorAll('span').forEach(s => s.classList.add('opacity-0'));
+                } catch (err) {
+                    console.error("Watermark failed:", err);
+                    // Fallback to normal preview
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        preview.src = e.target.result;
+                        preview.classList.remove('hidden');
+                        slot.querySelectorAll('span').forEach(s => s.classList.add('opacity-0'));
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                } finally {
+                    slot.classList.remove('animate-pulse');
+                }
+            }
+        }
+
+        async function watermarkImage(file, label) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        // Quality resize
+                        const maxDim = 1200;
+                        let w = img.width;
+                        let h = img.height;
+                        if (w > h) {
+                            if (w > maxDim) { h *= maxDim / w; w = maxDim; }
+                        } else {
+                            if (h > maxDim) { w *= maxDim / h; h = maxDim; }
+                        }
+                        canvas.width = w;
+                        canvas.height = h;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, w, h);
+
+                        if (label) {
+                            // Timestamp complete
+                            const now = new Date();
+                            const ts = now.toLocaleString('id-ID', { 
+                                day: '2-digit', month: '2-digit', year: 'numeric',
+                                hour: '2-digit', minute: '2-digit', second: '2-digit'
+                            }).replace(/\//g, '-');
+
+                            const padding = w * 0.03;
+                            const fontSize = Math.floor(h * 0.04);
+                            ctx.font = `bold ${fontSize}px sans-serif`;
+                            const boxWidth = ctx.measureText(label.toUpperCase()).width + (fontSize * 3);
+                            const boxHeight = fontSize * 2.5;
+
+                            // 1. Dynamic color based on label type
+                            const labelLower = label.toLowerCase();
+                            let boxColor;
+                            if (labelLower === 'pelaksanaan') {
+                                boxColor = 'rgba(230, 81, 0, 0.92)';    // Orange
+                            } else if (labelLower === 'sesudah') {
+                                boxColor = 'rgba(13, 71, 161, 0.92)';   // Blue
+                            } else {
+                                boxColor = 'rgba(183, 28, 28, 0.92)';   // Red (Sebelum)
+                            }
+                            ctx.fillStyle = boxColor;
+                            ctx.fillRect(0, h - boxHeight - padding, boxWidth, boxHeight);
+
+                            // 2. Draw White Label (Bold)
+                            ctx.fillStyle = 'white';
+                            ctx.font = `bold ${fontSize}px sans-serif`;
+                            ctx.fillText(label.toUpperCase(), padding, h - boxHeight - padding + (fontSize * 1.1));
+                            
+                            // 3. Draw Timestamp below label
+                            ctx.font = `bold ${fontSize * 0.6}px sans-serif`;
+                            ctx.fillText(ts, padding, h - boxHeight - padding + (fontSize * 2.1));
+                        }
+
+                        resolve(canvas.toDataURL('image/jpeg', 0.8));
+                    };
+                    img.onerror = reject;
+                    img.src = e.target.result;
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // ── Toast Notification ────────────────────────────────────────
+        function showToast(message, type = 'success') {
+            // Remove existing toast
+            const existing = document.getElementById('hartek-toast');
+            if (existing) existing.remove();
+
+            const color = type === 'success'
+                ? 'bg-green-700 text-white'
+                : type === 'warning'
+                    ? 'bg-orange-500 text-white'
+                    : 'bg-error text-white';
+
+            const toast = document.createElement('div');
+            toast.id = 'hartek-toast';
+            toast.className = `fixed top-28 left-1/2 -translate-x-1/2 z-[999] px-md py-sm rounded-xl shadow-2xl font-bold text-body-sm flex items-center gap-sm transition-all ${color}`;
+            toast.innerHTML = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translate(-50%, -8px)';
+                setTimeout(() => toast.remove(), 400);
+            }, 3000);
+        }
+
+        // ── Collect Form Data ─────────────────────────────────────────
+        function collectHarTekData() {
+            return {
+                tanggal: document.getElementById('hartek-tanggal').value,
+                noWO: document.getElementById('hartek-no-wo').value,
+                lokasi: document.getElementById('hartek-lokasi').value,
+                koordinat: document.getElementById('hartek-koordinat').value,
+                material: document.getElementById('hartek-material').value,
+                jenis: document.getElementById('hartek-jenis').value,
+                pengawasK3: document.getElementById('hartek-k3').value,
+                pengawas: document.getElementById('hartek-pengawas').value,
+                imgSebelum: document.getElementById('preview-sebelum').src,
+                imgProses: document.getElementById('preview-pelaksanaan').src,
+                imgSesudah: document.getElementById('preview-sesudah').src,
+                timestamp: new Date().toISOString(),
+                type: 'hartek'
+            };
+        }
+
+        // ── Validate Required Fields ──────────────────────────────────
+        function validateHarTek(data) {
+            if (!data.tanggal) return 'Tanggal wajib diisi.';
+            if (!data.noWO) return 'No. WO wajib diisi.';
+            if (!data.lokasi) return 'Lokasi Pekerjaan wajib diisi.';
+            if (!data.jenis) return 'Jenis Pekerjaan wajib dipilih.';
+            return null;
+        }
+
+        // ── Submit Laporan ────────────────────────────────────────────
+        async function submitHarTek() {
+            const data = collectHarTekData();
+            const err = validateHarTek(data);
+            if (err) {
+                showToast(`⚠️ ${err}`, 'warning');
+                return;
+            }
+
+            const btn = document.getElementById('btn-kirim-hartek');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span><span>MENGIRIM...</span>';
+
+            try {
+                // Optimization: Only send image data if it's a real base64 image
+                const payload = { ...data };
+                const safeImg = (val) => (val && typeof val === 'string' && val.startsWith('data:image')) ? val : "";
+
+                payload.imgSebelum = safeImg(payload.imgSebelum);
+                payload.imgProses = safeImg(payload.imgProses);
+                payload.imgSesudah = safeImg(payload.imgSesudah);
+
+                console.log('Sending HarTek Data...', payload);
+
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(payload)
+                });
+
+                showToast('✅ Laporan HarTek berhasil dikirim!', 'success');
+                localStorage.removeItem('hartek_draft');
+
+                // Clear form previews
+                document.querySelectorAll('#view-input-hartek .photo-slot img').forEach(img => img.classList.add('hidden'));
+                document.querySelectorAll('#view-input-hartek .photo-slot span').forEach(span => span.classList.remove('opacity-0'));
+
+                setTimeout(() => switchView('view-dashboard'), 1500);
+
+            } catch (e) {
+                console.error('Submission Error:', e);
+                showToast('❌ Gagal terhubung ke server. Cek koneksi.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        }
+
+        // ── Simpan Draft ──────────────────────────────────────────────
+        function saveDraftHarTek() {
+            const data = collectHarTekData();
+            data.status = 'DRAFT';
+            localStorage.setItem('hartek_draft', JSON.stringify(data));
+            showToast('💾 Draft tersimpan di perangkat.', 'success');
+        }
+
+        // ── HAR & ROW Form Handling ──────────────────────────────────
+        function collectROWData() {
+            return {
+                tanggal: document.getElementById('row-tanggal').value,
+                noWO: document.getElementById('row-no-wo').value,
+                section: document.getElementById('row-section').value,
+                koordinat: document.getElementById('row-koordinat').value,
+                penyulang: document.getElementById('row-penyulang').value,
+                ruasSegmen: document.getElementById('row-ruas-segmen').value,
+                jenisPohon: document.getElementById('row-jenis-pohon').value,
+                jumlahPohon: document.getElementById('row-jumlah-pohon').value,
+                pengawasK3: document.getElementById('row-k3').value,
+                pengawas: document.getElementById('row-pengawas').value,
+                imgSebelum: document.getElementById('preview-row-sebelum').src,
+                imgProses: document.getElementById('preview-row-pelaksanaan').src,
+                imgSesudah: document.getElementById('preview-row-sesudah').src,
+                timestamp: new Date().toISOString(),
+                type: 'harrow'
+            };
+        }
+
+        function validateROW(data) {
+            if (!data.tanggal) return 'Tanggal wajib diisi.';
+            if (!data.noWO) return 'No. WO wajib diisi.';
+            if (!data.section) return 'Jalur/Section wajib diisi.';
+            if (!data.penyulang) return 'Penyulang wajib dipilih.';
+            return null;
+        }
+
+        async function submitROW() {
+            const data = collectROWData();
+            const err = validateROW(data);
+            if (err) {
+                showToast(`⚠️ ${err}`, 'warning');
+                return;
+            }
+
+            const btn = document.getElementById('btn-kirim-row');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span><span>MENGIRIM...</span>';
+
+            try {
+                const payload = { ...data };
+                const safeImg = (val) => (val && typeof val === 'string' && val.startsWith('data:image')) ? val : "";
+
+                payload.imgSebelum = safeImg(payload.imgSebelum);
+                payload.imgProses = safeImg(payload.imgProses);
+                payload.imgSesudah = safeImg(payload.imgSesudah);
+
+                console.log('Sending ROW Data...', payload);
+
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(payload)
+                });
+
+                showToast('✅ Laporan HAR & ROW berhasil dikirim!', 'success');
+                localStorage.removeItem('row_draft');
+
+                // Clear form previews
+                document.querySelectorAll('#view-input-row .photo-slot img').forEach(img => img.classList.add('hidden'));
+                document.querySelectorAll('#view-input-row .photo-slot span').forEach(span => span.classList.remove('opacity-0'));
+
+                setTimeout(() => switchView('view-dashboard'), 1500);
+
+            } catch (e) {
+                console.error('Submission Error:', e);
+                showToast('❌ Gagal terhubung ke server. Cek koneksi.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        }
+
+        function saveDraftROW() {
+            const data = collectROWData();
+            data.status = 'DRAFT';
+            localStorage.setItem('row_draft', JSON.stringify(data));
+            showToast('💾 Draft ROW tersimpan.', 'success');
+        }
+
+        // ── Restore Drafts on Load ────────────────────────────────────
+        (function restoreDrafts() {
+            // HarTek Draft
+            const rawHartek = localStorage.getItem('hartek_draft');
+            if (rawHartek) {
+                try {
+                    const d = JSON.parse(rawHartek);
+                    const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+                    set('hartek-tanggal', d.tanggal);
+                    set('hartek-no-wo', d.noWO);
+                    set('hartek-lokasi', d.lokasi);
+                    set('hartek-koordinat', d.koordinat);
+                    set('hartek-material', d.material);
+                    set('hartek-jenis', d.jenis);
+                    set('hartek-k3', d.pengawasK3);
+                    set('hartek-pengawas', d.pengawas);
+                } catch (e) { console.warn('HarTek draft restore failed', e); }
+            }
+
+            // ROW Draft
+            const rawRow = localStorage.getItem('row_draft');
+            if (rawRow) {
+                try {
+                    const d = JSON.parse(rawRow);
+                    const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+                    set('row-tanggal', d.tanggal);
+                    set('row-no-wo', d.noWO);
+                    set('row-section', d.section);
+                    set('row-koordinat', d.koordinat);
+                    set('row-status-veg', d.statusVeg);
+                    set('row-jarak', d.jarak);
+                    set('row-catatan', d.catatan);
+                    set('row-k3', d.pengawasK3);
+                    set('row-pengawas', d.pengawas);
+                    // Actions checkboxes
+                    if (d.actions) {
+                        d.actions.forEach(act => {
+                            const cb = document.querySelector(`input[name="row-action"][value="${act}"]`);
+                            if (cb) cb.checked = true;
+                        });
+                    }
+                } catch (e) { console.warn('ROW draft restore failed', e); }
+            }
+        })();
+
+        // ── Authentication & User Management ──────────────────────────
+        async function handleTestConnection() {
+            showToast('📡 Mengetes koneksi ke Sheets...', 'warning');
+            try {
+                const resp = await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify({ type: 'test', message: 'Ping dari Dashboard' })
+                });
+                showToast('✅ Koneksi Terhubung! Silahkan coba input.', 'success');
+                console.log('Test Connection: Success (Opaque response)');
+            } catch (e) {
+                console.error('Test Connection Error:', e);
+                showToast('❌ Koneksi Gagal! Cek URL Script.', 'error');
+            }
+        }
+
+        // Daftar user cadangan jika Spreadsheet tidak bisa diakses
+        const USERS_DB = [
+            { username: 'admin', password: 'oteng', name: 'Admin', role: 'Admin' },
+            { username: 'hartek', password: 'hartek', name: 'HARTEK', role: 'Petugas' },
+            { username: 'harrow', password: 'harrow', name: 'HARROW', role: 'Petugas' },
+        ];
+
+        async function handleLogin() {
+            const user = document.getElementById('login-user').value.trim();
+            const pass = document.getElementById('login-pass').value.trim();
+
+            if (!user || !pass) {
+                showToast('⚠️ Isi username dan password!', 'warning');
+                return;
+            }
+
+            const btn = document.querySelector('#view-login button[onclick="handleLogin()"]');
+            const originalText = btn ? btn.innerHTML : '';
+            if (btn) { btn.disabled = true; btn.innerHTML = '<span>Memeriksa...</span>'; }
+
+            // Coba login dari Spreadsheet via Apps Script (doGet)
+            try {
+                const loginUrl = `${SCRIPT_URL}?action=login&username=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`;
+                const resp = await fetch(loginUrl);
+                const result = await resp.json();
+
+                if (result && result.success) {
+                    const userData = { name: result.name, username: result.username, role: result.role };
+                    localStorage.setItem('hartek_user', JSON.stringify(userData));
+                    showToast(`✅ Halo ${result.name}, selamat bekerja!`, 'success');
+                    setTimeout(() => switchView('view-dashboard'), 1000);
+                    return;
+                }
+                
+                // Jika dari spreadsheet gagal, jangan langsung stop, lempar ke fallback
+                throw new Error("User not in spreadsheet");
+
+            } catch (e) {
+                console.warn('Login via Spreadsheet tidak tersedia, menggunakan data lokal...', e);
+                // Fallback ke local
+                const found = USERS_DB.find(u => u.username === user && u.password === pass);
+                if (found) {
+                    const userData = { name: found.name, username: found.username, role: found.role };
+                    localStorage.setItem('hartek_user', JSON.stringify(userData));
+                    showToast(`✅ Halo ${found.name}, selamat bekerja!`, 'success');
+                    setTimeout(() => switchView('view-dashboard'), 1000);
+                } else {
+                    showToast('❌ Username atau password salah!', 'error');
+                }
+            } finally {
+                if (btn) { btn.disabled = false; btn.innerHTML = originalText; }
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('hartek_user');
+            showToast('👋 Kamu telah logout.', 'success');
+            switchView('view-login');
+        }
+
+        async function handleRegister() {
+            const data = {
+                type: 'register',
+                name: document.getElementById('reg-name').value,
+                user: document.getElementById('reg-user').value,
+                pass: document.getElementById('reg-pass').value,
+                role: document.getElementById('reg-role').value
+            };
+
+            if (!data.name || !data.user || !data.pass) {
+                showToast('⚠️ Lengkapi semua data!', 'warning');
+                return;
+            }
+
+            const btn = document.getElementById('btn-register');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span><span>MENDAFTARKAN...</span>';
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify(data)
+                });
+                showToast('✅ Petugas baru berhasil didaftarkan!', 'success');
+                setTimeout(() => switchView('view-dashboard'), 1500);
+            } catch (e) {
+                console.error(e);
+                showToast('❌ Gagal daftar. Cek URL Script.', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
+        }
+
+        // ── Set real date on dashboard ────────────────────────────────
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const today = new Date();
+        document.getElementById('current-date').innerText = today.toLocaleDateString('id-ID', dateOptions);
+
+        // ── Initial Auth Check ───────────────────────────────────────
+        (function checkInitialAuth() {
+            const user = localStorage.getItem('hartek_user');
+            if (user) {
+                switchView('view-dashboard');
+            } else {
+                switchView('view-login');
+            }
+        })();
+    </script>
+
+</body>
+
+</html>

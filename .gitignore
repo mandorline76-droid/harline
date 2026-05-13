@@ -1,0 +1,16 @@
+# Windows thumbnails
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project specific
+.gemini/
+*.log
+node_modules/
+dist/
