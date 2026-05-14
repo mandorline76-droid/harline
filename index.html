@@ -7,7 +7,7 @@
     <title>HARLINE - Dashboard Operasional</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Poppins:wght@500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
@@ -84,6 +84,7 @@
                     "fontFamily": {
                         "code-data": ["monospace"],
                         "data-mono": ["JetBrains Mono", "monospace"],
+                        "poppins": ["Poppins", "sans-serif"],
                         "body-lg": ["IBM Plex Sans"],
                         "headline-md": ["IBM Plex Sans"],
                         "label-lg": ["IBM Plex Sans"],
@@ -408,22 +409,25 @@
                 <div class="flex items-center gap-base">
                     <button onclick="switchView('view-dashboard')"
                         class="material-symbols-outlined hover:bg-white/10 p-2 rounded-full active:scale-95 transition-transform">arrow_back</button>
-                    <h2 class="font-headline-sm text-headline-sm font-bold">Input HarTek</h2>
+                    <div class="flex items-center gap-2">
+                        <h2 class="font-poppins text-base md:text-lg font-bold text-[#81d4fa] tracking-wide uppercase drop-shadow-sm">Input HarTek</h2>
+                        <span class="text-white/30 text-sm">|</span>
+                        <div class="relative group cursor-pointer">
+                            <input id="hartek-tanggal" type="date"
+                                class="opacity-0 absolute inset-0 w-full h-full cursor-pointer z-10" onchange="updateDateDisplay('hartek-tanggal', 'hartek-tanggal-display')" />
+                            <span id="hartek-tanggal-display" class="text-[11px] text-white font-medium whitespace-nowrap group-hover:text-white/80 transition-colors">Pilih Tanggal</span>
+                        </div>
+                    </div>
                 </div>
 
             </div>
 
             <div class="max-w-2xl mx-auto px-edge-margin pt-md pb-xl space-y-md">
 
-                <!-- Form Card -->
-                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-lg">
-
-                    <!-- 1. Tanggal -->
-                    <div class="space-y-xs">
-                        <label
-                            class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Tanggal</label>
-                        <input id="hartek-tanggal" type="date"
-                            class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors" />
+                <!-- Segment 1: Informasi Umum -->
+                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-md">
+                    <div class="border-b border-outline-variant pb-2">
+                        <h3 class="font-label-lg text-secondary uppercase tracking-widest">Informasi Umum</h3>
                     </div>
 
                     <!-- 2. No. WO -->
@@ -465,15 +469,6 @@
                         <p id="hartek-gps-status" class="text-[11px] text-on-surface-variant hidden"></p>
                     </div>
 
-                    <!-- 5. Material Yang Dibutuhkan -->
-                    <div class="space-y-xs">
-                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Material
-                            Yang Dibutuhkan</label>
-                        <textarea id="hartek-material" rows="3"
-                            class="hartek-textarea w-full bg-surface-container-low border border-outline-variant rounded-lg p-md text-body-md resize-none transition-colors"
-                            placeholder="Sebutkan jenis dan jumlah material..."></textarea>
-                    </div>
-
                     <!-- 6. Jenis Pekerjaan -->
                     <div class="space-y-xs">
                         <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Jenis
@@ -483,6 +478,22 @@
                                 class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
                                 placeholder="Ketik jenis pekerjaan di sini..." />
                         </div>
+                    </div>
+                </div>
+
+                <!-- Segment 2: Detail Kebutuhan & Tim -->
+                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-md">
+                    <div class="border-b border-outline-variant pb-2">
+                        <h3 class="font-label-lg text-secondary uppercase tracking-widest">Detail Kebutuhan & Tim</h3>
+                    </div>
+
+                    <!-- 5. Material Yang Dibutuhkan -->
+                    <div class="space-y-xs">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Material
+                            Yang Dibutuhkan</label>
+                        <textarea id="hartek-material" rows="3"
+                            class="hartek-textarea w-full bg-surface-container-low border border-outline-variant rounded-lg p-md text-body-md resize-none transition-colors"
+                            placeholder="Sebutkan jenis dan jumlah material..."></textarea>
                     </div>
 
                     <!-- 7 & 8. Pengawas -->
@@ -503,6 +514,13 @@
                                 class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
                                 placeholder="Nama pengawas lapangan" />
                         </div>
+                    </div>
+                </div>
+
+                <!-- Segment 3: Dokumentasi -->
+                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-md">
+                    <div class="border-b border-outline-variant pb-2">
+                        <h3 class="font-label-lg text-secondary uppercase tracking-widest">Dokumentasi</h3>
                     </div>
 
                     <!-- 9. Foto Kegiatan -->
@@ -590,22 +608,25 @@
                 <div class="flex items-center gap-base">
                     <button onclick="switchView('view-dashboard')"
                         class="material-symbols-outlined hover:bg-black/10 p-2 rounded-full active:scale-95 transition-transform text-on-primary-container">arrow_back</button>
-                    <h2 class="font-headline-sm text-headline-sm font-bold">Input HAR & ROW</h2>
+                    <div class="flex items-center gap-2">
+                        <h2 class="font-poppins text-base md:text-lg font-bold text-[#0d47a1] tracking-wide uppercase drop-shadow-sm">Input HAR & ROW</h2>
+                        <span class="text-white/40 text-sm">|</span>
+                        <div class="relative group cursor-pointer">
+                            <input id="row-tanggal" type="date"
+                                class="opacity-0 absolute inset-0 w-full h-full cursor-pointer z-10" onchange="updateDateDisplay('row-tanggal', 'row-tanggal-display')" />
+                            <span id="row-tanggal-display" class="text-[11px] text-white font-medium whitespace-nowrap group-hover:text-white/80 transition-colors">Pilih Tanggal</span>
+                        </div>
+                    </div>
                 </div>
 
             </div>
 
             <div class="max-w-2xl mx-auto px-edge-margin pt-md pb-xl space-y-md">
 
-                <!-- Form Card -->
-                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-lg">
-
-                    <!-- 1. Tanggal -->
-                    <div class="space-y-xs">
-                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Tanggal
-                            Kegiatan</label>
-                        <input id="row-tanggal" type="date"
-                            class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors" />
+                <!-- Segment 1: Informasi Umum -->
+                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-md">
+                    <div class="border-b border-outline-variant pb-2">
+                        <h3 class="font-label-lg text-primary-container uppercase tracking-widest">Informasi Umum</h3>
                     </div>
 
                     <!-- 2. No. WO -->
@@ -616,8 +637,6 @@
                             class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md font-data-mono transition-colors"
                             placeholder="Contoh: ROW/2026/05/001" />
                     </div>
-
-
 
                     <!-- 4. Titik Koordinat -->
                     <div class="space-y-xs">
@@ -638,6 +657,13 @@
                             </button>
                         </div>
                         <p id="row-gps-status" class="text-[11px] text-on-surface-variant hidden"></p>
+                    </div>
+                </div>
+
+                <!-- Segment 2: Detail Lokasi Aset -->
+                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-md">
+                    <div class="border-b border-outline-variant pb-2">
+                        <h3 class="font-label-lg text-primary-container uppercase tracking-widest">Detail Lokasi Aset</h3>
                     </div>
 
                     <!-- 5. Penyulang -->
@@ -682,6 +708,13 @@
                             class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
                             placeholder="Contoh: SUTET B3 / Tiang 44-50" />
                     </div>
+                </div>
+
+                <!-- Segment 3: Temuan & Tim -->
+                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-md">
+                    <div class="border-b border-outline-variant pb-2">
+                        <h3 class="font-label-lg text-primary-container uppercase tracking-widest">Temuan & Tim</h3>
+                    </div>
 
                     <!-- 7. Nama Jenis Pohon -->
                     <div class="space-y-xs">
@@ -698,8 +731,6 @@
                             class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
                             placeholder="Contoh: 5 Tebang, 10 Pangkas" />
                     </div>
-
-
 
                     <!-- 7. Detail Temuan / Catatan -->
                     <div class="space-y-xs">
@@ -728,6 +759,13 @@
                                 class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
                                 placeholder="Nama pengawas" />
                         </div>
+                    </div>
+                </div>
+
+                <!-- Segment 4: Dokumentasi -->
+                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-md">
+                    <div class="border-b border-outline-variant pb-2">
+                        <h3 class="font-label-lg text-primary-container uppercase tracking-widest">Dokumentasi</h3>
                     </div>
 
                     <!-- 9. Foto Kegiatan -->
@@ -1038,6 +1076,7 @@
                 if (tanggalInput && !tanggalInput.value) {
                     const now = new Date();
                     tanggalInput.value = now.toISOString().split('T')[0];
+                    if (typeof updateDateDisplay === 'function') updateDateDisplay('hartek-tanggal', 'hartek-tanggal-display');
                 }
             }
             if (viewId === 'view-input-row') {
@@ -1045,8 +1084,18 @@
                 if (tanggalInput && !tanggalInput.value) {
                     const now = new Date();
                     tanggalInput.value = now.toISOString().split('T')[0];
+                    if (typeof updateDateDisplay === 'function') updateDateDisplay('row-tanggal', 'row-tanggal-display');
                 }
             }
+        }
+
+        // ── Date Display Formatter ────────────────────────────────────
+        function updateDateDisplay(inputId, displayId) {
+            const dateVal = document.getElementById(inputId).value;
+            if (!dateVal) return;
+            const dateObj = new Date(dateVal);
+            const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+            document.getElementById(displayId).innerText = dateObj.toLocaleDateString('id-ID', options);
         }
 
         // ── GPS Capture ──────────────────────────────────────────────
@@ -1423,6 +1472,7 @@
                     const d = JSON.parse(rawHartek);
                     const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
                     set('hartek-tanggal', d.tanggal);
+                    if (d.tanggal) updateDateDisplay('hartek-tanggal', 'hartek-tanggal-display');
                     set('hartek-no-wo', d.noWO);
                     set('hartek-lokasi', d.lokasi);
                     set('hartek-koordinat', d.koordinat);
@@ -1440,6 +1490,7 @@
                     const d = JSON.parse(rawRow);
                     const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
                     set('row-tanggal', d.tanggal);
+                    if (d.tanggal) updateDateDisplay('row-tanggal', 'row-tanggal-display');
                     set('row-no-wo', d.noWO);
                     set('row-section', d.section);
                     set('row-koordinat', d.koordinat);
