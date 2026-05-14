@@ -624,79 +624,53 @@
             <div class="max-w-2xl mx-auto px-edge-margin pt-md pb-xl space-y-md">
 
                 <!-- Segment 1: Informasi Umum -->
-                <div class="bg-white rounded-2xl shadow-sm border border-outline-variant/40 p-5 space-y-5">
-                    <div class="flex items-center gap-2 mb-2 border-b border-outline-variant/40 pb-3">
-                        <div class="w-7 h-7 rounded-full bg-primary-container/10 flex items-center justify-center">
-                            <span class="material-symbols-outlined text-primary-container text-[16px]">info</span>
-                        </div>
-                        <h3 class="font-poppins text-sm font-bold text-on-surface uppercase tracking-wide">Informasi Umum</h3>
-                    </div>
-
-                    <!-- 2. No. WO -->
-                    <div class="space-y-1.5">
-                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest ml-1">No. WO / Task ID</label>
-                        <input id="row-no-wo" type="text"
-                            class="hartek-input w-full h-12 bg-surface-container-low border-0 ring-1 ring-outline-variant/50 focus:ring-2 focus:ring-primary-container rounded-xl px-4 text-body-md font-data-mono transition-all"
-                            placeholder="Contoh: ROW/2026/05/001" />
-                    </div>
-
-                    <!-- 5. Penyulang & Ruas Segmen -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="space-y-1.5">
-                            <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest ml-1">Penyulang</label>
-                            <div class="relative" id="dropdown-penyulang-container">
-                                <!-- Hidden input for form data -->
-                                <input type="hidden" id="row-penyulang" value="">
-                                
-                                <!-- Trigger Button -->
-                                <button type="button" onclick="document.getElementById('dropdown-penyulang').classList.toggle('hidden')" 
-                                    class="w-full h-12 bg-surface-container-low border-0 ring-1 ring-outline-variant/50 focus:ring-2 focus:ring-primary-container rounded-xl px-4 flex justify-between items-center transition-all outline-none">
-                                    <span id="text-penyulang" class="text-[12px] text-on-surface-variant font-medium">Pilih penyulang...</span>
-                                    <span class="material-symbols-outlined text-on-surface-variant text-[18px]">expand_more</span>
-                                </button>
-                                
-                                <!-- Dropdown Menu -->
-                                <div id="dropdown-penyulang" class="hidden absolute z-50 w-full mt-2 bg-white border border-outline-variant/30 shadow-lg rounded-xl max-h-60 overflow-y-auto py-2">
-                                    <ul class="flex flex-col">
-                                        <!-- Transparent -->
-                                        <li onclick="selectPenyulang('BTJR')" class="px-4 py-2.5 text-[11px] font-bold text-on-surface hover:bg-primary-container/10 cursor-pointer bg-transparent transition-colors">BTJR</li>
-                                        <!-- Jeda 1 data (Striped) -->
-                                        <li onclick="selectPenyulang('CKLW')" class="px-4 py-2.5 text-[11px] font-bold text-on-surface hover:bg-primary-container/10 cursor-pointer bg-slate-100/70 transition-colors">CKLW</li>
-                                        <li onclick="selectPenyulang('CKRH')" class="px-4 py-2.5 text-[11px] font-bold text-on-surface hover:bg-primary-container/10 cursor-pointer bg-transparent transition-colors">CKRH</li>
-                                        <li onclick="selectPenyulang('GLNG')" class="px-4 py-2.5 text-[11px] font-bold text-on-surface hover:bg-primary-container/10 cursor-pointer bg-slate-100/70 transition-colors">GLNG</li>
-                                        <li onclick="selectPenyulang('LBSR')" class="px-4 py-2.5 text-[11px] font-bold text-on-surface hover:bg-primary-container/10 cursor-pointer bg-transparent transition-colors">LBSR</li>
-                                        <li onclick="selectPenyulang('MWTI')" class="px-4 py-2.5 text-[11px] font-bold text-on-surface hover:bg-primary-container/10 cursor-pointer bg-slate-100/70 transition-colors">MWTI</li>
-                                        <li onclick="selectPenyulang('PGP')" class="px-4 py-2.5 text-[11px] font-bold text-on-surface hover:bg-primary-container/10 cursor-pointer bg-transparent transition-colors">PGP</li>
-                                        <li onclick="selectPenyulang('PSLU')" class="px-4 py-2.5 text-[11px] font-bold text-on-surface hover:bg-primary-container/10 cursor-pointer bg-slate-100/70 transition-colors">PSLU</li>
-                                        <li onclick="selectPenyulang('PRBY')" class="px-4 py-2.5 text-[11px] font-bold text-on-surface hover:bg-primary-container/10 cursor-pointer bg-transparent transition-colors">PRBY</li>
-                                        <li onclick="selectPenyulang('PTB')" class="px-4 py-2.5 text-[11px] font-bold text-on-surface hover:bg-primary-container/10 cursor-pointer bg-slate-100/70 transition-colors">PTB</li>
-                                        <li onclick="selectPenyulang('RJDL')" class="px-4 py-2.5 text-[11px] font-bold text-on-surface hover:bg-primary-container/10 cursor-pointer bg-transparent transition-colors">RJDL</li>
-                                        <li onclick="selectPenyulang('SLCU')" class="px-4 py-2.5 text-[11px] font-bold text-on-surface hover:bg-primary-container/10 cursor-pointer bg-slate-100/70 transition-colors">SLCU</li>
-                                    </ul>
-                                </div>
-                                <script>
-                                    function selectPenyulang(val) {
-                                        document.getElementById('row-penyulang').value = val;
-                                        document.getElementById('text-penyulang').innerText = val;
-                                        document.getElementById('text-penyulang').classList.remove('text-on-surface-variant');
-                                        document.getElementById('text-penyulang').classList.add('text-on-surface', 'font-bold');
-                                        document.getElementById('dropdown-penyulang').classList.add('hidden');
-                                    }
-                                    document.addEventListener('click', function(e) {
-                                        const container = document.getElementById('dropdown-penyulang-container');
-                                        if (container && !container.contains(e.target)) {
-                                            document.getElementById('dropdown-penyulang').classList.add('hidden');
-                                        }
-                                    });
-                                </script>
+                <!-- Segment 1: Informasi Umum -->
+                <div class="bg-gradient-to-br from-white to-slate-50/50 rounded-[24px] shadow-sm border border-outline-variant/40 p-1.5 space-y-2 mb-md">
+                    
+                    <!-- Header -->
+                    <div class="flex items-center justify-between px-3 pt-3 pb-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-primary-container/20 to-primary-container/5 flex items-center justify-center shadow-inner border border-primary-container/10 shrink-0">
+                                <span class="material-symbols-outlined text-primary-container text-[20px]">feed</span>
+                            </div>
+                            <div>
+                                <h3 class="font-poppins text-[14px] font-bold text-on-surface leading-tight">Lengkapi data dasar pekerjaan</h3>
                             </div>
                         </div>
-                        <div class="space-y-1.5">
-                            <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest ml-1">RUAS/SEGMEN</label>
-                            <input id="row-ruas-segmen" type="text"
-                                class="hartek-input w-full h-12 bg-surface-container-low border-0 ring-1 ring-outline-variant/50 focus:ring-2 focus:ring-primary-container rounded-xl px-4 text-body-md transition-all"
-                                placeholder="Masukkan ruas/segmen..." />
+                        
+                        <button type="button" onclick="saveDraftROW()" class="bg-green-500 hover:bg-green-600 active:scale-95 transition-all text-white font-bold text-[11px] px-4 py-2 rounded-full shadow-md border-b-2 border-green-700 flex items-center gap-1 shrink-0 ml-2">
+                            <span class="material-symbols-outlined text-[14px]">save</span>
+                            <span>Simpan</span>
+                        </button>
+                    </div>
+
+                    <!-- Fields Container -->
+                    <div class="bg-white rounded-[20px] shadow-sm border border-outline-variant/30 overflow-hidden divide-y divide-outline-variant/20">
+                        
+                        <!-- 2. No. WO -->
+                        <div class="flex items-center px-4 py-1.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-primary-container">
+                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-primary-container transition-colors">No. WO</label>
+                            <input id="row-no-wo" type="text"
+                                class="flex-1 h-12 bg-transparent border-0 focus:ring-0 px-2 text-[14px] text-on-surface font-bold font-data-mono placeholder:font-normal placeholder:text-on-surface-variant/50 outline-none w-full"
+                                placeholder="Contoh: ROW/2026/05/001" />
                         </div>
+
+                        <!-- 5. Penyulang -->
+                        <div class="flex items-center px-4 py-1.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-primary-container">
+                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-primary-container transition-colors">Penyulang</label>
+                            <input id="row-penyulang" type="text"
+                                class="flex-1 h-12 bg-transparent border-0 focus:ring-0 px-2 text-[14px] text-on-surface font-bold placeholder:font-normal placeholder:text-on-surface-variant/50 outline-none w-full uppercase"
+                                placeholder="Masukkan penyulang..." />
+                        </div>
+
+                        <!-- Segmen -->
+                        <div class="flex items-center px-4 py-1.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-primary-container">
+                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-primary-container transition-colors">SEGMEN</label>
+                            <input id="row-ruas-segmen" type="text"
+                                class="flex-1 h-12 bg-transparent border-0 focus:ring-0 px-2 text-[14px] text-on-surface font-bold placeholder:font-normal placeholder:text-on-surface-variant/50 outline-none w-full"
+                                placeholder="Masukkan segmen..." />
+                        </div>
+
                     </div>
                 </div>
 
