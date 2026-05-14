@@ -606,7 +606,7 @@
             <div
                 class="bg-gradient-to-r from-[#ff8c00] to-[#ffb77d] text-on-primary-container sticky top-16 z-30 px-edge-margin h-14 flex items-center justify-between shadow-md">
                 <div class="flex items-center gap-base">
-                    <button onclick="switchView('view-dashboard')"
+                    <button onclick="goBackRow()"
                         class="material-symbols-outlined hover:bg-black/10 p-2 rounded-full active:scale-95 transition-transform text-on-primary-container">arrow_back</button>
                     <div class="flex items-center gap-2">
                         <h2 class="font-poppins text-base md:text-lg font-bold text-[#0d47a1] tracking-wide uppercase drop-shadow-sm">Input HAR & ROW</h2>
@@ -625,7 +625,7 @@
 
                 <!-- Segment 1: Informasi Umum -->
                 <!-- Segment 1: Informasi Umum -->
-                <div class="bg-gradient-to-br from-white to-slate-50/50 rounded-[24px] shadow-sm border border-outline-variant/40 p-1.5 space-y-2 mb-md">
+                <div id="row-step-1" class="bg-gradient-to-br from-blue-50 to-blue-100/60 rounded-[24px] shadow-sm border border-blue-200/60 p-1.5 space-y-2 mb-md">
                     
                     <!-- Header -->
                     <div class="flex items-center justify-between px-3 pt-3 pb-1">
@@ -648,24 +648,24 @@
                     <div class="bg-white rounded-[20px] shadow-sm border border-outline-variant/30 overflow-hidden divide-y divide-outline-variant/20">
                         
                         <!-- 2. No. WO -->
-                        <div class="flex items-center px-4 py-1.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-primary-container">
-                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-primary-container transition-colors">No. WO</label>
+                        <div class="flex items-center px-4 py-1.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-[#0d47a1]">
+                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-[#0d47a1] transition-colors">No. WO</label>
                             <input id="row-no-wo" type="text"
                                 class="flex-1 h-12 bg-transparent border-0 focus:ring-0 px-2 text-[14px] text-on-surface font-bold font-data-mono placeholder:font-normal placeholder:text-on-surface-variant/50 outline-none w-full"
                                 placeholder="Contoh: ROW/2026/05/001" />
                         </div>
 
                         <!-- 5. Penyulang -->
-                        <div class="flex items-center px-4 py-1.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-primary-container">
-                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-primary-container transition-colors">Penyulang</label>
+                        <div class="flex items-center px-4 py-1.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-[#0d47a1]">
+                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-[#0d47a1] transition-colors">Penyulang</label>
                             <input id="row-penyulang" type="text"
                                 class="flex-1 h-12 bg-transparent border-0 focus:ring-0 px-2 text-[14px] text-on-surface font-bold placeholder:font-normal placeholder:text-on-surface-variant/50 outline-none w-full uppercase"
                                 placeholder="Masukkan penyulang..." />
                         </div>
 
                         <!-- Segmen -->
-                        <div class="flex items-center px-4 py-1.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-primary-container">
-                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-primary-container transition-colors">SEGMEN</label>
+                        <div class="flex items-center px-4 py-1.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-[#0d47a1]">
+                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-[#0d47a1] transition-colors">SEGMEN</label>
                             <input id="row-ruas-segmen" type="text"
                                 class="flex-1 h-12 bg-transparent border-0 focus:ring-0 px-2 text-[14px] text-on-surface font-bold placeholder:font-normal placeholder:text-on-surface-variant/50 outline-none w-full"
                                 placeholder="Masukkan segmen..." />
@@ -674,179 +674,373 @@
                     </div>
                 </div>
 
+                <!-- Next Button -->
+                <div id="row-btn-next" class="flex justify-end mb-4 pr-[18px]">
+                    <button type="button" onclick="nextStepRow()" class="bg-[#0d47a1] hover:bg-[#09357a] active:scale-95 transition-all text-white font-bold text-[11px] px-4 py-2 rounded-full shadow-md border-b-2 border-[#09357a] flex items-center gap-1">
+                        <span>Next</span>
+                        <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    </button>
+                </div>
+
                 <!-- Segment 2: Detail Lokasi Aset -->
-                <div class="bg-white rounded-2xl shadow-sm border border-outline-variant/40 p-5 space-y-5">
-                    <div class="flex items-center gap-2 mb-2 border-b border-outline-variant/40 pb-3">
-                        <div class="w-7 h-7 rounded-full bg-primary-container/10 flex items-center justify-center">
-                            <span class="material-symbols-outlined text-primary-container text-[16px]">location_on</span>
+                <div id="row-step-2-lokasi" class="hidden bg-gradient-to-br from-blue-50 to-blue-100/60 rounded-[24px] shadow-sm border border-blue-200/60 p-1.5 space-y-2 mb-md">
+                    
+                    <!-- Header -->
+                    <div class="flex items-center justify-between px-3 pt-3 pb-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-primary-container/20 to-primary-container/5 flex items-center justify-center shadow-inner border border-primary-container/10 shrink-0">
+                                <span class="material-symbols-outlined text-primary-container text-[20px]">location_on</span>
+                            </div>
+                            <div>
+                                <h3 class="font-poppins text-[14px] font-bold text-on-surface leading-tight">Detail Lokasi Aset</h3>
+                            </div>
                         </div>
-                        <h3 class="font-poppins text-sm font-bold text-on-surface uppercase tracking-wide">Detail Lokasi Aset</h3>
+                        
+                        <button type="button" onclick="saveDraftROW()" class="bg-green-500 hover:bg-green-600 active:scale-95 transition-all text-white font-bold text-[11px] px-4 py-2 rounded-full shadow-md border-b-2 border-green-700 flex items-center gap-1 shrink-0 ml-2">
+                            <span class="material-symbols-outlined text-[14px]">save</span>
+                            <span>Simpan</span>
+                        </button>
                     </div>
 
-                    <!-- 4. Titik Koordinat -->
-                    <div class="space-y-1.5">
-                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest ml-1">Titik Koordinat (GPS)</label>
-                        <div class="flex gap-3">
-                            <div class="relative flex-1">
-                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary-container/50 text-[20px]">pin_drop</span>
-                                <input id="row-koordinat" type="text"
-                                    class="hartek-input w-full h-12 bg-surface-container-low border-0 ring-1 ring-outline-variant/50 focus:ring-2 focus:ring-primary-container rounded-xl pl-10 pr-10 text-body-md font-data-mono transition-all"
-                                    placeholder="Link Google Maps..." />
-                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary-container cursor-pointer hover:scale-110 transition-transform"
-                                    onclick="getGPS_ROW()">my_location</span>
-                            </div>
+                    <!-- Fields Container -->
+                    <div class="bg-white rounded-[20px] shadow-sm border border-outline-variant/30 overflow-hidden divide-y divide-outline-variant/20">
+                        
+                        <!-- 6. Jalur / Section / Tiang -->
+                        <div class="flex items-center px-4 py-1.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-[#0d47a1]">
+                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-[#0d47a1] transition-colors">Jalur / Tiang</label>
+                            <input id="row-section" type="text"
+                                class="flex-1 h-12 bg-transparent border-0 focus:ring-0 px-2 text-[14px] text-on-surface font-bold placeholder:font-normal placeholder:text-on-surface-variant/50 outline-none w-full"
+                                placeholder="Cth: SUTET B3 / T.44" />
+                        </div>
+
+                        <!-- 4. Titik Koordinat -->
+                        <div class="flex items-center px-4 py-1.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-[#0d47a1] pr-2">
+                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-[#0d47a1] transition-colors">Koordinat</label>
+                            <input id="row-koordinat" type="text" readonly
+                                class="flex-1 h-12 bg-transparent border-0 focus:ring-0 px-2 text-[14px] text-on-surface font-bold font-data-mono placeholder:font-normal placeholder:text-on-surface-variant/50 outline-none w-full cursor-default"
+                                placeholder="Tap ikon map di kanan ->" />
                             <button type="button" onclick="getGPS_ROW()"
-                                class="h-12 w-12 bg-primary-container/10 text-primary-container border-0 ring-1 ring-primary-container/30 rounded-xl flex items-center justify-center active:scale-95 transition-all hover:bg-primary-container/20">
-                                <span class="material-symbols-outlined">map</span>
+                                class="h-9 w-9 bg-blue-50 text-[#0d47a1] border border-blue-200 rounded-xl flex items-center justify-center active:scale-95 transition-all hover:bg-blue-100 shrink-0 ml-2">
+                                <span class="material-symbols-outlined text-[18px]">map</span>
                             </button>
                         </div>
-                        <p id="row-gps-status" class="text-[11px] text-on-surface-variant hidden ml-1"></p>
-                    </div>
 
-                    <!-- 6. Jalur / Section / Tiang -->
-                    <div class="space-y-1.5">
-                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest ml-1">Jalur / Section / Tiang</label>
-                        <input id="row-section" type="text"
-                            class="hartek-input w-full h-12 bg-surface-container-low border-0 ring-1 ring-outline-variant/50 focus:ring-2 focus:ring-primary-container rounded-xl px-4 text-body-md transition-all"
-                            placeholder="Contoh: SUTET B3 / Tiang 44-50" />
-                    </div>
-                </div>
-
-                <!-- Segment 3: Temuan & Tim -->
-                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-md">
-                    <div class="border-b border-outline-variant pb-2">
-                        <h3 class="font-label-lg text-primary-container uppercase tracking-widest">Temuan & Tim</h3>
-                    </div>
-
-                    <!-- 7. Nama Jenis Pohon -->
-                    <div class="space-y-xs">
-                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Nama Jenis Pohon</label>
-                        <input id="row-jenis-pohon" type="text"
-                            class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
-                            placeholder="Contoh: Pohon Mangga, Kelapa, dll" />
-                    </div>
-
-                    <!-- 8. Jumlah Pohon -->
-                    <div class="space-y-xs">
-                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Jumlah Pohon (Tebang & Pangkas)</label>
-                        <input id="row-jumlah-pohon" type="text"
-                            class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
-                            placeholder="Contoh: 5 Tebang, 10 Pangkas" />
-                    </div>
-
-                    <!-- 7. Detail Temuan / Catatan -->
-                    <div class="space-y-xs">
-                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Detail
-                            Temuan / Catatan</label>
-                        <textarea id="row-catatan" rows="3"
-                            class="hartek-textarea w-full bg-surface-container-low border border-outline-variant rounded-lg p-md text-body-md resize-none transition-colors"
-                            placeholder="Tuliskan detail pohon, jenis, atau kendala..."></textarea>
-                    </div>
-
-                    <!-- 8. Pengawas -->
-                    <div class="space-y-md">
-                        <div class="space-y-xs">
-                            <label
-                                class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Pengawas
-                                K3</label>
-                            <input id="row-k3" type="text"
-                                class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
-                                placeholder="Nama pengawas K3" />
-                        </div>
-                        <div class="space-y-xs">
-                            <label
-                                class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Pengawas
-                                Lapangan</label>
-                            <input id="row-pengawas" type="text"
-                                class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
-                                placeholder="Nama pengawas" />
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Segment 4: Dokumentasi -->
-                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-md">
-                    <div class="border-b border-outline-variant pb-2">
-                        <h3 class="font-label-lg text-primary-container uppercase tracking-widest">Dokumentasi</h3>
-                    </div>
-
-                    <!-- 9. Foto Kegiatan -->
-                    <div class="space-y-sm">
-                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Foto
-                            Kegiatan ROW</label>
-                        <div class="grid grid-cols-3 gap-sm">
-
-                            <!-- Foto Sebelum -->
-                            <div id="slot-row-sebelum"
-                                onclick="triggerPhoto('photo-row-sebelum', 'slot-row-sebelum', 'preview-row-sebelum')"
-                                class="photo-slot aspect-square bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-xs cursor-pointer transition-all active:scale-95 relative overflow-hidden">
-                                <span class="material-symbols-outlined text-on-surface-variant/60">add_a_photo</span>
-                                <span
-                                    class="text-[9px] font-bold text-on-surface-variant/60 text-center px-xs leading-tight uppercase">Sebelum</span>
-                                <img id="preview-row-sebelum" class="absolute inset-0 w-full h-full object-cover hidden"
-                                    alt="Foto Sebelum" />
-                                <input id="photo-row-sebelum" type="file" accept="image/*" capture="environment"
-                                    class="hidden"
-                                    onchange="showPreview(this, 'preview-row-sebelum', 'slot-row-sebelum', 'Sebelum')" />
+                        <!-- Foto Sebelum -->
+                        <div class="flex items-center px-4 py-3 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-[#0d47a1]">
+                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-[#0d47a1] transition-colors">Foto<br/>Sebelum</label>
+                            
+                            <div class="flex items-center gap-3">
+                                <!-- Foto Sebelum 1 -->
+                                <div id="slot-row-sebelum-1"
+                                    onclick="triggerPhoto('photo-row-sebelum-1', 'slot-row-sebelum-1', 'preview-row-sebelum-1')"
+                                    class="w-20 h-20 bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-1 cursor-pointer transition-all hover:border-[#0d47a1] hover:bg-blue-50 active:scale-95 relative overflow-hidden shrink-0">
+                                    <span class="material-symbols-outlined text-on-surface-variant/60 group-hover:text-[#0d47a1] text-[20px]">add_a_photo</span>
+                                    <span class="text-[9px] font-bold text-on-surface-variant/60 text-center px-1 leading-tight uppercase group-hover:text-[#0d47a1]">Tap Foto 1</span>
+                                    <img id="preview-row-sebelum-1" class="absolute inset-0 w-full h-full object-cover hidden"
+                                        alt="Foto Sebelum 1" />
+                                    <input id="photo-row-sebelum-1" type="file" accept="image/*" capture="environment"
+                                        class="hidden"
+                                        onchange="showPreview(this, 'preview-row-sebelum-1', 'slot-row-sebelum-1', 'Sebelum 1')" />
+                                </div>
+                                
+                                <!-- Foto Sebelum 2 -->
+                                <div id="slot-row-sebelum-2"
+                                    onclick="triggerPhoto('photo-row-sebelum-2', 'slot-row-sebelum-2', 'preview-row-sebelum-2')"
+                                    class="w-20 h-20 bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-1 cursor-pointer transition-all hover:border-[#0d47a1] hover:bg-blue-50 active:scale-95 relative overflow-hidden shrink-0">
+                                    <span class="material-symbols-outlined text-on-surface-variant/60 group-hover:text-[#0d47a1] text-[20px]">add_a_photo</span>
+                                    <span class="text-[9px] font-bold text-on-surface-variant/60 text-center px-1 leading-tight uppercase group-hover:text-[#0d47a1]">Tap Foto 2</span>
+                                    <img id="preview-row-sebelum-2" class="absolute inset-0 w-full h-full object-cover hidden"
+                                        alt="Foto Sebelum 2" />
+                                    <input id="photo-row-sebelum-2" type="file" accept="image/*" capture="environment"
+                                        class="hidden"
+                                        onchange="showPreview(this, 'preview-row-sebelum-2', 'slot-row-sebelum-2', 'Sebelum 2')" />
+                                </div>
                             </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Next Button 2 -->
+                <div id="row-btn-next-2" class="hidden flex justify-end mb-4 pr-[18px]">
+                    <button type="button" onclick="nextStepRow2()" class="bg-[#0d47a1] hover:bg-[#09357a] active:scale-95 transition-all text-white font-bold text-[11px] px-4 py-2 rounded-full shadow-md border-b-2 border-[#09357a] flex items-center gap-1">
+                        <span>Next</span>
+                        <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    </button>
+                </div>
+
+                <!-- Segment 3: Proses Pengerjaan & Pengawas -->
+                <div id="row-step-3-temuan" class="hidden space-y-4 mb-md">
+                    <!-- Proses Pengerjaan Card -->
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100/60 rounded-[24px] shadow-sm border border-blue-200/60 p-1.5 space-y-2">
+                        <!-- Header -->
+                        <div class="flex items-center justify-between px-3 pt-3 pb-1">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-primary-container/20 to-primary-container/5 flex items-center justify-center shadow-inner border border-primary-container/10 shrink-0">
+                                    <span class="material-symbols-outlined text-primary-container text-[20px]">engineering</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-poppins text-[14px] font-bold text-on-surface leading-tight">Proses Pengerjaan</h3>
+                                </div>
+                            </div>
+                            
+                            <button type="button" onclick="saveDraftROW()" class="bg-green-500 hover:bg-green-600 active:scale-95 transition-all text-white font-bold text-[11px] px-4 py-2 rounded-full shadow-md border-b-2 border-green-700 flex items-center gap-1 shrink-0 ml-2">
+                                <span class="material-symbols-outlined text-[14px]">save</span>
+                                <span>Simpan</span>
+                            </button>
+                        </div>
+
+                        <!-- Fields Container -->
+                        <div class="bg-white rounded-[20px] shadow-sm border border-outline-variant/30 overflow-hidden divide-y divide-outline-variant/20">
+                            
+                            <!-- Nama Jenis Pohon -->
+                            <div class="flex items-center px-4 py-1.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-[#0d47a1]">
+                                <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-[#0d47a1] transition-colors">Jenis Pohon</label>
+                                <input id="row-jenis-pohon" type="text"
+                                    class="flex-1 h-12 bg-transparent border-0 focus:ring-0 px-2 text-[14px] text-on-surface font-bold placeholder:font-normal placeholder:text-on-surface-variant/50 outline-none w-full"
+                                    placeholder="Cth: Mangga, Kelapa..." />
+                            </div>
+
 
                             <!-- Foto Pelaksanaan -->
-                            <div id="slot-row-pelaksanaan"
-                                onclick="triggerPhoto('photo-row-pelaksanaan', 'slot-row-pelaksanaan', 'preview-row-pelaksanaan')"
-                                class="photo-slot aspect-square bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-xs cursor-pointer transition-all active:scale-95 relative overflow-hidden">
-                                <span
-                                    class="material-symbols-outlined text-on-surface-variant/60">pending_actions</span>
-                                <span
-                                    class="text-[9px] font-bold text-on-surface-variant/60 text-center px-xs leading-tight uppercase">Pelaksanaan</span>
-                                <img id="preview-row-pelaksanaan"
-                                    class="absolute inset-0 w-full h-full object-cover hidden" alt="Foto Pelaksanaan" />
-                                <input id="photo-row-pelaksanaan" type="file" accept="image/*" capture="environment"
-                                    class="hidden"
-                                    onchange="showPreview(this, 'preview-row-pelaksanaan', 'slot-row-pelaksanaan', 'Pelaksanaan')" />
+                            <div class="flex items-center px-4 py-3 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-[#0d47a1]">
+                                <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-[#0d47a1] transition-colors">Foto<br/>Pelaksanaan</label>
+                                
+                                <div id="slot-row-pelaksanaan"
+                                    onclick="triggerPhoto('photo-row-pelaksanaan', 'slot-row-pelaksanaan', 'preview-row-pelaksanaan')"
+                                    class="w-20 h-20 bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-1 cursor-pointer transition-all hover:border-[#0d47a1] hover:bg-blue-50 active:scale-95 relative overflow-hidden shrink-0">
+                                    <span class="material-symbols-outlined text-on-surface-variant/60 group-hover:text-[#0d47a1] text-[20px]">pending_actions</span>
+                                    <span class="text-[9px] font-bold text-on-surface-variant/60 text-center px-1 leading-tight uppercase group-hover:text-[#0d47a1]">Tap Foto</span>
+                                    <img id="preview-row-pelaksanaan" class="absolute inset-0 w-full h-full object-cover hidden"
+                                        alt="Foto Pelaksanaan" />
+                                    <input id="photo-row-pelaksanaan" type="file" accept="image/*" capture="environment"
+                                        class="hidden"
+                                        onchange="showPreview(this, 'preview-row-pelaksanaan', 'slot-row-pelaksanaan', 'Pelaksanaan')" />
+                                </div>
                             </div>
 
-                            <!-- Foto Sesudah -->
+                            <!-- Catatan / Detail -->
+                            <div class="flex items-start px-4 py-2.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-[#0d47a1]">
+                                <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-[#0d47a1] transition-colors pt-2">Catatan</label>
+                                <textarea id="row-catatan" rows="2"
+                                    class="flex-1 bg-transparent border-0 focus:ring-0 px-2 py-1.5 text-[14px] text-on-surface font-bold placeholder:font-normal placeholder:text-on-surface-variant/50 outline-none w-full resize-none"
+                                    placeholder="Tulis detail temuan..."></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Pengawas Container -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-outline-variant/40 p-4">
+                        <h3 class="font-poppins text-[12px] font-bold text-on-surface uppercase tracking-widest mb-3 border-b border-outline-variant/30 pb-2">Kehadiran Pengawas</h3>
+                        
+                        <div class="space-y-1">
+                            <!-- Pengawas K3 -->
+                            <label class="flex items-center px-2 py-2 hover:bg-slate-50/50 rounded-lg transition-all group relative cursor-pointer">
+                                <span class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-hover:text-[#0d47a1] transition-colors">Pengawas K3</span>
+                                <div class="flex items-center flex-1 gap-3">
+                                    <div class="relative flex items-center justify-center">
+                                        <input type="checkbox" id="row-k3" class="peer appearance-none w-6 h-6 border-2 border-outline-variant rounded bg-white checked:bg-[#0d47a1] checked:border-[#0d47a1] transition-all cursor-pointer">
+                                        <span class="material-symbols-outlined absolute text-white text-[18px] pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity">check</span>
+                                    </div>
+                                    <span class="text-[14px] font-bold text-on-surface">Hadir di Lokasi</span>
+                                </div>
+                            </label>
+
+                            <!-- Pengawas Lapangan -->
+                            <label class="flex items-center px-2 py-2 hover:bg-slate-50/50 rounded-lg transition-all group relative cursor-pointer">
+                                <span class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-hover:text-[#0d47a1] transition-colors">Pengawas Lap.</span>
+                                <div class="flex items-center flex-1 gap-3">
+                                    <div class="relative flex items-center justify-center">
+                                        <input type="checkbox" id="row-pengawas" class="peer appearance-none w-6 h-6 border-2 border-outline-variant rounded bg-white checked:bg-[#0d47a1] checked:border-[#0d47a1] transition-all cursor-pointer">
+                                        <span class="material-symbols-outlined absolute text-white text-[18px] pointer-events-none opacity-0 peer-checked:opacity-100 transition-opacity">check</span>
+                                    </div>
+                                    <span class="text-[14px] font-bold text-on-surface">Hadir di Lokasi</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Next Button 3 -->
+                <div id="row-btn-next-3" class="hidden flex justify-end mb-4 pr-[18px]">
+                    <button type="button" onclick="nextStepRow3()" class="bg-[#0d47a1] hover:bg-[#09357a] active:scale-95 transition-all text-white font-bold text-[11px] px-4 py-2 rounded-full shadow-md border-b-2 border-[#09357a] flex items-center gap-1">
+                        <span>Next</span>
+                        <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                    </button>
+                </div>
+
+
+                <!-- Segment 4: Finishing -->
+                <div id="row-step-4-finishing" class="hidden bg-gradient-to-br from-blue-50 to-blue-100/60 rounded-[24px] shadow-sm border border-blue-200/60 p-1.5 space-y-2 mb-md">
+                    
+                    <!-- Header -->
+                    <div class="flex items-center justify-between px-3 pt-3 pb-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-primary-container/20 to-primary-container/5 flex items-center justify-center shadow-inner border border-primary-container/10 shrink-0">
+                                <span class="material-symbols-outlined text-primary-container text-[20px]">check_circle</span>
+                            </div>
+                            <div>
+                                <h3 class="font-poppins text-[14px] font-bold text-on-surface leading-tight">Finishing</h3>
+                            </div>
+                        </div>
+                        <button type="button" onclick="saveDraftROW()" class="bg-green-500 hover:bg-green-600 active:scale-95 transition-all text-white font-bold text-[11px] px-4 py-2 rounded-full shadow-md border-b-2 border-green-700 flex items-center gap-1 shrink-0 ml-2">
+                            <span class="material-symbols-outlined text-[14px]">save</span>
+                            <span>Simpan</span>
+                        </button>
+                    </div>
+
+                    <!-- Fields Container -->
+                    <div class="bg-white rounded-[20px] shadow-sm border border-outline-variant/30 overflow-hidden divide-y divide-outline-variant/20">
+                        
+                        <!-- Jumlah Tebang -->
+                        <div class="flex items-center px-4 py-1.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-[#0d47a1]">
+                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-[#0d47a1] transition-colors">Jml Tebang</label>
+                            <input id="row-jumlah-tebang" type="number"
+                                class="flex-1 h-12 bg-transparent border-0 focus:ring-0 px-2 text-[14px] text-on-surface font-bold placeholder:font-normal placeholder:text-on-surface-variant/50 outline-none w-full"
+                                placeholder="Cth: 5" />
+                        </div>
+
+                        <!-- Jumlah Pangkas -->
+                        <div class="flex items-center px-4 py-1.5 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-[#0d47a1]">
+                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-[#0d47a1] transition-colors">Jml Pangkas</label>
+                            <input id="row-jumlah-pangkas" type="number"
+                                class="flex-1 h-12 bg-transparent border-0 focus:ring-0 px-2 text-[14px] text-on-surface font-bold placeholder:font-normal placeholder:text-on-surface-variant/50 outline-none w-full"
+                                placeholder="Cth: 10" />
+                        </div>
+
+                        <!-- Foto Sesudah -->
+                        <div class="flex items-center px-4 py-3 hover:bg-slate-50/50 transition-all group relative focus-within:z-10 focus-within:ring-1 focus-within:ring-[#0d47a1]">
+                            <label class="w-24 shrink-0 text-[11px] font-bold text-on-surface-variant uppercase tracking-widest group-focus-within:text-[#0d47a1] transition-colors">Foto<br/>Sesudah</label>
+                            
                             <div id="slot-row-sesudah"
                                 onclick="triggerPhoto('photo-row-sesudah', 'slot-row-sesudah', 'preview-row-sesudah')"
-                                class="photo-slot aspect-square bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-xs cursor-pointer transition-all active:scale-95 relative overflow-hidden">
-                                <span class="material-symbols-outlined text-on-surface-variant/60">task_alt</span>
-                                <span
-                                    class="text-[9px] font-bold text-on-surface-variant/60 text-center px-xs leading-tight uppercase">Sesudah</span>
+                                class="w-20 h-20 bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center gap-1 cursor-pointer transition-all hover:border-[#0d47a1] hover:bg-blue-50 active:scale-95 relative overflow-hidden shrink-0">
+                                <span class="material-symbols-outlined text-on-surface-variant/60 group-hover:text-[#0d47a1] text-[20px]">task_alt</span>
+                                <span class="text-[9px] font-bold text-on-surface-variant/60 text-center px-1 leading-tight uppercase group-hover:text-[#0d47a1]">Tap Foto</span>
                                 <img id="preview-row-sesudah" class="absolute inset-0 w-full h-full object-cover hidden"
                                     alt="Foto Sesudah" />
                                 <input id="photo-row-sesudah" type="file" accept="image/*" capture="environment"
                                     class="hidden"
                                     onchange="showPreview(this, 'preview-row-sesudah', 'slot-row-sesudah', 'Sesudah')" />
                             </div>
-
                         </div>
-                    </div>
 
+                    </div>
                 </div><!-- end form card -->
 
                 <!-- Actions -->
-                <div class="flex flex-col items-center gap-md pb-xl">
-                    <button id="btn-kirim-row" type="button" onclick="submitROW()"
-                        class="w-[260px] h-14 bg-gradient-to-r from-[#ff8c00] to-[#ffa500] text-white font-bold text-lg rounded-full flex items-center justify-center gap-md active:scale-95 transition-all shadow-lg hover:shadow-xl hover:brightness-105 border-b-4 border-[#cc7000]">
-                        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">cloud_upload</span>
-                        <span>KIRIM LAPORAN</span>
-                    </button>
-                    
-                    <div class="flex gap-md w-full max-w-[320px]">
-                        <button type="button" onclick="saveDraftROW()"
-                            class="flex-1 h-12 bg-[#e0e0e0] text-black font-bold text-[11px] rounded-full flex items-center justify-center gap-sm active:scale-95 transition-all shadow hover:bg-[#d5d5d5] border-b-4 border-[#bdbdbd]">
-                            <span class="material-symbols-outlined text-sm">save</span>
-                            <span>DRAFT</span>
-                        </button>
-                        <button type="button" onclick="switchView('view-dashboard')"
-                            class="flex-1 h-12 bg-red-500 text-white font-bold text-[11px] rounded-full flex items-center justify-center gap-sm active:scale-95 transition-all shadow hover:bg-red-600 border-b-4 border-red-800">
-                            <span class="material-symbols-outlined text-sm">close</span>
-                            <span>BATAL</span>
-                        </button>
-                    </div>
+                <div id="row-actions" class="hidden pb-xl">
+                    <!-- Tombol kirim, draft, batal dihilangkan sementara -->
                 </div>
 
             </div><!-- end max-w container -->
+
+            <!-- Actions script for ROW steps -->
+            <script>
+                function nextStepRow() {
+                    // Hide Step 1
+                    document.getElementById('row-step-1').classList.add('hidden');
+                    document.getElementById('row-btn-next').classList.add('hidden');
+                    
+                    // Show Step 2 and Next 2
+                    document.getElementById('row-step-2-lokasi').classList.remove('hidden');
+                    document.getElementById('row-btn-next-2').classList.remove('hidden');
+                    
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+
+                function nextStepRow2() {
+                    // Hide Step 2
+                    document.getElementById('row-step-2-lokasi').classList.add('hidden');
+                    document.getElementById('row-btn-next-2').classList.add('hidden');
+                    
+                    // Show Step 3 and Next 3
+                    document.getElementById('row-step-3-temuan').classList.remove('hidden');
+                    document.getElementById('row-btn-next-3').classList.remove('hidden');
+                    
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+
+                function nextStepRow3() {
+                    // Hide Step 3 and Next 3
+                    document.getElementById('row-step-3-temuan').classList.add('hidden');
+                    document.getElementById('row-btn-next-3').classList.add('hidden');
+                    
+                    // Show Step 4 and Actions
+                    document.getElementById('row-step-4-finishing').classList.remove('hidden');
+                    
+                    let actions = document.getElementById('row-actions');
+                    actions.classList.remove('hidden');
+                    actions.classList.add('flex');
+                    
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+
+                function prevStepRow3() {
+                    // Hide Step 4 and Actions
+                    document.getElementById('row-step-4-finishing').classList.add('hidden');
+                    let actions = document.getElementById('row-actions');
+                    actions.classList.add('hidden');
+                    actions.classList.remove('flex');
+
+                    // Show Step 3 and Next 3
+                    document.getElementById('row-step-3-temuan').classList.remove('hidden');
+                    document.getElementById('row-btn-next-3').classList.remove('hidden');
+                    
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+
+                function prevStepRow2() {
+                    // Hide Step 3 and Next 3
+                    document.getElementById('row-step-3-temuan').classList.add('hidden');
+                    document.getElementById('row-btn-next-3').classList.add('hidden');
+
+                    // Show Step 2 and Next 2
+                    document.getElementById('row-step-2-lokasi').classList.remove('hidden');
+                    document.getElementById('row-btn-next-2').classList.remove('hidden');
+                    
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+
+                function prevStepRow() {
+                    // Hide Step 2 and Next 2
+                    document.getElementById('row-step-2-lokasi').classList.add('hidden');
+                    document.getElementById('row-btn-next-2').classList.add('hidden');
+
+                    // Show Step 1
+                    document.getElementById('row-step-1').classList.remove('hidden');
+                    document.getElementById('row-btn-next').classList.remove('hidden');
+                    
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+
+                function goBackRow() {
+                    let step4 = document.getElementById('row-step-4-finishing');
+                    let step3 = document.getElementById('row-step-3-temuan');
+                    let step2 = document.getElementById('row-step-2-lokasi');
+                    
+                    if (step4 && !step4.classList.contains('hidden')) {
+                        // On Step 4 -> Go to Step 3
+                        prevStepRow3();
+                    } else if (step3 && !step3.classList.contains('hidden')) {
+                        // On Step 3 -> Go to Step 2
+                        prevStepRow2();
+                    } else if (step2 && !step2.classList.contains('hidden')) {
+                        // On Step 2 -> Go to Step 1
+                        prevStepRow();
+                    } else {
+                        // On Step 1 -> Go to dashboard
+                        switchView('view-dashboard');
+                    }
+                }
+            </script>
         </div>
 
         <!-- USER MANAGEMENT VIEW -->
@@ -949,7 +1143,7 @@
 
     <script>
         // ── CONFIGURATION: MASUKKAN URL WEB APP GOOGLE APPS SCRIPT DISINI ──
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxmP0HRQV3as38pmEBOlGQynKu5Zp-at3BC6rYiwEbJWeahKTIZXeMTbz42bN_hWQC0VQ/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwr7BeQcNPHy-nZ5L7bpAh4wkQU5AwVZ-O1YGjcTf7Xw-R1fkvu8aLJOL5yZfVJAHBXGg/exec";
 
         function toggleLoginCard(show) {
             const card = document.getElementById('login-card');
@@ -1391,10 +1585,13 @@
                 penyulang: document.getElementById('row-penyulang').value,
                 ruasSegmen: document.getElementById('row-ruas-segmen').value,
                 jenisPohon: document.getElementById('row-jenis-pohon').value,
-                jumlahPohon: document.getElementById('row-jumlah-pohon').value,
-                pengawasK3: document.getElementById('row-k3').value,
-                pengawas: document.getElementById('row-pengawas').value,
-                imgSebelum: document.getElementById('preview-row-sebelum').src,
+                jumlahTebang: document.getElementById('row-jumlah-tebang').value,
+                jumlahPangkas: document.getElementById('row-jumlah-pangkas').value,
+                pengawasK3: document.getElementById('row-k3').checked ? "Hadir" : "Tidak Hadir",
+                pengawasLapangan: document.getElementById('row-pengawas').checked ? "Hadir" : "Tidak Hadir",
+                catatan: document.getElementById('row-catatan').value,
+                imgSebelum1: document.getElementById('preview-row-sebelum-1').src,
+                imgSebelum2: document.getElementById('preview-row-sebelum-2').src,
                 imgProses: document.getElementById('preview-row-pelaksanaan').src,
                 imgSesudah: document.getElementById('preview-row-sesudah').src,
                 timestamp: new Date().toISOString(),
@@ -1427,7 +1624,8 @@
                 const payload = { ...data };
                 const safeImg = (val) => (val && typeof val === 'string' && val.startsWith('data:image')) ? val : "";
 
-                payload.imgSebelum = safeImg(payload.imgSebelum);
+                payload.imgSebelum1 = safeImg(payload.imgSebelum1);
+                payload.imgSebelum2 = safeImg(payload.imgSebelum2);
                 payload.imgProses = safeImg(payload.imgProses);
                 payload.imgSesudah = safeImg(payload.imgSesudah);
 
@@ -1498,9 +1696,13 @@
                     set('row-koordinat', d.koordinat);
                     set('row-status-veg', d.statusVeg);
                     set('row-jarak', d.jarak);
+                    const cbK3 = document.getElementById('row-k3');
+                    if (cbK3) cbK3.checked = (d.pengawasK3 === "Hadir");
+                    const cbPL = document.getElementById('row-pengawas');
+                    if (cbPL) cbPL.checked = (d.pengawasLapangan === "Hadir");
+                    set('row-jumlah-tebang', d.jumlahTebang);
+                    set('row-jumlah-pangkas', d.jumlahPangkas);
                     set('row-catatan', d.catatan);
-                    set('row-k3', d.pengawasK3);
-                    set('row-pengawas', d.pengawas);
                     // Actions checkboxes
                     if (d.actions) {
                         d.actions.forEach(act => {
