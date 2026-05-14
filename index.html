@@ -624,56 +624,29 @@
             <div class="max-w-2xl mx-auto px-edge-margin pt-md pb-xl space-y-md">
 
                 <!-- Segment 1: Informasi Umum -->
-                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-md">
-                    <div class="border-b border-outline-variant pb-2">
-                        <h3 class="font-label-lg text-primary-container uppercase tracking-widest">Informasi Umum</h3>
+                <div class="bg-white rounded-2xl shadow-sm border border-outline-variant/40 p-5 space-y-5">
+                    <div class="flex items-center gap-2 mb-2 border-b border-outline-variant/40 pb-3">
+                        <div class="w-7 h-7 rounded-full bg-primary-container/10 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary-container text-[16px]">info</span>
+                        </div>
+                        <h3 class="font-poppins text-sm font-bold text-on-surface uppercase tracking-wide">Informasi Umum</h3>
                     </div>
 
                     <!-- 2. No. WO -->
-                    <div class="space-y-xs">
-                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">No. WO /
-                            Task ID</label>
+                    <div class="space-y-1.5">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest ml-1">No. WO / Task ID</label>
                         <input id="row-no-wo" type="text"
-                            class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md font-data-mono transition-colors"
+                            class="hartek-input w-full h-12 bg-surface-container-low border-0 ring-1 ring-outline-variant/50 focus:ring-2 focus:ring-primary-container rounded-xl px-4 text-body-md font-data-mono transition-all"
                             placeholder="Contoh: ROW/2026/05/001" />
                     </div>
 
-                    <!-- 4. Titik Koordinat -->
-                    <div class="space-y-xs">
-                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Titik
-                            Koordinat (GPS)</label>
-                        <div class="flex gap-sm">
-                            <div class="relative flex-1">
-                                <input id="row-koordinat" type="text"
-                                    class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md pr-10 text-body-md font-data-mono transition-colors"
-                                    placeholder="Link Google Maps..." />
-                                <span
-                                    class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary-container cursor-pointer"
-                                    onclick="getGPS_ROW()">my_location</span>
-                            </div>
-                            <button type="button" onclick="getGPS_ROW()"
-                                class="h-12 w-12 bg-primary-container/10 text-primary-container border border-primary-container/20 rounded-lg flex items-center justify-center active:scale-95 transition-all hover:bg-primary-container/20">
-                                <span class="material-symbols-outlined">map</span>
-                            </button>
-                        </div>
-                        <p id="row-gps-status" class="text-[11px] text-on-surface-variant hidden"></p>
-                    </div>
-                </div>
-
-                <!-- Segment 2: Detail Lokasi Aset -->
-                <div class="bg-white rounded-xl shadow-sm border border-outline-variant p-md space-y-md">
-                    <div class="border-b border-outline-variant pb-2">
-                        <h3 class="font-label-lg text-primary-container uppercase tracking-widest">Detail Lokasi Aset</h3>
-                    </div>
-
-                    <!-- 5. Penyulang -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
-                        <div class="space-y-xs">
-                            <label
-                                class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Penyulang</label>
+                    <!-- 5. Penyulang & Ruas Segmen -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-1.5">
+                            <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest ml-1">Penyulang</label>
                             <div class="relative">
                                 <select id="row-penyulang"
-                                    class="hartek-select w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md appearance-none transition-colors">
+                                    class="hartek-select w-full h-12 bg-surface-container-low border-0 ring-1 ring-outline-variant/50 focus:ring-2 focus:ring-primary-container rounded-xl px-4 text-body-md appearance-none transition-all">
                                     <option value="" disabled selected>Pilih penyulang...</option>
                                     <option value="BTJR">BTJR</option>
                                     <option value="CKLW">CKLW</option>
@@ -688,24 +661,52 @@
                                     <option value="RJDL">RJDL</option>
                                     <option value="SLCU">SLCU</option>
                                 </select>
-                                <span
-                                    class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
                             </div>
                         </div>
-                        <div class="space-y-xs">
-                            <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">RUAS/SEGMEN</label>
+                        <div class="space-y-1.5">
+                            <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest ml-1">RUAS/SEGMEN</label>
                             <input id="row-ruas-segmen" type="text"
-                                class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
+                                class="hartek-input w-full h-12 bg-surface-container-low border-0 ring-1 ring-outline-variant/50 focus:ring-2 focus:ring-primary-container rounded-xl px-4 text-body-md transition-all"
                                 placeholder="Masukkan ruas/segmen..." />
                         </div>
                     </div>
+                </div>
+
+                <!-- Segment 2: Detail Lokasi Aset -->
+                <div class="bg-white rounded-2xl shadow-sm border border-outline-variant/40 p-5 space-y-5">
+                    <div class="flex items-center gap-2 mb-2 border-b border-outline-variant/40 pb-3">
+                        <div class="w-7 h-7 rounded-full bg-primary-container/10 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-primary-container text-[16px]">location_on</span>
+                        </div>
+                        <h3 class="font-poppins text-sm font-bold text-on-surface uppercase tracking-wide">Detail Lokasi Aset</h3>
+                    </div>
+
+                    <!-- 4. Titik Koordinat -->
+                    <div class="space-y-1.5">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest ml-1">Titik Koordinat (GPS)</label>
+                        <div class="flex gap-3">
+                            <div class="relative flex-1">
+                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-primary-container/50 text-[20px]">pin_drop</span>
+                                <input id="row-koordinat" type="text"
+                                    class="hartek-input w-full h-12 bg-surface-container-low border-0 ring-1 ring-outline-variant/50 focus:ring-2 focus:ring-primary-container rounded-xl pl-10 pr-10 text-body-md font-data-mono transition-all"
+                                    placeholder="Link Google Maps..." />
+                                <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-primary-container cursor-pointer hover:scale-110 transition-transform"
+                                    onclick="getGPS_ROW()">my_location</span>
+                            </div>
+                            <button type="button" onclick="getGPS_ROW()"
+                                class="h-12 w-12 bg-primary-container/10 text-primary-container border-0 ring-1 ring-primary-container/30 rounded-xl flex items-center justify-center active:scale-95 transition-all hover:bg-primary-container/20">
+                                <span class="material-symbols-outlined">map</span>
+                            </button>
+                        </div>
+                        <p id="row-gps-status" class="text-[11px] text-on-surface-variant hidden ml-1"></p>
+                    </div>
 
                     <!-- 6. Jalur / Section / Tiang -->
-                    <div class="space-y-xs">
-                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Jalur /
-                            Section / Tiang</label>
+                    <div class="space-y-1.5">
+                        <label class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest ml-1">Jalur / Section / Tiang</label>
                         <input id="row-section" type="text"
-                            class="hartek-input w-full h-12 bg-surface-container-low border border-outline-variant rounded-lg px-md text-body-md transition-colors"
+                            class="hartek-input w-full h-12 bg-surface-container-low border-0 ring-1 ring-outline-variant/50 focus:ring-2 focus:ring-primary-container rounded-xl px-4 text-body-md transition-all"
                             placeholder="Contoh: SUTET B3 / Tiang 44-50" />
                     </div>
                 </div>
