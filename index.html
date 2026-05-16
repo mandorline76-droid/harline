@@ -434,16 +434,16 @@
                 <!-- 2. No. WO -->
                 <div class="flex flex-col gap-1.5">
                     <label class="text-[11px] text-gray-400 font-bold ml-4 uppercase tracking-[0.1em] font-montserrat">No. WO</label>
-                    <input id="hartek-no-wo" type="text"
-                        class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal"
+                    <input id="hartek-no-wo" type="text" oninput="this.value = this.value.toUpperCase()"
+                        class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal uppercase"
                         placeholder="Contoh: 0046/32001902/III/2026" />
                 </div>
 
                 <!-- 3. Lokasi Pekerjaan -->
                 <div class="flex flex-col gap-1.5">
                     <label class="text-[11px] text-gray-400 font-bold ml-4 uppercase tracking-[0.1em] font-montserrat">Lokasi / Nama Gardu</label>
-                    <input id="hartek-lokasi" type="text"
-                        class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal"
+                    <input id="hartek-lokasi" type="text" oninput="this.value = this.value.toUpperCase()"
+                        class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal uppercase"
                         placeholder="Nama ruas atau lokasi spesifik" />
                 </div>
 
@@ -464,32 +464,33 @@
                 <!-- 6. Jenis Pekerjaan -->
                 <div class="flex flex-col gap-1.5">
                     <label class="text-[11px] text-gray-400 font-bold ml-4 uppercase tracking-[0.1em] font-montserrat">Jenis Pekerjaan</label>
-                    <input id="hartek-jenis" type="text"
-                        class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal"
+                    <input id="hartek-jenis" type="text" oninput="this.value = this.value.toUpperCase()"
+                        class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal uppercase"
                         placeholder="Ketik jenis pekerjaan di sini..." />
                 </div>
 
                 <!-- 5. Material Yang Dibutuhkan -->
                 <div class="flex flex-col gap-1.5">
                     <label class="text-[11px] text-gray-400 font-bold ml-4 uppercase tracking-[0.1em] font-montserrat">Material Yang Dibutuhkan</label>
-                    <textarea id="hartek-material" rows="3"
-                        class="w-full bg-white border border-gray-200 rounded-[22px] p-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal resize-none"
+                    <textarea id="hartek-material" rows="3" oninput="this.value = this.value.toUpperCase()"
+                        class="w-full bg-white border border-gray-200 rounded-[22px] p-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal resize-none uppercase"
                         placeholder="Sebutkan jenis dan jumlah material..."></textarea>
                 </div>
 
-                <!-- Pengawas Grid -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-[11px] text-gray-400 font-bold ml-4 uppercase tracking-[0.1em] font-montserrat">Pengawas K3</label>
-                        <input id="hartek-k3" type="text"
-                            class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal"
-                            placeholder="Nama K3" />
-                    </div>
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-[11px] text-gray-400 font-bold ml-4 uppercase tracking-[0.1em] font-montserrat">Pengawas Kerja</label>
-                        <input id="hartek-pengawas" type="text"
-                            class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal"
-                            placeholder="Nama lapangan" />
+                <!-- Pengawas Checkboxes -->
+                <div class="bg-white rounded-[32px] shadow-sm border border-gray-100 p-6 space-y-4">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] font-montserrat">Kehadiran Pengawas</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <label class="flex flex-col items-center justify-center p-4 rounded-[24px] border-2 border-gray-50 bg-gray-50/30 active:scale-95 transition-all cursor-pointer has-[:checked]:border-[#0890FE] has-[:checked]:bg-[#0890FE]/5 group">
+                            <input type="checkbox" id="hartek-k3" class="hidden peer">
+                            <span class="material-symbols-outlined text-gray-300 peer-checked:text-[#0890FE] mb-1">security</span>
+                            <span class="text-[10px] font-bold text-gray-400 peer-checked:text-[#0890FE] uppercase">Pengawas K3</span>
+                        </label>
+                        <label class="flex flex-col items-center justify-center p-4 rounded-[24px] border-2 border-gray-50 bg-gray-50/30 active:scale-95 transition-all cursor-pointer has-[:checked]:border-[#0890FE] has-[:checked]:bg-[#0890FE]/5 group">
+                            <input type="checkbox" id="hartek-pengawas" class="hidden peer">
+                            <span class="material-symbols-outlined text-gray-300 peer-checked:text-[#0890FE] mb-1">engineering</span>
+                            <span class="text-[10px] font-bold text-gray-400 peer-checked:text-[#0890FE] uppercase">Pengawas Lap.</span>
+                        </label>
                     </div>
                 </div>
 
@@ -502,15 +503,34 @@
                     <!-- 9. Foto Kegiatan -->
                     <div class="space-y-4">
                         <label class="text-[11px] text-gray-400 font-bold ml-2 uppercase tracking-[0.1em] font-montserrat">Foto Kegiatan</label>
-                        <div class="grid grid-cols-3 gap-4">
-                            <!-- Foto Sebelum -->
-                            <div id="slot-sebelum"
-                                onclick="triggerPhoto('photo-sebelum', 'slot-sebelum', 'preview-sebelum')"
-                                class="aspect-square bg-gray-50 border-2 border-dashed border-gray-200 rounded-[24px] flex flex-col items-center justify-center gap-2 cursor-pointer transition-all active:scale-95 relative overflow-hidden group">
-                                <span class="material-symbols-outlined text-gray-300 group-hover:text-[#0890FE] transition-colors">add_a_photo</span>
-                                <span class="text-[9px] font-bold text-gray-300 uppercase font-montserrat group-hover:text-[#0890FE]">Sebelum</span>
-                                <img id="preview-sebelum" class="absolute inset-0 w-full h-full object-cover hidden" alt="Foto Sebelum" />
-                                <input id="photo-sebelum" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-sebelum', 'slot-sebelum', 'Sebelum')" />
+                    <!-- 9. Foto Kegiatan -->
+                    <div class="space-y-4">
+                        <label class="text-[11px] text-gray-400 font-bold ml-2 uppercase tracking-[0.1em] font-montserrat">Foto Kegiatan</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <!-- Foto Sebelum 1 -->
+                            <div class="space-y-2">
+                                <label class="text-[9px] font-bold text-gray-400 uppercase ml-2">Foto 1</label>
+                                <div id="slot-sebelum-1"
+                                    onclick="triggerPhoto('photo-sebelum-1', 'slot-sebelum-1', 'preview-sebelum-1')"
+                                    class="aspect-square bg-gray-50 border-2 border-dashed border-gray-200 rounded-[24px] flex flex-col items-center justify-center gap-2 cursor-pointer transition-all active:scale-95 relative overflow-hidden group">
+                                    <span class="material-symbols-outlined text-gray-300 group-hover:text-[#0890FE] transition-colors">add_a_photo</span>
+                                    <span class="text-[9px] font-bold text-gray-300 uppercase font-montserrat group-hover:text-[#0890FE]">Ambil Foto</span>
+                                    <img id="preview-sebelum-1" class="absolute inset-0 w-full h-full object-cover hidden" alt="Foto Sebelum 1" />
+                                    <input id="photo-sebelum-1" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-sebelum-1', 'slot-sebelum-1', 'Sebelum 1')" />
+                                </div>
+                            </div>
+
+                            <!-- Foto Sebelum 2 -->
+                            <div class="space-y-2">
+                                <label class="text-[9px] font-bold text-gray-400 uppercase ml-2">Foto 2</label>
+                                <div id="slot-sebelum-2"
+                                    onclick="triggerPhoto('photo-sebelum-2', 'slot-sebelum-2', 'preview-sebelum-2')"
+                                    class="aspect-square bg-gray-50 border-2 border-dashed border-gray-200 rounded-[24px] flex flex-col items-center justify-center gap-2 cursor-pointer transition-all active:scale-95 relative overflow-hidden group">
+                                    <span class="material-symbols-outlined text-gray-300 group-hover:text-[#0890FE] transition-colors">add_a_photo</span>
+                                    <span class="text-[9px] font-bold text-gray-300 uppercase font-montserrat group-hover:text-[#0890FE]">Ambil Foto</span>
+                                    <img id="preview-sebelum-2" class="absolute inset-0 w-full h-full object-cover hidden" alt="Foto Sebelum 2" />
+                                    <input id="photo-sebelum-2" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-sebelum-2', 'slot-sebelum-2', 'Sebelum 2')" />
+                                </div>
                             </div>
 
                             <!-- Foto Pelaksanaan -->
@@ -530,32 +550,20 @@
                                 <span class="material-symbols-outlined text-gray-300 group-hover:text-[#0890FE] transition-colors">task_alt</span>
                                 <span class="text-[9px] font-bold text-gray-300 uppercase font-montserrat group-hover:text-[#0890FE]">Sesudah</span>
                                 <img id="preview-sesudah" class="absolute inset-0 w-full h-full object-cover hidden" alt="Foto Sesudah" />
-                                <input id="photo-sesudah" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-sesudah', 'slot-sesudah', 'Sesudah')" />
+                                <input id="photo-sesudah" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-sesudah', 'slot-sesudah', 'SESUDAH')" />
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div><!-- end form card -->
 
                 <!-- Actions -->
-                <div class="flex flex-col items-center gap-md pb-xl">
+                <div class="flex flex-col items-center gap-6 mt-8 pb-xl">
                     <button id="btn-kirim-hartek" type="button" onclick="submitHarTek()"
-                        class="w-[260px] h-14 bg-gradient-to-r from-[#005a9e] to-[#0078d4] text-white font-bold text-lg rounded-full flex items-center justify-center gap-md active:scale-95 transition-all shadow-lg hover:shadow-xl hover:brightness-105 border-b-4 border-[#003e6f]">
-                        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">send</span>
-                        <span>KIRIM LAPORAN</span>
+                        class="w-[200px] h-12 bg-[#0890FE] text-white font-bold rounded-full shadow-[0_10px_20px_rgba(8,144,254,0.3)] hover:brightness-95 active:scale-[0.98] transition-all text-base font-montserrat tracking-wide flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-xl">send</span>
+                        <span>KIRIM</span>
                     </button>
-                    
-                    <div class="flex gap-md w-full max-w-[320px]">
-                        <button type="button" onclick="saveDraftHarTek()"
-                            class="flex-1 h-12 bg-[#e0e0e0] text-black font-bold text-[11px] rounded-full flex items-center justify-center gap-sm active:scale-95 transition-all shadow hover:bg-[#d5d5d5] border-b-4 border-[#bdbdbd]">
-                            <span class="material-symbols-outlined text-sm">save</span>
-                            <span>DRAFT</span>
-                        </button>
-                        <button type="button" onclick="switchView('view-dashboard')"
-                            class="flex-1 h-12 bg-red-500 text-white font-bold text-[11px] rounded-full flex items-center justify-center gap-sm active:scale-95 transition-all shadow hover:bg-red-600 border-b-4 border-red-800">
-                            <span class="material-symbols-outlined text-sm">close</span>
-                            <span>BATAL</span>
-                        </button>
-                    </div>
                 </div>
 
             </div><!-- end max-w container -->
@@ -588,22 +596,22 @@
                 <div id="row-step-1" class="space-y-6">
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[11px] text-gray-400 font-bold ml-4 uppercase tracking-[0.1em] font-montserrat">No. WO</label>
-                        <input id="row-no-wo" type="text"
-                            class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal"
+                        <input id="row-no-wo" type="text" oninput="this.value = this.value.toUpperCase()"
+                            class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal uppercase"
                             placeholder="Contoh: ROW/2026/05/001" />
                     </div>
 
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[11px] text-gray-400 font-bold ml-4 uppercase tracking-[0.1em] font-montserrat">Penyulang</label>
-                        <input id="row-penyulang" type="text"
+                        <input id="row-penyulang" type="text" oninput="this.value = this.value.toUpperCase()"
                             class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal uppercase"
                             placeholder="Masukkan penyulang..." />
                     </div>
 
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[11px] text-gray-400 font-bold ml-4 uppercase tracking-[0.1em] font-montserrat">Segmen</label>
-                        <input id="row-ruas-segmen" type="text"
-                            class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal"
+                        <input id="row-ruas-segmen" type="text" oninput="this.value = this.value.toUpperCase()"
+                            class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal uppercase"
                             placeholder="Masukkan segmen..." />
                     </div>
                 </div>
@@ -620,8 +628,8 @@
                 <div id="row-step-2-lokasi" class="hidden space-y-6">
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[11px] text-gray-400 font-bold ml-4 uppercase tracking-[0.1em] font-montserrat">Jalur / Section / Tiang</label>
-                        <input id="row-section" type="text"
-                            class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal"
+                        <input id="row-section" type="text" oninput="this.value = this.value.toUpperCase()"
+                            class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal uppercase"
                             placeholder="Cth: SUTET B3 / T.44" />
                     </div>
 
@@ -641,19 +649,26 @@
                     <div class="bg-white rounded-[32px] shadow-sm border border-gray-100 p-6 space-y-4">
                         <label class="text-[11px] text-gray-400 font-bold ml-2 uppercase tracking-[0.1em] font-montserrat">Foto Sebelum</label>
                         <div class="grid grid-cols-2 gap-4">
-                            <div id="slot-row-sebelum-1" onclick="triggerPhoto('photo-row-sebelum-1', 'slot-row-sebelum-1', 'preview-row-sebelum-1')"
-                                class="aspect-square bg-gray-50 border-2 border-dashed border-gray-200 rounded-[24px] flex flex-col items-center justify-center gap-2 cursor-pointer transition-all active:scale-95 relative overflow-hidden group">
-                                <span class="material-symbols-outlined text-gray-300 group-hover:text-[#0890FE]">add_a_photo</span>
-                                <span class="text-[9px] font-bold text-gray-300 uppercase font-montserrat group-hover:text-[#0890FE]">Foto 1</span>
-                                <img id="preview-row-sebelum-1" class="absolute inset-0 w-full h-full object-cover hidden" alt="Sebelum 1" />
-                                <input id="photo-row-sebelum-1" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-row-sebelum-1', 'slot-row-sebelum-1', 'Sebelum 1')" />
+                            <div class="space-y-2">
+                                <label class="text-[9px] font-bold text-gray-400 uppercase ml-2">Foto 1</label>
+                                <div id="slot-row-sebelum-1" onclick="triggerPhoto('photo-row-sebelum-1', 'slot-row-sebelum-1', 'preview-row-sebelum-1')"
+                                    class="aspect-square bg-gray-50 border-2 border-dashed border-gray-200 rounded-[24px] flex flex-col items-center justify-center gap-2 cursor-pointer transition-all active:scale-95 relative overflow-hidden group">
+                                    <span class="material-symbols-outlined text-gray-300 group-hover:text-[#0890FE]">add_a_photo</span>
+                                    <span class="text-[9px] font-bold text-gray-300 uppercase font-montserrat group-hover:text-[#0890FE]">Ambil Foto</span>
+                                    <img id="preview-row-sebelum-1" class="absolute inset-0 w-full h-full object-cover hidden" alt="Sebelum 1" />
+                                    <input id="photo-row-sebelum-1" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-row-sebelum-1', 'slot-row-sebelum-1', 'Sebelum 1')" />
+                                </div>
                             </div>
-                            <div id="slot-row-sebelum-2" onclick="triggerPhoto('photo-row-sebelum-2', 'slot-row-sebelum-2', 'preview-row-sebelum-2')"
-                                class="aspect-square bg-gray-50 border-2 border-dashed border-gray-200 rounded-[24px] flex flex-col items-center justify-center gap-2 cursor-pointer transition-all active:scale-95 relative overflow-hidden group">
-                                <span class="material-symbols-outlined text-gray-300 group-hover:text-[#0890FE]">add_a_photo</span>
-                                <span class="text-[9px] font-bold text-gray-300 uppercase font-montserrat group-hover:text-[#0890FE]">Foto 2</span>
-                                <img id="preview-row-sebelum-2" class="absolute inset-0 w-full h-full object-cover hidden" alt="Sebelum 2" />
-                                <input id="photo-row-sebelum-2" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-row-sebelum-2', 'slot-row-sebelum-2', 'Sebelum 2')" />
+                            <div class="space-y-2">
+                                <label class="text-[9px] font-bold text-gray-400 uppercase ml-2">Foto 2</label>
+                                <div id="slot-row-sebelum-2" onclick="triggerPhoto('photo-row-sebelum-2', 'slot-row-sebelum-2', 'preview-row-sebelum-2')"
+                                    class="aspect-square bg-gray-50 border-2 border-dashed border-gray-200 rounded-[24px] flex flex-col items-center justify-center gap-2 cursor-pointer transition-all active:scale-95 relative overflow-hidden group">
+                                    <span class="material-symbols-outlined text-gray-300 group-hover:text-[#0890FE]">add_a_photo</span>
+                                    <span class="text-[9px] font-bold text-gray-300 uppercase font-montserrat group-hover:text-[#0890FE]">Ambil Foto</span>
+                                    <img id="preview-row-sebelum-2" class="absolute inset-0 w-full h-full object-cover hidden" alt="Sebelum 2" />
+                                    <input id="photo-row-sebelum-2" type="file" accept="image/*" capture="environment" class="hidden" 
+                                        onchange="showPreview(this, 'preview-row-sebelum-2', 'slot-row-sebelum-2', document.getElementById('row-section').value || 'Sebelum 2')" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -671,26 +686,15 @@
                 <div id="row-step-3-temuan" class="hidden space-y-6">
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[11px] text-gray-400 font-bold ml-4 uppercase tracking-[0.1em] font-montserrat">Jenis Pohon</label>
-                        <input id="row-jenis-pohon" type="text"
-                            class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal"
+                        <input id="row-jenis-pohon" type="text" oninput="this.value = this.value.toUpperCase()"
+                            class="w-full h-14 bg-white border border-gray-200 rounded-[22px] px-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal uppercase"
                             placeholder="Cth: Mangga, Kelapa..." />
-                    </div>
-
-                    <div class="bg-white rounded-[32px] shadow-sm border border-gray-100 p-6 space-y-4">
-                        <label class="text-[11px] text-gray-400 font-bold ml-2 uppercase tracking-[0.1em] font-montserrat">Foto Pelaksanaan</label>
-                        <div id="slot-row-pelaksanaan" onclick="triggerPhoto('photo-row-pelaksanaan', 'slot-row-pelaksanaan', 'preview-row-pelaksanaan')"
-                            class="w-full aspect-video bg-gray-50 border-2 border-dashed border-gray-200 rounded-[24px] flex flex-col items-center justify-center gap-2 cursor-pointer transition-all active:scale-95 relative overflow-hidden group">
-                            <span class="material-symbols-outlined text-gray-300 group-hover:text-[#0890FE] text-3xl">pending_actions</span>
-                            <span class="text-[11px] font-bold text-gray-300 uppercase font-montserrat group-hover:text-[#0890FE]">Tap untuk Ambil Foto</span>
-                            <img id="preview-row-pelaksanaan" class="absolute inset-0 w-full h-full object-cover hidden" alt="Pelaksanaan" />
-                            <input id="photo-row-pelaksanaan" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-row-pelaksanaan', 'slot-row-pelaksanaan', 'Pelaksanaan')" />
-                        </div>
                     </div>
 
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[11px] text-gray-400 font-bold ml-4 uppercase tracking-[0.1em] font-montserrat">Catatan</label>
-                        <textarea id="row-catatan" rows="3"
-                            class="w-full bg-white border border-gray-200 rounded-[22px] p-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal resize-none"
+                        <textarea id="row-catatan" rows="3" oninput="this.value = this.value.toUpperCase()"
+                            class="w-full bg-white border border-gray-200 rounded-[22px] p-6 text-sm font-bold text-gray-700 outline-none focus:border-[#0890FE] transition-all font-montserrat placeholder:text-gray-300 placeholder:font-normal resize-none uppercase"
                             placeholder="Tulis detail temuan..."></textarea>
                     </div>
 
@@ -708,6 +712,18 @@
                                 <span class="material-symbols-outlined text-gray-300 peer-checked:text-[#0890FE] mb-1">engineering</span>
                                 <span class="text-[10px] font-bold text-gray-400 peer-checked:text-[#0890FE] uppercase">Pengawas Lap.</span>
                             </label>
+                        </div>
+                    </div>
+
+                    <!-- Foto Pelaksanaan -->
+                    <div class="bg-white rounded-[32px] shadow-sm border border-gray-100 p-6 space-y-4">
+                        <label class="text-[11px] text-gray-400 font-bold ml-2 uppercase tracking-[0.1em] font-montserrat">Foto Pelaksanaan</label>
+                        <div id="slot-row-pelaksanaan" onclick="triggerPhoto('photo-row-pelaksanaan', 'slot-row-pelaksanaan', 'preview-row-pelaksanaan')"
+                            class="w-full aspect-video bg-gray-50 border-2 border-dashed border-gray-200 rounded-[24px] flex flex-col items-center justify-center gap-2 cursor-pointer transition-all active:scale-95 relative overflow-hidden group">
+                            <span class="material-symbols-outlined text-gray-300 group-hover:text-[#0890FE] text-3xl">pending_actions</span>
+                            <span class="text-[11px] font-bold text-gray-300 uppercase font-montserrat group-hover:text-[#0890FE]">Tap untuk Ambil Foto</span>
+                            <img id="preview-row-pelaksanaan" class="absolute inset-0 w-full h-full object-cover hidden" alt="Pelaksanaan" />
+                            <input id="photo-row-pelaksanaan" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-row-pelaksanaan', 'slot-row-pelaksanaan', 'Pelaksanaan')" />
                         </div>
                     </div>
                 </div>
@@ -745,14 +761,19 @@
                             <span class="material-symbols-outlined text-gray-300 group-hover:text-[#0890FE] text-3xl">task_alt</span>
                             <span class="text-[11px] font-bold text-gray-300 uppercase font-montserrat group-hover:text-[#0890FE]">Tap untuk Ambil Foto</span>
                             <img id="preview-row-sesudah" class="absolute inset-0 w-full h-full object-cover hidden" alt="Sesudah" />
-                            <input id="photo-row-sesudah" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-row-sesudah', 'slot-row-sesudah', 'Sesudah')" />
+                            <input id="photo-row-sesudah" type="file" accept="image/*" capture="environment" class="hidden" 
+                                onchange="showPreview(this, 'preview-row-sesudah', 'slot-row-sesudah', (document.getElementById('row-section').value ? document.getElementById('row-section').value + ' - SESUDAH' : 'SESUDAH'))" />
                         </div>
                     </div>
                 </div><!-- end form card -->
 
                 <!-- Actions -->
-                <div id="row-actions" class="hidden pb-xl">
-                    <!-- Tombol kirim, draft, batal dihilangkan sementara -->
+                <div id="row-actions" class="hidden flex-col items-center gap-6 mt-8 pb-xl">
+                    <button id="btn-kirim-row" type="button" onclick="submitROW()"
+                        class="w-[200px] h-12 bg-[#0890FE] text-white font-bold rounded-full shadow-[0_10px_20px_rgba(8,144,254,0.3)] hover:brightness-95 active:scale-[0.98] transition-all text-base font-montserrat tracking-wide flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-xl">send</span>
+                        <span>KIRIM</span>
+                    </button>
                 </div>
 
             </div><!-- end max-w container -->
@@ -760,6 +781,9 @@
             <!-- Actions script for ROW steps -->
             <script>
                 function nextStepRow() {
+                    // Simpan Draft Lokal (Silent)
+                    saveDraftROW(true);
+                    
                     // Hide Step 1
                     document.getElementById('row-step-1').classList.add('hidden');
                     document.getElementById('row-btn-next').classList.add('hidden');
@@ -768,11 +792,17 @@
                     document.getElementById('row-step-2-lokasi').classList.remove('hidden');
                     document.getElementById('row-btn-next-2').classList.remove('hidden');
                     
+                    // Auto Fetch GPS for ROW
+                    getGPS_ROW();
+
                     // Scroll to top
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
 
                 function nextStepRow2() {
+                    // Simpan Draft Lokal (Silent)
+                    saveDraftROW(true);
+                    
                     // Hide Step 2
                     document.getElementById('row-step-2-lokasi').classList.add('hidden');
                     document.getElementById('row-btn-next-2').classList.add('hidden');
@@ -786,6 +816,9 @@
                 }
 
                 function nextStepRow3() {
+                    // Simpan Draft Lokal (Silent)
+                    saveDraftROW(true);
+                    
                     // Hide Step 3 and Next 3
                     document.getElementById('row-step-3-temuan').classList.add('hidden');
                     document.getElementById('row-btn-next-3').classList.add('hidden');
@@ -939,7 +972,7 @@
             <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center shadow-sm">
                 <span class="material-symbols-outlined text-[#0890FE] text-2xl" style="font-variation-settings:'FILL' 1;">home</span>
             </div>
-            <span class="text-[10px] font-semibold text-[#0890FE] uppercase tracking-[0.2em]">Dashboard</span>
+
         </button>
     </nav>
 
@@ -960,7 +993,7 @@
         }
 
         // ── INITIALIZATION ──: MASUKKAN URL WEB APP GOOGLE APPS SCRIPT DISINI ──
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwr7BeQcNPHy-nZ5L7bpAh4wkQU5AwVZ-O1YGjcTf7Xw-R1fkvu8aLJOL5yZfVJAHBXGg/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxYIxyR3Gwc6GrFTiIJjhvPVBtcF9NvNnyJF5KIo15AJ4NJgA6SRC4hlBptDaNSuJoyqA/exec";
 
         function switchView(viewId) {
             // Hide all views
@@ -1059,6 +1092,8 @@
 
             // Auto-fill today's date when opening forms
             if (viewId === 'view-input-hartek') {
+                resetHarTekForm();
+                getGPS(); // Auto-fetch GPS
                 const tanggalInput = document.getElementById('hartek-tanggal');
                 if (tanggalInput) {
                     const now = new Date();
@@ -1067,12 +1102,76 @@
                 }
             }
             if (viewId === 'view-input-row') {
+                resetROWForm();
                 const tanggalInput = document.getElementById('row-tanggal');
                 if (tanggalInput) {
                     const now = new Date();
                     tanggalInput.value = now.toISOString().split('T')[0];
                     if (typeof updateDateDisplay === 'function') updateDateDisplay('row-tanggal', 'row-tanggal-display');
                 }
+            }
+        }
+
+        function resetHarTekForm() {
+            console.log('Resetting HarTek Form...');
+            // 1. Reset Text Inputs
+            ['hartek-no-wo', 'hartek-lokasi', 'hartek-koordinat', 'hartek-jenis', 'hartek-material'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+            // 2. Reset Checkboxes
+            document.querySelectorAll('#view-input-hartek input[type="checkbox"]').forEach(cb => cb.checked = false);
+            // 3. Reset Photos
+            ['preview-sebelum-1', 'preview-sebelum-2', 'preview-pelaksanaan', 'preview-sesudah'].forEach(id => {
+                const img = document.getElementById(id);
+                if (img) { img.src = ''; img.classList.add('hidden'); }
+            });
+            ['photo-sebelum-1', 'photo-sebelum-2', 'photo-pelaksanaan', 'photo-sesudah'].forEach(id => {
+                const inp = document.getElementById(id);
+                if (inp) inp.value = '';
+            });
+            document.querySelectorAll('#view-input-hartek .photo-slot span').forEach(s => s.classList.remove('opacity-0', 'hidden'));
+        }
+
+        function resetROWForm() {
+            console.log('Resetting ROW Form...');
+            currentRowSessionId = null;
+            
+            // 1. Reset Text Inputs
+            const inputs = ['row-no-wo', 'row-penyulang', 'row-ruas-segmen', 'row-section', 'row-koordinat', 'row-jenis-pohon', 'row-catatan', 'row-jumlah-tebang', 'row-jumlah-pangkas'];
+            inputs.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.value = '';
+            });
+
+            // 2. Reset Checkboxes
+            document.querySelectorAll('#view-input-row input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+            // 3. Reset Photos
+            const ids = ['row-sebelum-1', 'row-sebelum-2', 'row-pelaksanaan', 'row-sesudah'];
+            ids.forEach(id => {
+                const img = document.getElementById('preview-' + id);
+                if (img) { img.src = ''; img.classList.add('hidden'); }
+                const inp = document.getElementById('photo-' + id);
+                if (inp) inp.value = '';
+            });
+            document.querySelectorAll('#view-input-row [id^="slot-row-"] span').forEach(span => {
+                span.classList.remove('opacity-0', 'hidden');
+            });
+
+            // 4. Reset Steps
+            document.getElementById('row-step-1').classList.remove('hidden');
+            document.getElementById('row-btn-next').classList.remove('hidden');
+            document.getElementById('row-step-2-lokasi').classList.add('hidden');
+            document.getElementById('row-btn-next-2').classList.add('hidden');
+            document.getElementById('row-step-3-temuan').classList.add('hidden');
+            document.getElementById('row-btn-next-3').classList.add('hidden');
+            document.getElementById('row-step-4-finishing').classList.add('hidden');
+            
+            const actions = document.getElementById('row-actions');
+            if (actions) {
+                actions.classList.add('hidden');
+                actions.classList.remove('flex');
             }
         }
 
@@ -1087,15 +1186,14 @@
 
         // ── GPS Capture ──────────────────────────────────────────────
         function getGPS() {
-            const statusEl = document.getElementById('hartek-gps-status');
             const coordInput = document.getElementById('hartek-koordinat');
-            statusEl.textContent = '📡 Mendapatkan lokasi GPS…';
-            statusEl.classList.remove('hidden', 'text-error', 'text-green-700');
-            statusEl.classList.add('text-on-surface-variant');
+            const originalPlaceholder = coordInput.placeholder;
+            
+            coordInput.value = 'Mendapatkan lokasi... 📡';
+            coordInput.classList.add('animate-pulse', 'text-[#0890FE]');
 
             if (!navigator.geolocation) {
-                statusEl.textContent = '❌ Browser tidak mendukung GPS.';
-                statusEl.classList.add('text-error');
+                coordInput.value = 'GPS tidak didukung';
                 return;
             }
 
@@ -1103,30 +1201,29 @@
                 (pos) => {
                     const lat = pos.coords.latitude.toFixed(6);
                     const lng = pos.coords.longitude.toFixed(6);
-                    coordInput.value = `https://maps.google.com/?q=${lat},${lng}`;
-                    statusEl.textContent = `✅ Koordinat berhasil diambil (akurasi ±${Math.round(pos.coords.accuracy)}m)`;
-                    statusEl.classList.remove('text-on-surface-variant', 'text-error');
-                    statusEl.classList.add('text-green-700');
+                    // Format link disesuaikan dengan g_st=aw agar identik dengan share link
+                    coordInput.value = `https://maps.google.com/?q=${lat},${lng}&g_st=aw`;
+                    coordInput.classList.remove('animate-pulse', 'text-[#0890FE]');
+                    showToast('📍 Lokasi berhasil diambil', 'success');
                 },
                 (err) => {
-                    statusEl.textContent = `❌ GPS gagal: ${err.message}. Masukkan koordinat manual.`;
-                    statusEl.classList.remove('text-on-surface-variant');
-                    statusEl.classList.add('text-error');
+                    coordInput.value = '';
+                    coordInput.placeholder = 'Gagal ambil GPS. Isi manual.';
+                    coordInput.classList.remove('animate-pulse', 'text-[#0890FE]');
+                    showToast('❌ Gagal mendapatkan GPS', 'error');
                 },
                 { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
             );
         }
 
         function getGPS_ROW() {
-            const statusEl = document.getElementById('row-gps-status');
             const coordInput = document.getElementById('row-koordinat');
-            statusEl.textContent = '📡 Mendapatkan lokasi GPS…';
-            statusEl.classList.remove('hidden', 'text-error', 'text-green-700');
-            statusEl.classList.add('text-on-surface-variant');
+            
+            coordInput.value = 'Mendapatkan lokasi... 📡';
+            coordInput.classList.add('animate-pulse', 'text-[#0890FE]');
 
             if (!navigator.geolocation) {
-                statusEl.textContent = '❌ Browser tidak mendukung GPS.';
-                statusEl.classList.add('text-error');
+                coordInput.value = 'GPS tidak didukung';
                 return;
             }
 
@@ -1134,15 +1231,16 @@
                 (pos) => {
                     const lat = pos.coords.latitude.toFixed(6);
                     const lng = pos.coords.longitude.toFixed(6);
-                    coordInput.value = `https://maps.google.com/?q=${lat},${lng}`;
-                    statusEl.textContent = `✅ Koordinat berhasil diambil (akurasi ±${Math.round(pos.coords.accuracy)}m)`;
-                    statusEl.classList.remove('text-on-surface-variant', 'text-error');
-                    statusEl.classList.add('text-green-700');
+                    // Format link disesuaikan dengan g_st=aw agar identik dengan share link
+                    coordInput.value = `https://maps.google.com/?q=${lat},${lng}&g_st=aw`;
+                    coordInput.classList.remove('animate-pulse', 'text-[#0890FE]');
+                    showToast('📍 Lokasi berhasil diambil', 'success');
                 },
                 (err) => {
-                    statusEl.textContent = `❌ GPS gagal: ${err.message}. Masukkan koordinat manual.`;
-                    statusEl.classList.remove('text-on-surface-variant');
-                    statusEl.classList.add('text-error');
+                    coordInput.value = '';
+                    coordInput.placeholder = 'Gagal ambil GPS. Isi manual.';
+                    coordInput.classList.remove('animate-pulse', 'text-[#0890FE]');
+                    showToast('❌ Gagal mendapatkan GPS', 'error');
                 },
                 { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
             );
@@ -1194,8 +1292,8 @@
                     const img = new Image();
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
-                        // Quality resize
-                        const maxDim = 1200;
+                        // Quality resize - Optimized for Google Sheets payload limits
+                        const maxDim = 1000;
                         let w = img.width;
                         let h = img.height;
                         if (w > h) {
@@ -1216,33 +1314,41 @@
                                 hour: '2-digit', minute: '2-digit', second: '2-digit'
                             }).replace(/\//g, '-');
 
-                            const padding = w * 0.03;
-                            const fontSize = Math.floor(h * 0.04);
-                            ctx.font = `bold ${fontSize}px sans-serif`;
-                            const boxWidth = ctx.measureText(label.toUpperCase()).width + (fontSize * 3);
-                            const boxHeight = fontSize * 2.5;
+                            const fontSize = Math.floor(h * 0.05);
+                            const tsSize = Math.floor(fontSize * 0.65);
+                            const boxHeight = fontSize + tsSize + (h * 0.05);
 
                             // 1. Dynamic color based on label type
                             const labelLower = label.toLowerCase();
                             let boxColor;
-                            if (labelLower === 'pelaksanaan') {
-                                boxColor = 'rgba(230, 81, 0, 0.92)';    // Orange
-                            } else if (labelLower === 'sesudah') {
-                                boxColor = 'rgba(13, 71, 161, 0.92)';   // Blue
-                            } else {
-                                boxColor = 'rgba(183, 28, 28, 0.92)';   // Red (Sebelum)
-                            }
-                            ctx.fillStyle = boxColor;
-                            ctx.fillRect(0, h - boxHeight - padding, boxWidth, boxHeight);
-
-                            // 2. Draw White Label (Bold)
-                            ctx.fillStyle = 'white';
-                            ctx.font = `bold ${fontSize}px sans-serif`;
-                            ctx.fillText(label.toUpperCase(), padding, h - boxHeight - padding + (fontSize * 1.1));
+                            let textColor = 'white';
                             
-                            // 3. Draw Timestamp below label
-                            ctx.font = `bold ${fontSize * 0.6}px sans-serif`;
-                            ctx.fillText(ts, padding, h - boxHeight - padding + (fontSize * 2.1));
+                            const isSectionLabel = (labelLower !== 'sebelum 1' && labelLower !== 'pelaksanaan' && !labelLower.includes('sesudah'));
+
+                            if (isSectionLabel || labelLower === 'sebelum 2') {
+                                boxColor = 'rgba(255, 255, 255, 0.9)'; // White
+                                textColor = 'black';
+                            } else if (labelLower === 'pelaksanaan') {
+                                boxColor = 'rgba(230, 81, 0, 0.85)';    // Orange
+                            } else if (labelLower.includes('sesudah')) {
+                                boxColor = 'rgba(13, 71, 161, 0.85)';   // Blue
+                            } else {
+                                boxColor = 'rgba(183, 28, 28, 0.85)';   // Red
+                            }
+
+                            // Draw Full-Width Bar at bottom
+                            ctx.fillStyle = boxColor;
+                            ctx.fillRect(0, h - boxHeight, w, boxHeight);
+
+                            // 2. Draw Label (Centered)
+                            ctx.textAlign = 'center';
+                            ctx.fillStyle = textColor;
+                            ctx.font = `bold ${fontSize}px sans-serif`;
+                            ctx.fillText(label.toUpperCase(), w / 2, h - tsSize - (h * 0.03));
+                            
+                            // 3. Draw Timestamp below label (Centered)
+                            ctx.font = `bold ${tsSize}px sans-serif`;
+                            ctx.fillText(ts, w / 2, h - (h * 0.02));
                         }
 
                         resolve(canvas.toDataURL('image/jpeg', 0.8));
@@ -1289,9 +1395,10 @@
                 koordinat: document.getElementById('hartek-koordinat').value,
                 material: document.getElementById('hartek-material').value,
                 jenis: document.getElementById('hartek-jenis').value,
-                pengawasK3: document.getElementById('hartek-k3').value,
-                pengawas: document.getElementById('hartek-pengawas').value,
-                imgSebelum: document.getElementById('preview-sebelum').src,
+                pengawasK3: document.getElementById('hartek-k3').checked ? "Hadir" : "Tidak Hadir",
+                pengawas: document.getElementById('hartek-pengawas').checked ? "Hadir" : "Tidak Hadir",
+                imgSebelum1: document.getElementById('preview-sebelum-1').src,
+                imgSebelum2: document.getElementById('preview-sebelum-2').src,
                 imgProses: document.getElementById('preview-pelaksanaan').src,
                 imgSesudah: document.getElementById('preview-sesudah').src,
                 timestamp: new Date().toISOString(),
@@ -1327,9 +1434,12 @@
                 const payload = { ...data };
                 const safeImg = (val) => (val && typeof val === 'string' && val.startsWith('data:image')) ? val : "";
 
-                payload.imgSebelum = safeImg(payload.imgSebelum);
-                payload.imgProses = safeImg(payload.imgProses);
-                payload.imgSesudah = safeImg(payload.imgSesudah);
+                payload.imgSebelum = safeImg(data.imgSebelum1); // Alias untuk kolom lama
+                payload.imgSebelum1 = safeImg(data.imgSebelum1);
+                payload.imgSebelum2 = safeImg(data.imgSebelum2);
+                payload.imgPelaksanaan = safeImg(data.imgProses); // Alias untuk kolom lama
+                payload.imgProses = safeImg(data.imgProses);
+                payload.imgSesudah = safeImg(data.imgSesudah);
 
                 console.log('Sending HarTek Data...', payload);
 
@@ -1415,10 +1525,14 @@
                 const payload = { ...data };
                 const safeImg = (val) => (val && typeof val === 'string' && val.startsWith('data:image')) ? val : "";
 
-                payload.imgSebelum1 = safeImg(payload.imgSebelum1);
-                payload.imgSebelum2 = safeImg(payload.imgSebelum2);
-                payload.imgProses = safeImg(payload.imgProses);
-                payload.imgSesudah = safeImg(payload.imgSesudah);
+                payload.imgSebelum = safeImg(data.imgSebelum1); // Alias untuk kolom lama
+                payload.imgSebelum1 = safeImg(data.imgSebelum1);
+                payload.imgSebelum2 = safeImg(data.imgSebelum2);
+                payload.imgPelaksanaan = safeImg(data.imgProses); // Alias untuk kolom lama
+                payload.imgProses = safeImg(data.imgProses);
+                payload.imgSesudah = safeImg(data.imgSesudah);
+                payload.status = 'FINAL';
+                payload.sessionId = currentRowSessionId;
 
                 console.log('Sending ROW Data...', payload);
 
@@ -1431,6 +1545,7 @@
 
                 showToast('✅ Laporan HAR & ROW berhasil dikirim!', 'success');
                 localStorage.removeItem('row_draft');
+                currentRowSessionId = null;
 
                 // Clear form previews
                 document.querySelectorAll('#view-input-row .photo-slot img').forEach(img => img.classList.add('hidden'));
@@ -1447,11 +1562,11 @@
             }
         }
 
-        function saveDraftROW() {
+        function saveDraftROW(silent = false) {
             const data = collectROWData();
             data.status = 'DRAFT';
             localStorage.setItem('row_draft', JSON.stringify(data));
-            showToast('💾 Draft ROW tersimpan.', 'success');
+            if (!silent) showToast('💾 Draft ROW tersimpan.', 'success');
         }
 
         // ── Restore Drafts on Load ────────────────────────────────────
