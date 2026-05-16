@@ -932,31 +932,14 @@
     </main>
 
     <!-- BottomNavBar -->
-    <nav
-        class="bg-surface border-t-2 border-outline fixed bottom-0 w-full z-50 h-[72px] flex justify-around items-center px-xs">
+    <nav class="bg-white border-t border-gray-100 fixed bottom-0 w-full z-50 h-[84px] flex justify-center items-center shadow-[0_-8px_30px_rgba(0,0,0,0.04)]">
         <button onclick="switchView('view-dashboard')"
-            class="nav-item flex flex-col items-center justify-center rounded-full px-4 py-1 active:scale-95 transition-all bg-primary-container text-on-primary-container"
+            class="flex flex-col items-center justify-center gap-1.5 active:scale-90 transition-all"
             id="nav-dashboard">
-            <span class="material-symbols-outlined">dashboard</span>
-            <span class="font-label-md text-label-md">Dashboard</span>
-        </button>
-        <button
-            class="nav-item flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high active:scale-95 transition-all"
-            id="nav-activity">
-            <span class="material-symbols-outlined">list_alt</span>
-            <span class="font-label-md text-label-md">Activity</span>
-        </button>
-        <button
-            class="nav-item flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high active:scale-95 transition-all"
-            id="nav-inspections">
-            <span class="material-symbols-outlined">fact_check</span>
-            <span class="font-label-md text-label-md">Inspections</span>
-        </button>
-        <button
-            class="nav-item flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high active:scale-95 transition-all"
-            id="nav-settings">
-            <span class="material-symbols-outlined">settings</span>
-            <span class="font-label-md text-label-md">Settings</span>
+            <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center shadow-sm">
+                <span class="material-symbols-outlined text-[#0890FE] text-2xl" style="font-variation-settings:'FILL' 1;">home</span>
+            </div>
+            <span class="text-[10px] font-semibold text-[#0890FE] uppercase tracking-[0.2em]">Dashboard</span>
         </button>
     </nav>
 
@@ -1070,17 +1053,6 @@
                         if (hartekActivity) hartekActivity.style.display = 'none';
                     }
                 }
-            }
-
-            // Update Nav highlighting (simple version)
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('bg-primary-container', 'text-on-primary-container');
-                item.classList.add('text-on-surface-variant');
-            });
-            if (viewId === 'view-dashboard') {
-                const dashNav = document.getElementById('nav-dashboard');
-                dashNav.classList.remove('text-on-surface-variant');
-                dashNav.classList.add('bg-primary-container', 'text-on-primary-container');
             }
 
             window.scrollTo(0, 0);
