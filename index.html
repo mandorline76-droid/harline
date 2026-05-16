@@ -243,7 +243,7 @@
             <div class="w-full max-w-md bg-white rounded-[40px] shadow-2xl p-10 space-y-10">
                 <!-- Branding -->
                 <div class="text-center">
-                    <h1 class="text-4xl font-bold text-gray-800 font-montserrat tracking-tighter">HarLine</h1>
+                    <h1 class="text-4xl font-bold text-gray-800 font-montserrat tracking-tighter">Har<span class="text-[#0890FE]">Line</span></h1>
                     <p class="text-gray-400 text-xs mt-3 uppercase tracking-[0.2em] font-semibold">Laporan Pemeliharaan Online</p>
                     <div class="mt-6 w-16 h-1.5 bg-[#0890FE] mx-auto rounded-full"></div>
                 </div>
@@ -322,20 +322,20 @@
                     <div id="stats-container" class="grid grid-cols-2 gap-3 relative">
                         <div id="card-hartek" class="bg-white border-2 border-blue-50 p-3 rounded-[24px] flex items-center gap-3 shadow-sm">
                             <div class="w-9 h-9 rounded-xl bg-[#FFAF2A] flex items-center justify-center shadow-md shrink-0">
-                                <span class="material-symbols-outlined text-white text-lg">engineering</span>
+                                <span class="material-symbols-outlined text-white text-lg">analytics</span>
                             </div>
                             <div>
                                 <p class="text-gray-400 text-[9px] font-semibold uppercase tracking-wider">HarTek</p>
-                                <h4 class="text-base font-semibold text-gray-800">08</h4>
+                                <h4 id="count-hartek" class="text-base font-semibold text-gray-800">--</h4>
                             </div>
                         </div>
                         <div id="card-harrow" class="bg-white border-2 border-blue-50 p-3 rounded-[24px] flex items-center gap-3 shadow-sm">
                             <div class="w-9 h-9 rounded-xl bg-[#0890FE] flex items-center justify-center shadow-md shrink-0">
-                                <span class="material-symbols-outlined text-white text-lg">content_paste_search</span>
+                                <span class="material-symbols-outlined text-white text-lg">fact_check</span>
                             </div>
                             <div>
                                 <p class="text-gray-400 text-[9px] font-semibold uppercase tracking-wider">Harrow</p>
-                                <h4 class="text-base font-semibold text-gray-800">04</h4>
+                                <h4 id="count-harrow" class="text-base font-semibold text-gray-800">--</h4>
                             </div>
                         </div>
                     </div>
@@ -354,14 +354,14 @@
                         <div id="menu-hartek" onclick="switchView('view-input-hartek')"
                             class="h-[64px] rounded-[22px] bg-[#0890FE] p-2 flex items-center active:scale-95 transition-all shadow-xl border-2 border-white/20 cursor-pointer">
                             <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center ml-1 shadow-inner">
-                                <span class="material-symbols-outlined text-white text-[22px]">engineering</span>
+                                <span class="material-symbols-outlined text-white text-[22px]">bolt</span>
                             </div>
                             <h4 class="ml-3 font-bold text-[14px] text-white tracking-wide uppercase">HarTek</h4>
                         </div>
                         <div id="menu-harrow" onclick="switchView('view-input-row')"
                             class="h-[64px] rounded-[22px] bg-[#FFAF2A] p-2 flex items-center active:scale-95 transition-all shadow-xl border-2 border-white/20 cursor-pointer">
                             <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center ml-1 shadow-inner">
-                                <span class="material-symbols-outlined text-white text-[22px]">content_paste_search</span>
+                                <span class="material-symbols-outlined text-white text-[22px]">bolt</span>
                             </div>
                             <h4 class="ml-3 font-bold text-[14px] text-white tracking-wide uppercase">Harrow</h4>
                         </div>
@@ -380,25 +380,10 @@
                         <button class="text-[10px] font-semibold text-[#0890FE] uppercase tracking-wider hover:underline">Lihat Semua</button>
                     </div>
 
-                    <div class="space-y-4">
-                        <div id="activity-hartek" class="flex items-center gap-4 p-3 rounded-2xl bg-gray-50/50 border border-gray-100 transition-all hover:border-[#0890FE]/30">
-                            <div class="w-11 h-11 rounded-xl bg-white border border-blue-50 flex items-center justify-center shadow-sm shrink-0">
-                                <span class="material-symbols-outlined text-[#0890FE] text-xl">engineering</span>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <h4 class="text-[14px] font-bold text-gray-800 truncate">Perbaikan SUTM #44</h4>
-                                <p class="text-[10px] text-gray-400 font-medium">Petugas: Hendra • 2 jam lalu</p>
-                            </div>
-                        </div>
-
-                        <div id="activity-row" class="flex items-center gap-4 p-3 rounded-2xl bg-gray-50/50 border border-gray-100 transition-all hover:border-[#FFAF2A]/30">
-                            <div class="w-11 h-11 rounded-xl bg-white border border-orange-50 flex items-center justify-center shadow-sm shrink-0">
-                                <span class="material-symbols-outlined text-[#FFAF2A] text-xl">content_paste_search</span>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <h4 class="text-[14px] font-bold text-gray-800 truncate">Pemangkasan Ruas A-12</h4>
-                                <p class="text-[10px] text-gray-400 font-medium">Petugas: Budi • 5 jam lalu</p>
-                            </div>
+                    <div id="activity-list" class="space-y-4">
+                        <div class="flex flex-col items-center justify-center py-10 opacity-20">
+                            <span class="material-symbols-outlined text-4xl mb-2">sync</span>
+                            <p class="text-[10px] font-bold uppercase tracking-widest">Memuat Data...</p>
                         </div>
                     </div>
 
@@ -962,6 +947,83 @@
             </div>
         </div>
 
+        <!-- ACTIVITY DETAIL VIEW -->
+        <div id="view-activity-detail" class="page-view hidden min-h-screen bg-gray-50 pb-20">
+            <div class="px-4 py-6">
+                <!-- Header with Back -->
+                <div class="flex items-center justify-between mb-6">
+                    <button onclick="switchView('view-dashboard')" class="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-gray-600 active:scale-90 transition-all">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                    </button>
+                    <h2 class="text-base font-bold text-gray-800 uppercase tracking-widest">Detail Kegiatan</h2>
+                    <div class="w-10"></div>
+                </div>
+
+                <!-- Info Card -->
+                <div class="bg-white rounded-[32px] p-6 shadow-premium border border-gray-100 mb-6">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div id="detail-icon-bg" class="w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm">
+                            <span id="detail-icon" class="material-symbols-outlined text-white text-2xl">bolt</span>
+                        </div>
+                        <div>
+                            <h3 id="detail-title" class="text-lg font-bold text-gray-800">Nama Kegiatan</h3>
+                            <p id="detail-subtitle" class="text-xs text-gray-400 font-medium uppercase tracking-wider">Petugas • Tanggal</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 border-t border-gray-50 pt-6">
+                        <div class="space-y-1">
+                            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">No. WO</p>
+                            <p id="detail-wo" class="text-sm font-bold text-gray-700">-</p>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Lokasi</p>
+                            <p id="detail-lokasi" class="text-sm font-bold text-gray-700">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photos Grid -->
+                <div class="space-y-4 mb-6">
+                    <h4 class="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] ml-2">Dokumentasi Foto</h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="space-y-2">
+                            <p class="text-[9px] font-bold text-gray-400 text-center uppercase">Sebelum 1</p>
+                            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden border-2 border-white shadow-sm">
+                                <img id="detail-img-1" src="" class="w-full h-full object-cover" alt="Sblm 1">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-[9px] font-bold text-gray-400 text-center uppercase">Sebelum 2</p>
+                            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden border-2 border-white shadow-sm">
+                                <img id="detail-img-2" src="" class="w-full h-full object-cover" alt="Sblm 2">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-[9px] font-bold text-gray-400 text-center uppercase">Pelaksanaan</p>
+                            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden border-2 border-white shadow-sm">
+                                <img id="detail-img-3" src="" class="w-full h-full object-cover" alt="Prs">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-[9px] font-bold text-gray-400 text-center uppercase">Sesudah</p>
+                            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden border-2 border-white shadow-sm">
+                                <img id="detail-img-4" src="" class="w-full h-full object-cover" alt="Ssdh">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Actions -->
+                <div class="space-y-4">
+                    <a id="detail-map-link" href="#" target="_blank" class="w-full h-14 bg-[#0890FE] text-white font-bold rounded-2xl flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all">
+                        <span class="material-symbols-outlined">map</span>
+                        <span>LIHAT LOKASI (MAPS)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- BottomNavBar -->
@@ -993,7 +1055,7 @@
         }
 
         // ── INITIALIZATION ──: MASUKKAN URL WEB APP GOOGLE APPS SCRIPT DISINI ──
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxYIxyR3Gwc6GrFTiIJjhvPVBtcF9NvNnyJF5KIo15AJ4NJgA6SRC4hlBptDaNSuJoyqA/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyuNDIiqnOGdhJsf3hbR8MwQvfTOVQOmOs8cqQ2gEVZU5Af_Gpa20ZDzlhRjszleXkPmQ/exec";
 
         function switchView(viewId) {
             // Hide all views
@@ -1085,6 +1147,9 @@
                         disableMenu(hartekMenu); // Hartek tidak bisa diklik
                         if (hartekActivity) hartekActivity.style.display = 'none';
                     }
+
+                    // Muat data asli dari database
+                    loadDashboardData();
                 }
             }
 
@@ -1184,7 +1249,116 @@
             document.getElementById(displayId).innerText = dateObj.toLocaleDateString('id-ID', options);
         }
 
-        // ── GPS Capture ──────────────────────────────────────────────
+        // ── DASHBOARD DATA FETCHING ───────────────────────────────────
+        async function loadDashboardData() {
+            const countHT = document.getElementById('count-hartek');
+            const countROW = document.getElementById('count-harrow');
+            const listEl = document.getElementById('activity-list');
+
+            try {
+                const response = await fetch(`${SCRIPT_URL}?action=get_dashboard`);
+                const result = await response.json();
+
+                if (result.success) {
+                    // 1. Update Stats
+                    if (countHT) countHT.innerText = String(result.stats.hartek).padStart(2, '0');
+                    if (countROW) countROW.innerText = String(result.stats.harrow).padStart(2, '0');
+
+                    // 2. Update Activity List
+                    if (listEl && result.activities && result.activities.length > 0) {
+                        listEl.innerHTML = '';
+                        result.activities.forEach(act => {
+                            const isHT = (act.type === 'hartek');
+                            const icon = isHT ? 'construction' : 'search_check';
+                            const color = isHT ? '#0890FE' : '#FFAF2A';
+                            const bgColor = isHT ? 'bg-blue-50/50' : 'bg-gray-50/50';
+                            const borderColor = isHT ? 'hover:border-[#0890FE]/30' : 'hover:border-[#FFAF2A]/30';
+                            
+                            const dateObj = new Date(act.date);
+                            const timeStr = isNaN(dateObj) ? 'Baru saja' : dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+
+                            const item = `
+                                <div onclick='showActivityDetail(${JSON.stringify(act)})' class="flex items-center gap-4 p-3 rounded-2xl ${bgColor} border border-gray-100 transition-all ${borderColor} cursor-pointer active:scale-[0.98]">
+                                    <div class="w-11 h-11 rounded-xl bg-white border border-blue-50 flex items-center justify-center shadow-sm shrink-0">
+                                        <span class="material-symbols-outlined text-[${color}] text-xl">${icon}</span>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <h4 class="text-[14px] font-bold text-gray-800 truncate">${act.title}</h4>
+                                        <p class="text-[10px] text-gray-400 font-medium">Petugas: ${act.user} • ${timeStr}</p>
+                                    </div>
+                                    <span class="material-symbols-outlined text-gray-300 text-lg">chevron_right</span>
+                                </div>
+                            `;
+                            listEl.innerHTML += item;
+                        });
+                    } else if (listEl) {
+                        listEl.innerHTML = `
+                            <div class="flex flex-col items-center justify-center py-10 opacity-30">
+                                <span class="material-symbols-outlined text-4xl mb-2">inventory</span>
+                                <p class="text-[10px] font-bold uppercase tracking-widest">Belum ada aktivitas</p>
+                            </div>
+                        `;
+                    }
+                }
+            } catch (error) {
+                console.error('Failed to fetch dashboard data:', error);
+                if (countHT) countHT.innerText = '??';
+                if (countROW) countROW.innerText = '??';
+            }
+        }
+
+        // ── SHOW ACTIVITY DETAIL ──────────────────────────────────────
+        function formatDriveUrl(url) {
+            if (!url || typeof url !== 'string' || !url.includes('drive.google.com')) return url;
+            try {
+                let id = '';
+                if (url.includes('id=')) {
+                    id = url.split('id=')[1].split('&')[0];
+                } else if (url.includes('/d/')) {
+                    id = url.split('/d/')[1].split('/')[0];
+                }
+                return id ? `https://docs.google.com/uc?export=view&id=${id}` : url;
+            } catch (e) { return url; }
+        }
+
+        function showActivityDetail(act) {
+            // 1. Populate Text
+            document.getElementById('detail-title').innerText = act.title;
+            const dateStr = new Date(act.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('detail-subtitle').innerText = `${act.user} • ${dateStr}`;
+            document.getElementById('detail-wo').innerText = act.noWO || '-';
+            document.getElementById('detail-lokasi').innerText = act.lokasi || act.section || '-';
+
+            // 2. Icons & Colors
+            const isHT = (act.type === 'hartek');
+            const iconBg = document.getElementById('detail-icon-bg');
+            iconBg.className = `w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm ${isHT ? 'bg-[#FFAF2A]' : 'bg-[#0890FE]'}`;
+            document.getElementById('detail-icon').innerText = 'bolt';
+
+            // 3. Images
+            const setImg = (id, url) => {
+                const el = document.getElementById(id);
+                el.src = formatDriveUrl(url) || 'https://via.placeholder.com/300?text=No+Photo';
+            };
+            setImg('detail-img-1', act.imgSblm1);
+            setImg('detail-img-2', act.imgSblm2);
+            setImg('detail-img-3', act.imgPrs);
+            setImg('detail-img-4', act.imgSsdh);
+
+            // 4. Map Link
+            const mapLink = document.getElementById('detail-map-link');
+            if (act.koordinat) {
+                mapLink.href = `https://www.google.com/maps?q=${act.koordinat}`;
+                mapLink.classList.remove('hidden');
+            } else {
+                mapLink.classList.add('hidden');
+            }
+
+            // 5. Switch View
+            switchView('view-activity-detail');
+        }
+
+        // ── LOGIN HANDLER ──────────────────────────────────────────────
         function getGPS() {
             const coordInput = document.getElementById('hartek-koordinat');
             const originalPlaceholder = coordInput.placeholder;
