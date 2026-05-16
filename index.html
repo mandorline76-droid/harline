@@ -226,7 +226,7 @@
 
     <!-- TopAppBar -->
     <header
-        class="bg-white text-secondary font-headline-sm text-headline-sm fixed top-0 w-full z-50 border-b-2 border-outline shadow-[4px_4px_0px_rgba(0,0,0,0.1)] flex items-center justify-between px-margin-mobile h-16 w-full">
+        class="bg-white text-[#0890FE] fixed top-0 w-full z-50 border-b-2 border-[#0890FE] shadow-sm flex items-center justify-between px-6 h-16 hidden">
         <div class="flex items-center gap-base">
             <img src="Logo ES.png" alt="Logo ES" class="h-12 w-auto">
         </div>
@@ -277,7 +277,7 @@
                             </div>
                             <span class="text-xs font-bold text-gray-400 group-hover:text-gray-600 transition-colors uppercase tracking-wider">Ingat Saya</span>
                         </label>
-                        <a href="#" class="text-[10px] font-black text-[#0890FE] uppercase tracking-widest hover:opacity-80">Lupa Password?</a>
+                        <a href="#" class="text-[10px] font-semibold text-[#0890FE] uppercase tracking-widest hover:opacity-80">Lupa Password?</a>
                     </div>
 
                     <div class="flex justify-center">
@@ -296,46 +296,46 @@
         </div>
 
         <!-- DASHBOARD VIEW -->
-        <div id="view-dashboard" class="page-view bg-white min-h-screen">
+        <div id="view-dashboard" class="page-view bg-[#f4f7fa] min-h-screen">
             <!-- 1. Floating Header Card -->
             <div class="px-4 pt-6">
-                <header class="bg-blue-50/50 rounded-[32px] p-6 shadow-premium relative overflow-hidden border border-blue-100/50">
-                    <!-- Decor -->
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-100/40 rounded-full -mr-16 -mt-16 blur-2xl"></div>
+                <header class="bg-white rounded-[32px] p-6 shadow-premium relative overflow-hidden border-2 border-white">
+                    <!-- Premium Frame Inner Overlay -->
+                    <div class="absolute inset-0 border-8 border-blue-50/30 rounded-[32px] pointer-events-none"></div>
                     
                     <div class="relative flex items-center justify-between mb-8">
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center shadow-sm">
+                            <div class="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center border border-blue-100 shadow-sm">
                                 <span class="material-symbols-outlined text-[#0890FE] text-2xl">account_circle</span>
                             </div>
                             <div class="space-y-0.5">
-                                <p class="text-gray-400 text-[10px] font-semibold uppercase tracking-[0.2em]">Selamat Datang</p>
+                                <p class="text-gray-400 text-[10px] font-bold uppercase tracking-[0.2em]">Selamat Datang</p>
                                 <h2 id="user-display-name" class="text-xl font-semibold text-gray-800 tracking-tight">Administrator</h2>
                             </div>
                         </div>
-                        <button onclick="handleLogout()" class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-gray-400 active:scale-90 transition-all border border-gray-100">
+                        <button onclick="handleLogout()" class="w-10 h-10 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-400 active:scale-90 transition-all hover:text-red-500">
                             <span class="material-symbols-outlined text-[18px]">logout</span>
                         </button>
                     </div>
 
-                    <!-- Stats Row inside Header Card -->
-                    <div id="stats-container" class="grid grid-cols-2 gap-3">
-                        <div id="card-hartek" class="bg-white p-3 rounded-[24px] flex items-center gap-3 shadow-sm border border-white">
-                            <div class="w-9 h-9 rounded-xl bg-[#FFAF2A] flex items-center justify-center shadow-sm shrink-0">
+                    <!-- Stats Row with Individual Frames -->
+                    <div id="stats-container" class="grid grid-cols-2 gap-3 relative">
+                        <div id="card-hartek" class="bg-white border-2 border-blue-50 p-3 rounded-[24px] flex items-center gap-3 shadow-sm">
+                            <div class="w-9 h-9 rounded-xl bg-[#FFAF2A] flex items-center justify-center shadow-md shrink-0">
                                 <span class="material-symbols-outlined text-white text-lg">engineering</span>
                             </div>
                             <div>
-                                <p class="text-gray-400 text-[9px] font-bold uppercase tracking-wider">HarTek</p>
-                                <h4 class="text-base font-bold text-gray-800">08</h4>
+                                <p class="text-gray-400 text-[9px] font-semibold uppercase tracking-wider">HarTek</p>
+                                <h4 class="text-base font-semibold text-gray-800">08</h4>
                             </div>
                         </div>
-                        <div id="card-harrow" class="bg-white p-3 rounded-[24px] flex items-center gap-3 shadow-sm border border-white">
-                            <div class="w-9 h-9 rounded-xl bg-[#0890FE] flex items-center justify-center shadow-sm shrink-0">
+                        <div id="card-harrow" class="bg-white border-2 border-blue-50 p-3 rounded-[24px] flex items-center gap-3 shadow-sm">
+                            <div class="w-9 h-9 rounded-xl bg-[#0890FE] flex items-center justify-center shadow-md shrink-0">
                                 <span class="material-symbols-outlined text-white text-lg">content_paste_search</span>
                             </div>
                             <div>
-                                <p class="text-gray-400 text-[9px] font-bold uppercase tracking-wider">Harrow</p>
-                                <h4 class="text-base font-bold text-gray-800">04</h4>
+                                <p class="text-gray-400 text-[9px] font-semibold uppercase tracking-wider">Harrow</p>
+                                <h4 class="text-base font-semibold text-gray-800">04</h4>
                             </div>
                         </div>
                     </div>
@@ -344,66 +344,66 @@
 
             <!-- 2. Operational Menu Card -->
             <div class="px-4 mt-6">
-                <section class="bg-slate-50/50 rounded-[32px] p-6 shadow-premium border border-slate-100/50">
+                <section class="bg-white rounded-[32px] p-6 shadow-premium border-2 border-slate-100/80">
                     <div class="flex items-center gap-3 mb-5">
-                        <div class="w-1.5 h-6 bg-[#0890FE] rounded-full"></div>
-                        <h3 class="text-[12px] font-bold text-gray-800 uppercase tracking-[0.15em]">Menu Operasional</h3>
+                        <div class="w-2 h-6 bg-[#0890FE] rounded-full shadow-sm"></div>
+                        <h3 class="text-[12px] font-semibold text-gray-800 uppercase tracking-[0.15em]">Menu Operasional</h3>
                     </div>
                     
                     <div class="grid grid-cols-2 gap-4">
                         <div id="menu-hartek" onclick="switchView('view-input-hartek')"
-                            class="h-[60px] rounded-[22px] bg-[#0890FE] p-2 flex items-center active:scale-95 transition-all shadow-premium border border-white/10 cursor-pointer">
-                            <div class="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center ml-1">
-                                <span class="material-symbols-outlined text-white text-[20px]">engineering</span>
+                            class="h-[64px] rounded-[22px] bg-[#0890FE] p-2 flex items-center active:scale-95 transition-all shadow-xl border-2 border-white/20 cursor-pointer">
+                            <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center ml-1 shadow-inner">
+                                <span class="material-symbols-outlined text-white text-[22px]">engineering</span>
                             </div>
-                            <h4 class="ml-3 font-semibold text-[13px] text-white tracking-wide leading-tight">HarTek</h4>
+                            <h4 class="ml-3 font-bold text-[14px] text-white tracking-wide uppercase">HarTek</h4>
                         </div>
                         <div id="menu-harrow" onclick="switchView('view-input-row')"
-                            class="h-[60px] rounded-[22px] bg-[#FFAF2A] p-2 flex items-center active:scale-95 transition-all shadow-premium border border-white/10 cursor-pointer">
-                            <div class="w-9 h-9 bg-white/20 rounded-xl flex items-center justify-center ml-1">
-                                <span class="material-symbols-outlined text-white text-[20px]">content_paste_search</span>
+                            class="h-[64px] rounded-[22px] bg-[#FFAF2A] p-2 flex items-center active:scale-95 transition-all shadow-xl border-2 border-white/20 cursor-pointer">
+                            <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center ml-1 shadow-inner">
+                                <span class="material-symbols-outlined text-white text-[22px]">content_paste_search</span>
                             </div>
-                            <h4 class="ml-3 font-semibold text-[13px] text-white tracking-wide leading-tight">Harrow</h4>
+                            <h4 class="ml-3 font-bold text-[14px] text-white tracking-wide uppercase">Harrow</h4>
                         </div>
                     </div>
                 </section>
             </div>
 
             <!-- 3. Recent Activity Card -->
-            <div class="px-4 mt-6 pb-24">
-                <section class="bg-orange-50/30 rounded-[32px] p-6 shadow-premium border border-orange-100/30">
+            <div class="px-4 mt-6 pb-28">
+                <section class="bg-white rounded-[32px] p-6 shadow-premium border-2 border-orange-50">
                     <div class="flex items-center justify-between mb-6">
                         <div class="flex items-center gap-3">
-                            <div class="w-1.5 h-6 bg-[#FFAF2A] rounded-full"></div>
-                            <h3 class="text-[12px] font-bold text-gray-800 uppercase tracking-[0.15em]">Aktivitas Terkini</h3>
+                            <div class="w-2 h-6 bg-[#FFAF2A] rounded-full shadow-sm"></div>
+                            <h3 class="text-[12px] font-semibold text-gray-800 uppercase tracking-[0.15em]">Aktivitas Terkini</h3>
                         </div>
-                        <button class="text-[10px] font-bold text-[#0890FE] uppercase tracking-wider">Lihat Semua</button>
+                        <button class="text-[10px] font-semibold text-[#0890FE] uppercase tracking-wider hover:underline">Lihat Semua</button>
                     </div>
 
                     <div class="space-y-4">
-                        <div id="activity-hartek" class="flex items-center gap-4 p-2 rounded-2xl bg-white/50 border border-white/80 transition-colors">
-                            <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+                        <div id="activity-hartek" class="flex items-center gap-4 p-3 rounded-2xl bg-gray-50/50 border border-gray-100 transition-all hover:border-[#0890FE]/30">
+                            <div class="w-11 h-11 rounded-xl bg-white border border-blue-50 flex items-center justify-center shadow-sm shrink-0">
                                 <span class="material-symbols-outlined text-[#0890FE] text-xl">engineering</span>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="text-[13px] font-bold text-gray-800 truncate">Perbaikan SUTM #44</h4>
-                                <p class="text-[10px] text-gray-400">Petugas: Hendra • 2 jam lalu</p>
+                                <h4 class="text-[14px] font-bold text-gray-800 truncate">Perbaikan SUTM #44</h4>
+                                <p class="text-[10px] text-gray-400 font-medium">Petugas: Hendra • 2 jam lalu</p>
                             </div>
                         </div>
 
-                        <div id="activity-row" class="flex items-center gap-4 p-2 rounded-2xl bg-white/50 border border-white/80 transition-colors">
-                            <div class="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center shrink-0">
+                        <div id="activity-row" class="flex items-center gap-4 p-3 rounded-2xl bg-gray-50/50 border border-gray-100 transition-all hover:border-[#FFAF2A]/30">
+                            <div class="w-11 h-11 rounded-xl bg-white border border-orange-50 flex items-center justify-center shadow-sm shrink-0">
                                 <span class="material-symbols-outlined text-[#FFAF2A] text-xl">content_paste_search</span>
                             </div>
                             <div class="flex-1 min-w-0">
-                                <h4 class="text-[13px] font-bold text-gray-800 truncate">Pemangkasan Ruas A-12</h4>
-                                <p class="text-[10px] text-gray-400">Petugas: Budi • 5 jam lalu</p>
+                                <h4 class="text-[14px] font-bold text-gray-800 truncate">Pemangkasan Ruas A-12</h4>
+                                <p class="text-[10px] text-gray-400 font-medium">Petugas: Budi • 5 jam lalu</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-8 pt-4 border-t border-orange-100/20 text-center">
-                        <p class="text-gray-300 text-[8px] font-bold uppercase tracking-[0.3em]">HarLine Operational</p>
+                    <div class="mt-8 pt-4 border-t border-gray-50 text-center">
+                        <p class="text-gray-300 text-[9px] font-semibold uppercase tracking-[0.4em]">HarLine Operational</p>
                     </div>
                 </section>
             </div>
@@ -610,7 +610,7 @@
 
                 <!-- Next Button -->
                 <div id="row-btn-next" class="flex justify-end mb-4 pr-[18px]">
-                    <button type="button" onclick="nextStepRow()" class="bg-[#281C9D] hover:opacity-90 active:scale-95 transition-all text-white font-bold text-[11px] px-6 py-2.5 rounded-full shadow-md border-b-2 border-[#1a126b] flex items-center gap-1 uppercase tracking-wider font-montserrat">
+                    <button type="button" onclick="nextStepRow()" class="bg-[#0890FE] hover:opacity-90 active:scale-95 transition-all text-white font-bold text-[11px] px-6 py-2.5 rounded-full shadow-md border-b-2 border-[#0070c9] flex items-center gap-1 uppercase tracking-wider font-montserrat">
                         <span>Next</span>
                         <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
                     </button>
@@ -661,7 +661,7 @@
 
                 <!-- Next Button 2 -->
                 <div id="row-btn-next-2" class="hidden flex justify-end mb-4 pr-[18px]">
-                    <button type="button" onclick="nextStepRow2()" class="bg-[#281C9D] hover:opacity-90 active:scale-95 transition-all text-white font-bold text-[11px] px-6 py-2.5 rounded-full shadow-md border-b-2 border-[#1a126b] flex items-center gap-1 uppercase tracking-wider font-montserrat">
+                    <button type="button" onclick="nextStepRow2()" class="bg-[#0890FE] hover:opacity-90 active:scale-95 transition-all text-white font-bold text-[11px] px-6 py-2.5 rounded-full shadow-md border-b-2 border-[#0070c9] flex items-center gap-1 uppercase tracking-wider font-montserrat">
                         <span>Next</span>
                         <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
                     </button>
@@ -714,7 +714,7 @@
 
                 <!-- Next Button 3 -->
                 <div id="row-btn-next-3" class="hidden flex justify-end mb-4 pr-[18px]">
-                    <button type="button" onclick="nextStepRow3()" class="bg-[#281C9D] hover:opacity-90 active:scale-95 transition-all text-white font-bold text-[11px] px-6 py-2.5 rounded-full shadow-md border-b-2 border-[#1a126b] flex items-center gap-1 uppercase tracking-wider font-montserrat">
+                    <button type="button" onclick="nextStepRow3()" class="bg-[#0890FE] hover:opacity-90 active:scale-95 transition-all text-white font-bold text-[11px] px-6 py-2.5 rounded-full shadow-md border-b-2 border-[#0070c9] flex items-center gap-1 uppercase tracking-wider font-montserrat">
                         <span>Next</span>
                         <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
                     </button>
@@ -932,7 +932,7 @@
     </main>
 
     <!-- BottomNavBar -->
-    <nav class="bg-white border-t border-gray-100 fixed bottom-0 w-full z-50 h-[84px] flex justify-center items-center shadow-[0_-8px_30px_rgba(0,0,0,0.04)]">
+    <nav class="bg-white border-t border-gray-100 fixed bottom-0 w-full z-50 h-[84px] flex justify-center items-center shadow-[0_-8px_30px_rgba(0,0,0,0.04)] hidden">
         <button onclick="switchView('view-dashboard')"
             class="flex flex-col items-center justify-center gap-1.5 active:scale-90 transition-all"
             id="nav-dashboard">
