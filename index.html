@@ -501,7 +501,7 @@
                                     <span class="material-symbols-outlined text-gray-300 group-hover:text-[#0890FE] transition-colors">add_a_photo</span>
                                     <span class="text-[9px] font-bold text-gray-300 uppercase font-montserrat group-hover:text-[#0890FE]">Ambil Foto</span>
                                     <img id="preview-sebelum-1" class="absolute inset-0 w-full h-full object-cover hidden" alt="Foto Sebelum 1" />
-                                    <input id="photo-sebelum-1" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-sebelum-1', 'slot-sebelum-1', 'Sebelum 1')" />
+                                    <input id="photo-sebelum-1" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-sebelum-1', 'slot-sebelum-1', 'Sebelum')" />
                                 </div>
                             </div>
 
@@ -641,7 +641,7 @@
                                     <span class="material-symbols-outlined text-gray-300 group-hover:text-[#0890FE]">add_a_photo</span>
                                     <span class="text-[9px] font-bold text-gray-300 uppercase font-montserrat group-hover:text-[#0890FE]">Ambil Foto</span>
                                     <img id="preview-row-sebelum-1" class="absolute inset-0 w-full h-full object-cover hidden" alt="Sebelum 1" />
-                                    <input id="photo-row-sebelum-1" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-row-sebelum-1', 'slot-row-sebelum-1', 'Sebelum 1')" />
+                                    <input id="photo-row-sebelum-1" type="file" accept="image/*" capture="environment" class="hidden" onchange="showPreview(this, 'preview-row-sebelum-1', 'slot-row-sebelum-1', 'Sebelum')" />
                                 </div>
                             </div>
                             <div class="space-y-2">
@@ -989,25 +989,25 @@
                     <div class="grid grid-cols-2 gap-3">
                         <div class="space-y-2">
                             <p class="text-[9px] font-bold text-gray-400 text-center uppercase">Sebelum 1</p>
-                            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden border-2 border-white shadow-sm">
+                            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden border-2 border-white shadow-sm cursor-pointer active:scale-95 transition-all" onclick="openLightbox('detail-img-1','Sebelum 1')">
                                 <img id="detail-img-1" src="" class="w-full h-full object-cover" alt="Sblm 1">
                             </div>
                         </div>
                         <div class="space-y-2">
                             <p class="text-[9px] font-bold text-gray-400 text-center uppercase">Sebelum 2</p>
-                            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden border-2 border-white shadow-sm">
+                            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden border-2 border-white shadow-sm cursor-pointer active:scale-95 transition-all" onclick="openLightbox('detail-img-2','Sebelum 2')">
                                 <img id="detail-img-2" src="" class="w-full h-full object-cover" alt="Sblm 2">
                             </div>
                         </div>
                         <div class="space-y-2">
                             <p class="text-[9px] font-bold text-gray-400 text-center uppercase">Pelaksanaan</p>
-                            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden border-2 border-white shadow-sm">
+                            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden border-2 border-white shadow-sm cursor-pointer active:scale-95 transition-all" onclick="openLightbox('detail-img-3','Pelaksanaan')">
                                 <img id="detail-img-3" src="" class="w-full h-full object-cover" alt="Prs">
                             </div>
                         </div>
                         <div class="space-y-2">
                             <p class="text-[9px] font-bold text-gray-400 text-center uppercase">Sesudah</p>
-                            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden border-2 border-white shadow-sm">
+                            <div class="aspect-square bg-gray-200 rounded-2xl overflow-hidden border-2 border-white shadow-sm cursor-pointer active:scale-95 transition-all" onclick="openLightbox('detail-img-4','Sesudah')">
                                 <img id="detail-img-4" src="" class="w-full h-full object-cover" alt="Ssdh">
                             </div>
                         </div>
@@ -1038,9 +1038,140 @@
         </button>
     </nav>
 
+    <!-- ===== LIGHTBOX FOTO ZOOM ===== -->
+    <div id="lightbox" class="fixed inset-0 z-[9999] bg-black flex flex-col hidden" style="touch-action:none;">
+        <!-- Top Bar -->
+        <div class="flex items-center justify-between px-4 py-3 bg-black/50 backdrop-blur-sm">
+            <span id="lightbox-label" class="text-white text-sm font-bold uppercase tracking-widest"></span>
+            <button onclick="closeLightbox()" class="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center active:scale-90 transition-all">
+                <span class="material-symbols-outlined text-white">close</span>
+            </button>
+        </div>
+        <!-- Image Container -->
+        <div class="flex-1 flex items-center justify-center overflow-hidden">
+            <img id="lightbox-img"
+                src=""
+                alt="Foto Besar"
+                style="max-width:100%;max-height:100%;transform-origin:center center;transform:scale(1) translate(0px,0px);transition:transform 0.1s ease;user-select:none;-webkit-user-drag:none;"
+            >
+        </div>
+        <!-- Bottom Hint -->
+        <div class="py-3 text-center">
+            <p class="text-white/40 text-[10px] font-semibold tracking-widest uppercase">Cubit untuk zoom • Ketuk 2x untuk zoom • Swipe bawah untuk tutup</p>
+        </div>
+    </div>
+
 
 
     <script>
+        // ── LIGHTBOX PINCH-TO-ZOOM ────────────────────────────────────
+        (function() {
+            var lb, lbImg, lbLabel;
+            var scale = 1, lastScale = 1;
+            var tx = 0, ty = 0, lastTx = 0, lastTy = 0;
+            var startDist = 0, startScale = 1;
+            var startTouchX = 0, startTouchY = 0;
+            var lastTap = 0;
+
+            function init() {
+                lb = document.getElementById('lightbox');
+                lbImg = document.getElementById('lightbox-img');
+                lbLabel = document.getElementById('lightbox-label');
+                lbImg.addEventListener('touchstart', onTouchStart, { passive: false });
+                lbImg.addEventListener('touchmove', onTouchMove, { passive: false });
+                lbImg.addEventListener('touchend', onTouchEnd, { passive: false });
+                lb.addEventListener('touchstart', onBgTouch, { passive: false });
+            }
+
+            function setTransform() {
+                lbImg.style.transform = 'scale(' + scale + ') translate(' + tx/scale + 'px,' + ty/scale + 'px)';
+            }
+
+            function getDistance(t1, t2) {
+                var dx = t1.clientX - t2.clientX;
+                var dy = t1.clientY - t2.clientY;
+                return Math.sqrt(dx*dx + dy*dy);
+            }
+
+            function onTouchStart(e) {
+                e.preventDefault();
+                if (e.touches.length === 2) {
+                    startDist = getDistance(e.touches[0], e.touches[1]);
+                    startScale = scale;
+                } else if (e.touches.length === 1) {
+                    startTouchX = e.touches[0].clientX - lastTx;
+                    startTouchY = e.touches[0].clientY - lastTy;
+                    // Double tap
+                    var now = Date.now();
+                    if (now - lastTap < 300) {
+                        if (scale > 1) { scale = 1; tx = 0; ty = 0; }
+                        else { scale = 2.5; }
+                        lastScale = scale; lastTx = tx; lastTy = ty;
+                        setTransform(); lastTap = 0; return;
+                    }
+                    lastTap = now;
+                }
+            }
+
+            function onTouchMove(e) {
+                e.preventDefault();
+                if (e.touches.length === 2) {
+                    var d = getDistance(e.touches[0], e.touches[1]);
+                    scale = Math.min(5, Math.max(1, startScale * (d / startDist)));
+                    setTransform();
+                } else if (e.touches.length === 1 && scale > 1) {
+                    tx = e.touches[0].clientX - startTouchX;
+                    ty = e.touches[0].clientY - startTouchY;
+                    setTransform();
+                }
+            }
+
+            function onTouchEnd(e) {
+                lastScale = scale; lastTx = tx; lastTy = ty;
+                if (scale <= 1) { tx = 0; ty = 0; setTransform(); }
+            }
+
+            var bgStartY = 0;
+            function onBgTouch(e) {
+                if (e.target === lb || e.target === lb.children[1]) {
+                    if (e.touches.length === 1) {
+                        if (e.type === 'touchstart') bgStartY = e.touches[0].clientY;
+                        if (e.type === 'touchend') {
+                            if (e.changedTouches[0].clientY - bgStartY > 80) closeLightbox();
+                        }
+                    }
+                }
+            }
+            lb && lb.addEventListener('touchend', function(e) {
+                if (e.target === lb) {
+                    if (e.changedTouches[0].clientY - bgStartY > 80) closeLightbox();
+                }
+            }, { passive: true });
+
+            document.addEventListener('DOMContentLoaded', init);
+            window._lbInit = init;
+        })();
+
+        window.openLightbox = function(imgId, label) {
+            var src = document.getElementById(imgId).src;
+            if (!src || src.includes('placehold')) return;
+            var lb = document.getElementById('lightbox');
+            var lbImg = document.getElementById('lightbox-img');
+            document.getElementById('lightbox-label').textContent = label || '';
+            lbImg.src = src;
+            lbImg.style.transform = 'scale(1) translate(0,0)';
+            lb.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            if (window._lbInit) window._lbInit();
+        };
+
+        window.closeLightbox = function() {
+            var lb = document.getElementById('lightbox');
+            lb.classList.add('hidden');
+            document.getElementById('lightbox-img').src = '';
+            document.body.style.overflow = '';
+        };
+
         // ── PASSWORD TOGGLE ──
         function togglePassword() {
             const input = document.getElementById('login-pass');
@@ -1560,7 +1691,7 @@
                             let boxColor;
                             let textColor = 'white';
                             
-                            const isSectionLabel = (labelLower !== 'sebelum 1' && labelLower !== 'pelaksanaan' && !labelLower.includes('sesudah'));
+                            const isSectionLabel = (labelLower !== 'sebelum' && labelLower !== 'pelaksanaan' && !labelLower.includes('sesudah'));
 
                             if (isSectionLabel || labelLower === 'sebelum 2') {
                                 boxColor = 'rgba(255, 255, 255, 0.9)'; // White
