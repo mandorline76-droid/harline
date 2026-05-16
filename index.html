@@ -7,7 +7,7 @@
     <title>HARLINE - Dashboard Operasional</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Poppins:wght@500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Poppins:wght@500;600;700;800&amp;family=Montserrat:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
@@ -82,17 +82,18 @@
                         "xs": "4px"
                     },
                     "fontFamily": {
-                        "code-data": ["monospace"],
+                        "montserrat": ["Montserrat", "sans-serif"],
+                        "code-data": ["JetBrains Mono", "monospace"],
                         "data-mono": ["JetBrains Mono", "monospace"],
-                        "poppins": ["Poppins", "sans-serif"],
-                        "body-lg": ["IBM Plex Sans"],
-                        "headline-md": ["IBM Plex Sans"],
-                        "label-lg": ["IBM Plex Sans"],
-                        "headline-sm": ["IBM Plex Sans"],
-                        "headline-lg": ["IBM Plex Sans"],
-                        "body-sm": ["IBM Plex Sans"],
-                        "label-md": ["IBM Plex Sans"],
-                        "body-md": ["IBM Plex Sans"]
+                        "poppins": ["Montserrat", "sans-serif"],
+                        "body-lg": ["Montserrat", "sans-serif"],
+                        "headline-md": ["Montserrat", "sans-serif"],
+                        "label-lg": ["Montserrat", "sans-serif"],
+                        "headline-sm": ["Montserrat", "sans-serif"],
+                        "headline-lg": ["Montserrat", "sans-serif"],
+                        "body-sm": ["Montserrat", "sans-serif"],
+                        "label-md": ["Montserrat", "sans-serif"],
+                        "body-md": ["Montserrat", "sans-serif"]
                     },
                     "fontSize": {
                         "code-data": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
@@ -192,63 +193,41 @@
     <main class="pt-16">
 
         <!-- LOGIN VIEW -->
-        <div id="view-login"
-            class="page-view active min-h-screen flex flex-col items-center justify-between py-xl px-margin-mobile bg-white overflow-hidden">
-            
-            <!-- Branding Area (Always Visible) -->
-            <div class="text-center mt-xl">
-                <div class="w-[180px] h-[180px] flex items-center justify-center mx-auto p-2 animate-bounce-slow">
-                    <img src="Logo ES.png" alt="Logo ES" class="w-full h-full object-contain">
+        <div id="view-login" class="page-view active min-h-screen flex items-center justify-center bg-gray-50 px-margin-mobile">
+            <div class="w-full max-w-md bg-white rounded-[40px] shadow-2xl p-10 space-y-10">
+                <!-- Branding -->
+                <div class="text-center">
+                    <img src="Logo ES.png" alt="Logo ES" class="w-24 h-24 mx-auto mb-4 object-contain">
+                    <h1 class="text-3xl font-bold text-gray-800 font-montserrat tracking-tight">HarLine</h1>
+                    <p class="text-gray-400 text-sm mt-2">Laporan Pemeliharaan Online</p>
                 </div>
-            </div>
 
-            <!-- Initial Trigger Button -->
-            <div id="login-trigger-area" class="w-full flex flex-col items-center mb-xl">
-                <button onclick="toggleLoginCard(true)"
-                    class="w-[200px] h-14 bg-secondary text-white text-lg font-bold rounded-2xl flex items-center justify-center gap-base active:scale-95 transition-all shadow-xl">
-                    <span class="material-symbols-outlined">login</span>
-                    <span>MASUK</span>
-                </button>
-                <p class="text-on-surface-variant/40 text-[10px] text-center tracking-widest mt-lg">HarLine v1.0.0</p>
-            </div>
-
-            <!-- Dim Overlay -->
-            <div id="login-overlay" onclick="toggleLoginCard(false)" class="login-overlay fixed inset-0 bg-black/40 z-[60]"></div>
-
-            <!-- Slide-up Login Card -->
-            <div id="login-card" class="fixed bottom-0 left-0 right-0 z-[70] bg-[#00599e] rounded-t-[32px] p-lg space-y-sm shadow-[0_-10px_40px_rgba(0,0,0,0.3)] max-w-md mx-auto">
-                <div class="w-10 h-1 bg-white/20 rounded-full mx-auto mb-sm" onclick="toggleLoginCard(false)"></div>
-                <div class="text-center mb-sm">
-                    <h2 class="text-lg font-bold text-white uppercase tracking-widest leading-tight">HarLine<br><span class="text-[10px] opacity-70">Laporan Pemeliharaan Online</span></h2>
-                </div>
-                
-                <div class="space-y-sm">
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-bold text-white/70 uppercase tracking-widest ml-1">Username</label>
-                        <div class="relative">
-                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">badge</span>
-                            <input id="login-user" type="text" autocomplete="username"
-                                class="w-full h-11 bg-white border border-white/20 rounded-xl pl-10 pr-md text-on-surface text-base font-bold placeholder:text-on-surface-variant/30 focus:border-white/60 transition-all outline-none"
-                                placeholder="Username">
+                <!-- Form Section -->
+                <div class="space-y-6">
+                    <div class="space-y-4">
+                        <!-- Username -->
+                        <div class="relative group">
+                            <span class="material-symbols-outlined absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#4c8479] transition-colors">person</span>
+                            <input id="login-user" type="text" placeholder="Username" 
+                                class="w-full h-16 pl-16 pr-8 rounded-full border-2 border-gray-100 focus:border-[#4c8479] focus:ring-0 outline-none transition-all text-gray-700 font-semibold placeholder:text-gray-300 placeholder:font-normal bg-gray-50/50">
+                        </div>
+                        <!-- Password -->
+                        <div class="relative group">
+                            <span class="material-symbols-outlined absolute left-6 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#4c8479] transition-colors">lock</span>
+                            <input id="login-pass" type="password" placeholder="Password" 
+                                class="w-full h-16 pl-16 pr-8 rounded-full border-2 border-gray-100 focus:border-[#4c8479] focus:ring-0 outline-none transition-all text-gray-700 font-semibold placeholder:text-gray-300 placeholder:font-normal bg-gray-50/50">
                         </div>
                     </div>
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-bold text-white/70 uppercase tracking-widest ml-1">Password</label>
-                        <div class="relative">
-                            <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">lock</span>
-                            <input id="login-pass" type="password" autocomplete="current-password"
-                                class="w-full h-11 bg-white border border-white/20 rounded-xl pl-10 pr-md text-on-surface text-base font-bold placeholder:text-on-surface-variant/30 focus:border-white/60 transition-all outline-none"
-                                placeholder="Password">
-                        </div>
-                    </div>
-                    <div class="flex justify-center mt-sm">
-                        <button onclick="handleLogin()"
-                            class="w-[200px] h-14 bg-white text-[#00599e] text-lg font-bold rounded-2xl flex items-center justify-center gap-base active:scale-95 transition-all shadow-lg hover:bg-opacity-90">
-                            <span class="material-symbols-outlined">verified_user</span>
-                            <span>LOGIN</span>
-                        </button>
-                    </div>
-                    <button onclick="toggleLoginCard(false)" class="w-full py-1 text-white/40 text-[10px] font-bold uppercase tracking-widest">Kembali</button>
+
+                    <button onclick="handleLogin()" 
+                        class="w-full h-16 bg-[#4c8479] text-white font-bold rounded-full shadow-[0_10px_20px_rgba(76,132,121,0.3)] hover:brightness-95 active:scale-[0.98] transition-all text-xl font-montserrat tracking-wide">
+                        Login
+                    </button>
+                </div>
+
+                <!-- Footer -->
+                <div class="text-center">
+                    <p class="text-gray-400 text-[10px] tracking-[0.2em] uppercase">HarLine v1.0.0</p>
                 </div>
             </div>
         </div>
@@ -1145,22 +1124,7 @@
         // ── CONFIGURATION: MASUKKAN URL WEB APP GOOGLE APPS SCRIPT DISINI ──
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwr7BeQcNPHy-nZ5L7bpAh4wkQU5AwVZ-O1YGjcTf7Xw-R1fkvu8aLJOL5yZfVJAHBXGg/exec";
 
-        function toggleLoginCard(show) {
-            const card = document.getElementById('login-card');
-            const overlay = document.getElementById('login-overlay');
-            if (show) {
-                card.classList.add('active');
-                overlay.classList.add('active');
-            } else {
-                card.classList.remove('active');
-                overlay.classList.remove('active');
-            }
-        }
-
         function switchView(viewId) {
-            // Close login card if switching view
-            if (viewId !== 'view-login') toggleLoginCard(false);
-
             // Hide all views
             document.querySelectorAll('.page-view').forEach(view => {
                 view.classList.remove('active');
