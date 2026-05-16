@@ -1277,14 +1277,16 @@
                             const dateObj = new Date(act.date);
                             const timeStr = isNaN(dateObj) ? 'Baru saja' : dateObj.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
 
+                            // Bersihkan title dari undefined
+                            const safeTitle = (act.title || '').replace(/undefined/g, '').trim() || (isHT ? 'Perbaikan HarTek' : 'Kegiatan ROW');
                             const item = `
                                 <div onclick='showActivityDetail(${JSON.stringify(act)})' class="flex items-center gap-4 p-3 rounded-2xl ${bgColor} border border-gray-100 transition-all ${borderColor} cursor-pointer active:scale-[0.98]">
                                     <div class="w-11 h-11 rounded-xl bg-white border border-blue-50 flex items-center justify-center shadow-sm shrink-0">
                                         <span class="material-symbols-outlined text-[${color}] text-xl">${icon}</span>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <h4 class="text-[14px] font-bold text-gray-800 truncate">${act.title}</h4>
-                                        <p class="text-[10px] text-gray-400 font-medium">Petugas: ${act.user} • ${timeStr}</p>
+                                        <h4 class="text-[14px] font-bold text-gray-800 truncate">${safeTitle}</h4>
+                                        <p class="text-[10px] text-gray-400 font-medium">Petugas: ${act.user || 'Petugas'} • ${timeStr}</p>
                                     </div>
                                     <span class="material-symbols-outlined text-gray-300 text-lg">chevron_right</span>
                                 </div>
@@ -1308,26 +1310,78 @@
         }
 
         // ── SHOW ACTIVITY DETAIL ──────────────────────────────────────
-        function formatDriveUrl(url) {
-            if (!url || typeof url !== 'string' || !url.includes('drive.google.com')) return url;
+        function extractDriveId(url) {
+            if (!url || typeof url !== 'string') return null;
             try {
-                let id = '';
-                if (url.includes('id=')) {
-                    id = url.split('id=')[1].split('&')[0];
-                } else if (url.includes('/d/')) {
-                    id = url.split('/d/')[1].split('/')[0];
+                // Format: /file/d/ID/view
+                if (url.includes('/file/d/')) {
+                    return url.split('/file/d/')[1].split('/')[0];
                 }
-                return id ? `https://docs.google.com/uc?export=view&id=${id}` : url;
-            } catch (e) { return url; }
+                // Format: ?id=ID
+                if (url.includes('id=')) {
+                    return url.split('id=')[1].split('&')[0];
+                }
+            } catch(e) {}
+            return null;
+        }
+
+        async function loadProxyImage(imgEl, driveUrl) {
+            imgEl.src = '';
+            const wrapper = imgEl.parentElement;
+            
+            // Tampilkan status loading
+            let status = wrapper.querySelector('.img-status');
+            if (!status) {
+                status = document.createElement('p');
+                status.className = 'img-status text-[8px] text-center text-gray-300 mt-1 absolute bottom-1 left-0 right-0';
+                wrapper.style.position = 'relative';
+                wrapper.appendChild(status);
+            }
+
+            if (!driveUrl) {
+                imgEl.src = 'https://placehold.co/300x300/f1f5f9/94a3b8?text=Tidak+Ada+Foto';
+                status.textContent = '';
+                return;
+            }
+
+            const fileId = extractDriveId(driveUrl);
+            if (!fileId) {
+                imgEl.src = 'https://placehold.co/300x300/f1f5f9/94a3b8?text=ID+Tidak+Valid';
+                status.textContent = '';
+                return;
+            }
+
+            status.textContent = 'Memuat...';
+
+            try {
+                const proxyUrl = `${SCRIPT_URL}?action=get_image&id=${fileId}`;
+                const resp = await fetch(proxyUrl);
+                const text = await resp.text();
+                if (text && text.startsWith('data:image')) {
+                    imgEl.src = text;
+                    status.textContent = '';
+                } else {
+                    imgEl.src = 'https://placehold.co/300x300/fef9c3/ca8a04?text=Error+Server';
+                    status.textContent = 'Gagal dari server';
+                    console.error('Proxy error:', text);
+                }
+            } catch(e) {
+                imgEl.src = 'https://placehold.co/300x300/fee2e2/dc2626?text=Gagal+Koneksi';
+                status.textContent = 'Cek koneksi internet';
+            }
         }
 
         function showActivityDetail(act) {
+            // Bersihkan nilai undefined
+            const clean = (val) => (!val || val === 'undefined') ? '-' : val;
+            const cleanTitle = (act.title || '').replace(/undefined/g, '').trim() || (act.type === 'hartek' ? 'Perbaikan HarTek' : 'Kegiatan ROW');
+
             // 1. Populate Text
-            document.getElementById('detail-title').innerText = act.title;
+            document.getElementById('detail-title').innerText = cleanTitle;
             const dateStr = new Date(act.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
-            document.getElementById('detail-subtitle').innerText = `${act.user} • ${dateStr}`;
-            document.getElementById('detail-wo').innerText = act.noWO || '-';
-            document.getElementById('detail-lokasi').innerText = act.lokasi || act.section || '-';
+            document.getElementById('detail-subtitle').innerText = `${clean(act.user)} • ${dateStr}`;
+            document.getElementById('detail-wo').innerText = clean(act.noWO);
+            document.getElementById('detail-lokasi').innerText = clean(act.lokasi) !== '-' ? clean(act.lokasi) : clean(act.section);
 
             // 2. Icons & Colors
             const isHT = (act.type === 'hartek');
@@ -1335,20 +1389,29 @@
             iconBg.className = `w-12 h-12 rounded-2xl flex items-center justify-center shadow-sm ${isHT ? 'bg-[#FFAF2A]' : 'bg-[#0890FE]'}`;
             document.getElementById('detail-icon').innerText = 'bolt';
 
-            // 3. Images
-            const setImg = (id, url) => {
-                const el = document.getElementById(id);
-                el.src = formatDriveUrl(url) || 'https://via.placeholder.com/300?text=No+Photo';
-            };
-            setImg('detail-img-1', act.imgSblm1);
-            setImg('detail-img-2', act.imgSblm2);
-            setImg('detail-img-3', act.imgPrs);
-            setImg('detail-img-4', act.imgSsdh);
+            // 3. Load images via Proxy (100% bypass Google Drive block)
+            loadProxyImage(document.getElementById('detail-img-1'), act.imgSblm1);
+            loadProxyImage(document.getElementById('detail-img-2'), act.imgSblm2);
+            loadProxyImage(document.getElementById('detail-img-3'), act.imgPrs);
+            loadProxyImage(document.getElementById('detail-img-4'), act.imgSsdh);
 
             // 4. Map Link
             const mapLink = document.getElementById('detail-map-link');
             if (act.koordinat) {
-                mapLink.href = `https://www.google.com/maps?q=${act.koordinat}`;
+                const rawCoord = String(act.koordinat).trim();
+                const parts = rawCoord.split(',');
+                if (parts.length === 2) {
+                    const lat = parseFloat(parts[0].trim());
+                    const lng = parseFloat(parts[1].trim());
+                    if (!isNaN(lat) && !isNaN(lng)) {
+                        // Format @lat,lng,zoom — paling kompatibel untuk semua perangkat
+                        mapLink.href = `https://www.google.com/maps/@${lat},${lng},17z`;
+                    } else {
+                        mapLink.href = `https://www.google.com/maps/search/${encodeURIComponent(rawCoord)}`;
+                    }
+                } else {
+                    mapLink.href = `https://www.google.com/maps/search/${encodeURIComponent(rawCoord)}`;
+                }
                 mapLink.classList.remove('hidden');
             } else {
                 mapLink.classList.add('hidden');
