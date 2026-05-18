@@ -444,6 +444,24 @@
                             <span class="material-symbols-outlined text-2xl">my_location</span>
                         </button>
                     </div>
+                    <!-- Preview Peta Langsung (muncul setelah GPS berhasil diambil) -->
+                    <div id="hartek-map-preview" class="hidden mt-2 rounded-[22px] overflow-hidden border-2 border-[#0890FE]/20 shadow-md relative cursor-pointer hover:brightness-95 transition-all" onclick="openFormMap('hartek-koordinat')">
+                        <!-- Embed Google Maps tanpa API Key -->
+                        <iframe
+                            id="hartek-map-iframe"
+                            src=""
+                            width="600"
+                            height="200"
+                            style="border:0; display:block; width:100%;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                        <div class="absolute top-2 left-2 bg-[#0890FE] text-white text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded-full flex items-center gap-1 shadow">
+                            <span class="material-symbols-outlined text-[11px]">location_on</span>
+                            Lokasi Anda
+                        </div>
+                    </div>
                 </div>
 
                 <!-- 6. Jenis Pekerjaan -->
@@ -628,6 +646,24 @@
                                 class="h-14 w-14 bg-[#0890FE]/10 text-[#0890FE] rounded-[22px] flex items-center justify-center active:scale-95 transition-all hover:bg-[#0890FE]/20">
                                 <span class="material-symbols-outlined text-2xl">my_location</span>
                             </button>
+                        </div>
+                        <!-- Preview Peta Langsung (muncul setelah GPS berhasil diambil) -->
+                        <div id="row-map-preview" class="hidden mt-2 rounded-[22px] overflow-hidden border-2 border-[#FFAF2A]/30 shadow-md relative cursor-pointer hover:brightness-95 transition-all" onclick="openFormMap('row-koordinat')">
+                            <!-- Embed Google Maps tanpa API Key -->
+                            <iframe
+                                id="row-map-iframe"
+                                src=""
+                                width="600"
+                                height="200"
+                                style="border:0; display:block; width:100%;"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                            <div class="absolute top-2 left-2 bg-[#FFAF2A] text-white text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded-full flex items-center gap-1 shadow">
+                                <span class="material-symbols-outlined text-[11px]">location_on</span>
+                                Lokasi Anda
+                            </div>
                         </div>
                     </div>
 
@@ -971,15 +1007,41 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4 border-t border-gray-50 pt-6">
+                    <div class="space-y-4 border-t border-gray-50 pt-6">
                         <div class="space-y-1">
                             <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">No. WO</p>
-                            <p id="detail-wo" class="text-sm font-bold text-gray-700">-</p>
+                            <p id="detail-wo" class="text-sm font-bold text-gray-700 break-all">-</p>
                         </div>
                         <div class="space-y-1">
                             <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Lokasi</p>
                             <p id="detail-lokasi" class="text-sm font-bold text-gray-700">-</p>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Google Maps Embed (gmp-map custom element) -->
+                <div id="detail-map-container" class="mb-6 hidden">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-2 h-5 bg-[#0890FE] rounded-full"></div>
+                        <h4 class="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em]">Lokasi di Peta</h4>
+                    </div>
+                    <div class="rounded-[24px] overflow-hidden border-2 border-white shadow-lg relative">
+                        <!-- Embed Google Maps tanpa API Key -->
+                        <iframe
+                            id="detail-map-iframe"
+                            src=""
+                            width="100%"
+                            height="350"
+                            style="border:0; display:block;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                        <!-- Tombol buka Maps -->
+                        <button onclick="openMaps()" class="absolute bottom-3 right-3 bg-white/90 backdrop-blur-sm text-[#0890FE] text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full shadow-md flex items-center gap-1 active:scale-95 transition-all border border-blue-100">
+                            <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+                            Buka Maps
+                        </button>
                     </div>
                 </div>
 
@@ -1014,12 +1076,9 @@
                     </div>
                 </div>
 
-                <!-- Footer Actions -->
+                <!-- Footer Actions (hidden — replaced by overlay button on map) -->
                 <div class="space-y-4">
-                    <a id="detail-map-link" href="#" target="_blank" class="w-full h-14 bg-[#0890FE] text-white font-bold rounded-2xl flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all">
-                        <span class="material-symbols-outlined">map</span>
-                        <span>LIHAT LOKASI (MAPS)</span>
-                    </a>
+                    <button id="detail-map-btn" onclick="openMaps()" class="hidden" aria-hidden="true"></button>
                 </div>
             </div>
         </div>
@@ -1058,6 +1117,48 @@
         <!-- Bottom Hint -->
         <div class="py-3 text-center">
             <p class="text-white/40 text-[10px] font-semibold tracking-widest uppercase">Cubit untuk zoom • Ketuk 2x untuk zoom • Swipe bawah untuk tutup</p>
+        </div>
+    </div>
+
+    <!-- ===== LIGHTBOX MAPS FULLSCREEN ===== -->
+    <div id="map-lightbox" class="fixed inset-0 z-[9999] bg-slate-900/95 backdrop-blur-md flex flex-col hidden">
+        <!-- Top Bar -->
+        <div class="flex items-center justify-between px-6 py-4 bg-white/10 border-b border-white/10">
+            <div class="flex items-center gap-2 text-white">
+                <span class="material-symbols-outlined text-[#FFAF2A]">location_on</span>
+                <span class="text-sm font-bold uppercase tracking-widest font-montserrat">Detail Lokasi Peta</span>
+            </div>
+            <button onclick="closeMapLightbox()" class="px-4 py-2 rounded-full bg-red-500 hover:bg-red-600 text-white font-bold text-xs uppercase tracking-wider flex items-center gap-1 active:scale-95 transition-all shadow-md">
+                <span class="material-symbols-outlined text-[14px]">close</span>
+                <span>Tutup & Kembali</span>
+            </button>
+        </div>
+        <!-- Map Container -->
+        <div class="flex-1 w-full p-4 relative flex items-center justify-center">
+            <iframe id="lightbox-map-iframe" src="" class="w-full h-full rounded-[24px] border-2 border-white/20 shadow-2xl" allowfullscreen="" loading="lazy"></iframe>
+            
+            <!-- Short Link Placeholder -->
+            <div id="map-shortlink-placeholder" class="hidden absolute inset-4 bg-slate-800 rounded-[24px] border-2 border-white/20 shadow-2xl p-6 flex flex-col items-center justify-center text-center space-y-6">
+                <div class="w-20 h-20 rounded-full bg-amber-500/10 border-2 border-amber-500 flex items-center justify-center animate-bounce">
+                    <span class="material-symbols-outlined text-amber-500 text-4xl">share_location</span>
+                </div>
+                <div class="space-y-2 max-w-sm">
+                    <h3 class="text-white font-bold text-lg font-montserrat">Tautan Google Maps Terdeteksi</h3>
+                    <p class="text-slate-300 text-xs leading-relaxed">
+                        Tautan ini adalah link share resmi dari Google Maps. Demi keamanan, Google memblokir pemuatan langsung di dalam bingkai aplikasi.
+                    </p>
+                </div>
+                <p class="text-amber-400 text-xs font-semibold uppercase tracking-wider animate-pulse">
+                    Silakan klik tombol "Buka di Google Maps App" di bawah!
+                </p>
+            </div>
+        </div>
+        <!-- Bottom Actions -->
+        <div class="p-6 bg-white/5 border-t border-white/10 flex justify-center gap-4">
+            <button id="lightbox-btn-open-native" onclick="openNativeMaps()" class="px-6 py-3 rounded-full bg-[#0890FE] text-white font-bold text-sm uppercase tracking-wider flex items-center gap-2 shadow-lg active:scale-95 transition-all hover:bg-[#0890FE]/90">
+                <span class="material-symbols-outlined text-lg">open_in_new</span>
+                <span>Buka di Google Maps App</span>
+            </button>
         </div>
     </div>
 
@@ -1327,6 +1428,11 @@
                 if (inp) inp.value = '';
             });
             document.querySelectorAll('#view-input-hartek .photo-slot span').forEach(s => s.classList.remove('opacity-0', 'hidden'));
+            // Reset preview peta
+            const htIframe = document.getElementById('hartek-map-iframe');
+            const htPreview = document.getElementById('hartek-map-preview');
+            if (htIframe) htIframe.src = '';
+            if (htPreview) htPreview.classList.add('hidden');
         }
 
         function resetROWForm() {
@@ -1354,6 +1460,11 @@
             document.querySelectorAll('#view-input-row [id^="slot-row-"] span').forEach(span => {
                 span.classList.remove('opacity-0', 'hidden');
             });
+            // Reset preview peta
+            const rowIframe = document.getElementById('row-map-iframe');
+            const rowPreview = document.getElementById('row-map-preview');
+            if (rowIframe) rowIframe.src = '';
+            if (rowPreview) rowPreview.classList.add('hidden');
 
             // 4. Reset Steps
             document.getElementById('row-step-1').classList.remove('hidden');
@@ -1526,36 +1637,155 @@
             loadProxyImage(document.getElementById('detail-img-3'), act.imgPrs);
             loadProxyImage(document.getElementById('detail-img-4'), act.imgSsdh);
 
-            // 4. Map Link
-            const mapLink = document.getElementById('detail-map-link');
+            // 4. Peta Embed (iframe tanpa API key) + Tombol
+            var mapBtn = document.getElementById('detail-map-btn');
+            var mapContainer = document.getElementById('detail-map-container');
+            var mapIframe = document.getElementById('detail-map-iframe');
             if (act.koordinat) {
-                const rawCoord = String(act.koordinat).trim();
-                const parts = rawCoord.split(',');
-                if (parts.length === 2) {
-                    const lat = parseFloat(parts[0].trim());
-                    const lng = parseFloat(parts[1].trim());
-                    if (!isNaN(lat) && !isNaN(lng)) {
-                        // Format @lat,lng,zoom — paling kompatibel untuk semua perangkat
-                        mapLink.href = `https://www.google.com/maps/@${lat},${lng},17z`;
-                    } else {
-                        mapLink.href = `https://www.google.com/maps/search/${encodeURIComponent(rawCoord)}`;
-                    }
-                } else {
-                    mapLink.href = `https://www.google.com/maps/search/${encodeURIComponent(rawCoord)}`;
+                var rawCoord = String(act.koordinat).trim();
+                mapBtn.setAttribute('data-coord', rawCoord);
+
+                // Ekstrak lat/lng dari berbagai format koordinat yang tersimpan
+                var embedSrc = '';
+                var latLngMatch = rawCoord.match(/(-?\d+\.\d+),\s*(-?\d+\.\d+)/);
+                var qMatch = rawCoord.match(/[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)/);
+
+                var lat, lng;
+                if (latLngMatch) {
+                    lat = parseFloat(latLngMatch[1]);
+                    lng = parseFloat(latLngMatch[2]);
+                } else if (qMatch) {
+                    lat = parseFloat(qMatch[1]);
+                    lng = parseFloat(qMatch[2]);
                 }
-                mapLink.classList.remove('hidden');
+
+                if (lat && lng) {
+                    // Gunakan OpenStreetMap embed - selalu bekerja tanpa API key
+                    embedSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.005},${lat-0.005},${lng+0.005},${lat+0.005}&layer=mapnik&marker=${lat},${lng}`;
+                } else {
+                    // Fallback: Google Maps search URL
+                    embedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(rawCoord)}&output=embed`;
+                }
+
+                if (mapIframe) mapIframe.src = embedSrc;
+                if (mapContainer) mapContainer.classList.remove('hidden');
             } else {
-                mapLink.classList.add('hidden');
+                mapBtn.setAttribute('data-coord', '');
+                if (mapIframe) mapIframe.src = '';
+                if (mapContainer) mapContainer.classList.add('hidden');
             }
 
             // 5. Switch View
             switchView('view-activity-detail');
         }
 
+        // ── OPEN MAPS & LIGHTBOX CONTROLLERS ────────────────────────────
+        var activeCoordForNative = '';
+
+        function openMaps() {
+            var btn = document.getElementById('detail-map-btn');
+            var coord = btn.getAttribute('data-coord') || '';
+            if (!coord) return;
+            showMapLightbox(coord);
+        }
+
+        function openFormMap(inputId) {
+            const val = document.getElementById(inputId).value;
+            if (val) {
+                showMapLightbox(val);
+            }
+        }
+
+        function showMapLightbox(coord) {
+            activeCoordForNative = coord;
+            
+            var embedSrc = '';
+            var rawCoord = String(coord).trim();
+            
+            var latLngMatch = rawCoord.match(/(-?\d+\.\d+),\s*(-?\d+\.\d+)/);
+            var qMatch = rawCoord.match(/[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)/);
+
+            var lat, lng;
+            if (latLngMatch) {
+                lat = parseFloat(latLngMatch[1]);
+                lng = parseFloat(latLngMatch[2]);
+            } else if (qMatch) {
+                lat = parseFloat(qMatch[1]);
+                lng = parseFloat(qMatch[2]);
+            }
+
+            const iframe = document.getElementById('lightbox-map-iframe');
+            const placeholder = document.getElementById('map-shortlink-placeholder');
+            const lightbox = document.getElementById('map-lightbox');
+
+            if (lat && lng) {
+                // OpenStreetMap embed dengan level zoom ideal
+                embedSrc = `https://www.openstreetmap.org/export/embed.html?bbox=${lng-0.005},${lat-0.005},${lng+0.005},${lat+0.005}&layer=mapnik&marker=${lat},${lng}`;
+                if (iframe) iframe.classList.remove('hidden');
+                if (placeholder) placeholder.classList.add('hidden');
+            } else {
+                // Jika tidak ada koordinat lat/lng langsung (misal shortlink goo.gl atau search query teks)
+                if (rawCoord.includes('maps.app.goo.gl') || rawCoord.includes('goo.gl')) {
+                    // Tampilkan placeholder khusus untuk shortlink karena Google melarang iframe embedding
+                    if (iframe) iframe.classList.add('hidden');
+                    if (placeholder) placeholder.classList.remove('hidden');
+                } else {
+                    // Fallback normal untuk text query lainnya
+                    if (rawCoord.startsWith('http://') || rawCoord.startsWith('https://')) {
+                        embedSrc = rawCoord;
+                    } else {
+                        embedSrc = `https://maps.google.com/maps?q=${encodeURIComponent(rawCoord)}&output=embed`;
+                    }
+                    if (iframe) iframe.classList.remove('hidden');
+                    if (placeholder) placeholder.classList.add('hidden');
+                }
+            }
+
+            if (lightbox) {
+                if (iframe && embedSrc) iframe.src = embedSrc;
+                lightbox.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeMapLightbox() {
+            const lightbox = document.getElementById('map-lightbox');
+            const iframe = document.getElementById('lightbox-map-iframe');
+            const placeholder = document.getElementById('map-shortlink-placeholder');
+            if (lightbox) lightbox.classList.add('hidden');
+            if (iframe) {
+                iframe.src = '';
+                iframe.classList.remove('hidden');
+            }
+            if (placeholder) placeholder.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function openNativeMaps() {
+            if (!activeCoordForNative) return;
+            
+            var coord = activeCoordForNative;
+            if (coord.trim().startsWith('http://') || coord.trim().startsWith('https://')) {
+                window.open(coord.trim(), '_blank');
+                return;
+            }
+
+            var parts = coord.split(',');
+            var lat = parseFloat(parts[0]);
+            var lng = parseFloat(parts[1]);
+
+            var url;
+            if (!isNaN(lat) && !isNaN(lng)) {
+                url = 'https://www.google.com/maps/place/' + lat + ',' + lng + '/@' + lat + ',' + lng + ',17z';
+            } else {
+                url = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(coord);
+            }
+            window.open(url, '_blank');
+        }
+
         // ── LOGIN HANDLER ──────────────────────────────────────────────
         function getGPS() {
             const coordInput = document.getElementById('hartek-koordinat');
-            const originalPlaceholder = coordInput.placeholder;
             
             coordInput.value = 'Mendapatkan lokasi... 📡';
             coordInput.classList.add('animate-pulse', 'text-[#0890FE]');
@@ -1569,9 +1799,17 @@
                 (pos) => {
                     const lat = pos.coords.latitude.toFixed(6);
                     const lng = pos.coords.longitude.toFixed(6);
-                    // Format link disesuaikan dengan g_st=aw agar identik dengan share link
                     coordInput.value = `https://maps.google.com/?q=${lat},${lng}&g_st=aw`;
                     coordInput.classList.remove('animate-pulse', 'text-[#0890FE]');
+
+                    // Tampilkan preview peta menggunakan OpenStreetMap (tidak perlu API key)
+                    const iframe = document.getElementById('hartek-map-iframe');
+                    const preview = document.getElementById('hartek-map-preview');
+                    if (iframe && preview) {
+                        iframe.src = `https://www.openstreetmap.org/export/embed.html?bbox=${parseFloat(lng)-0.005},${parseFloat(lat)-0.005},${parseFloat(lng)+0.005},${parseFloat(lat)+0.005}&layer=mapnik&marker=${lat},${lng}`;
+                        preview.classList.remove('hidden');
+                    }
+
                     showToast('📍 Lokasi berhasil diambil', 'success');
                 },
                 (err) => {
@@ -1599,9 +1837,17 @@
                 (pos) => {
                     const lat = pos.coords.latitude.toFixed(6);
                     const lng = pos.coords.longitude.toFixed(6);
-                    // Format link disesuaikan dengan g_st=aw agar identik dengan share link
                     coordInput.value = `https://maps.google.com/?q=${lat},${lng}&g_st=aw`;
                     coordInput.classList.remove('animate-pulse', 'text-[#0890FE]');
+
+                    // Tampilkan preview peta menggunakan OpenStreetMap (tidak perlu API key)
+                    const iframe = document.getElementById('row-map-iframe');
+                    const preview = document.getElementById('row-map-preview');
+                    if (iframe && preview) {
+                        iframe.src = `https://www.openstreetmap.org/export/embed.html?bbox=${parseFloat(lng)-0.005},${parseFloat(lat)-0.005},${parseFloat(lng)+0.005},${parseFloat(lat)+0.005}&layer=mapnik&marker=${lat},${lng}`;
+                        preview.classList.remove('hidden');
+                    }
+
                     showToast('📍 Lokasi berhasil diambil', 'success');
                 },
                 (err) => {
